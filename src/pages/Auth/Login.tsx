@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 
 import Footer from "@/component/Layout/Footer/Footer";
 
 import { EyeIcon, EyeSlashIcon } from "@/assets/Icons/index";
+import { useMutation } from "@tanstack/react-query";
+import authService from "@/services/authService";
 
 const Login = () => {
   const [formState, setFormState] = useState<
@@ -10,10 +12,30 @@ const Login = () => {
   >("signIn");
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleFormSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    alert(`Submitting ${formState} form...`);
-  };
+  const loginMutation = useMutation({
+    mutationFn: async (newEntryData: {email: string, password: string}) => {
+      return authService.login(newEntryData)
+    },
+    onSuccess: () => {
+      console.log("Login successful");
+    },
+    onError: (err) => {
+      // errorToast(err.response?.data?.message || 'Failed to create cheque register entry.');
+    },
+  });
+
+  const handleFormSubmit = useCallback(
+    (e: React.FormEvent) => {
+      e.preventDefault();
+      alert(`Submitting ${formState} form...`);
+      if(formState === "signIn"){
+        const email = (e.target as any).email.value;
+        const password = (e.target as any).password.value;
+loginMutation.mutate({email, password})
+      }
+    },
+    [formState, loginMutation]
+  );
 
   const renderFormContent = () => {
     if (formState === "forgotPassword") {

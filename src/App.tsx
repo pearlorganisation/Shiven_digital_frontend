@@ -1,14 +1,6 @@
-// src/App.jsx
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Suspense } from "react";
-
-///// pages /////
-import { Layout, Login,Dashboard} from "@/pages/index";
-
-//Fallback Components
+import { Layout, Login, Dashboard } from "@/pages/index";
 import LayoutFallback from "@/component/Fallback/LayoutFallback";
 import NotFound from "@/component/Fallback/NotFound";
 
@@ -18,7 +10,6 @@ const router = createBrowserRouter([
     element: (
       <Suspense fallback={<LayoutFallback />}>
         <Layout />
-        
       </Suspense>
     ),
     children: [
@@ -51,7 +42,7 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return <RouterProvider router={router}/>;
 }
 
 export default App;
