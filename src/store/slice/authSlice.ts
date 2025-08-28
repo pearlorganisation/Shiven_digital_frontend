@@ -1,16 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import type { LoggedInUser } from "@/schemas/user/userSchema";
+import type { AuthData, Tokens, User } from "@/schemas/user/userSchema";
 
 export interface UserState {
-  userData: LoggedInUser | null;
-  refreshToken: string | null; 
+  userData: User | null;
+  refreshToken: string | null;
   accessToken: string | null;
 }
 
 const initialState: UserState = {
   userData: null,
-  refreshToken: null, 
+  refreshToken: null,
   accessToken: null,
 };
 
@@ -18,17 +18,20 @@ const initialState: UserState = {
 const resetState = (state: UserState): void => {
   state.userData = null;
   state.accessToken = null;
-  state.refreshToken = null; 
+  state.refreshToken = null;
 };
 
 export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    setAccessToken: (
-      state,
-      action: PayloadAction<{ refreshToken: string; accessToken: string }>
-    ) => {
+    setLoginData: (state, action: PayloadAction<AuthData>) => {
+      state.userData = action.payload.user;
+      state.accessToken = action.payload.tokens.accessToken;
+      state.refreshToken = action.payload.tokens.refreshToken;
+    },
+
+    setAccessToken: (state, action: PayloadAction<Tokens>) => {
       state.accessToken = action.payload.accessToken;
       state.refreshToken = action.payload.refreshToken;
     },
@@ -39,6 +42,6 @@ export const authSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { logout, setAccessToken } = authSlice.actions;
+export const { logout, setAccessToken, setLoginData } = authSlice.actions;
 
 export default authSlice.reducer;

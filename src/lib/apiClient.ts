@@ -2,10 +2,10 @@ import axios, { AxiosError } from "axios";
 import type { InternalAxiosRequestConfig } from "axios";
 import type { Store } from "@reduxjs/toolkit";  
 import type { RootState } from "../store/store";  
-import { RefreshTOkenSchema } from "@/schemas/user/userSchema";
+import { TokenResponseSchema } from "@/schemas/user/userSchema";
 import { logout, setAccessToken } from "@/store/slice/authSlice";
 
-let storeInstance: Store<RootState>; 
+let storeInstance: Store<RootState>;  
 
 // --- State for managing token refresh ---
 let isRefreshing = false; // Flag to indicate if a token refresh is in progress
@@ -114,7 +114,7 @@ api.interceptors.response.use(
           { withCredentials: true }
         );
 
-        const parsedData = RefreshTOkenSchema.parse(refreshResponse.data);
+        const parsedData = TokenResponseSchema.parse(refreshResponse.data);
 
         if (!parsedData.success) {
           console.error("Failed to parse refresh token response:", parsedData);

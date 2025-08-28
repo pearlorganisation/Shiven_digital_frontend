@@ -1,37 +1,58 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import Footer from "@/component/Layout/Footer/Footer";
 
 import { EyeIcon, EyeSlashIcon } from "@/assets/Icons/index";
 import { useMutation } from "@tanstack/react-query";
 import authService from "@/services/authService";
+import { errorToast, successToast } from "@/utils/helper";
+import type { AuthResponse } from "@/schemas/user/userSchema";
+import { setLoginData } from "@/store/slice/authSlice";
+import { useAppDispatch, useAppSelector } from "@/store/store";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const { userData } = useAppSelector((state) => state.auth);
+
   const [formState, setFormState] = useState<
     "signIn" | "signUp" | "forgotPassword"
   >("signIn");
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const loginMutation = useMutation({
-    mutationFn: async (newEntryData: {email: string, password: string}) => {
-      return authService.login(newEntryData)
+    mutationFn: async (newEntryData: { email: string; password: string }) => {
+      return authService.login(newEntryData);
     },
-    onSuccess: () => {
-      console.log("Login successful");
+    onSuccess: (res: AuthResponse) => {
+      console.log(res);
+      successToast("Login successful");
+      dispatch(setLoginData(res.data));
+      navigate("/", { replace: true });
     },
     onError: (err) => {
-      // errorToast(err.response?.data?.message || 'Failed to create cheque register entry.');
+      errorToast(err || "Failed to create cheque register entry.");
     },
   });
+
+  useEffect(() => {
+    if (userData) {
+      navigate("/", { replace: true });
+    }
+    setLoading(false);
+  }, [userData, navigate]);
 
   const handleFormSubmit = useCallback(
     (e: React.FormEvent) => {
       e.preventDefault();
-      alert(`Submitting ${formState} form...`);
-      if(formState === "signIn"){
+      // alert(`Submitting ${formState} form...`);
+      if (formState === "signIn") {
         const email = (e.target as any).email.value;
         const password = (e.target as any).password.value;
-loginMutation.mutate({email, password})
+        loginMutation.mutate({ email, password });
       }
     },
     [formState, loginMutation]
@@ -225,6 +246,19 @@ loginMutation.mutate({email, password})
       </>
     );
   };
+
+  if (loading || userData) {
+    return (
+      <div
+        className="flex items-center justify-center min-h-screen bg-gray-100
+    "
+      >
+        <div className="text-center">
+          <h1 className="text-3xl font-bold text-gray-900">Loading...</h1>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
