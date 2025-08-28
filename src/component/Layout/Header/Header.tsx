@@ -1,20 +1,39 @@
 // src/components/Header/Header.tsx
 
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toggleSidebar } from "@/store/slice/globalDataSlice"; // Make sure this path is correct
 import { Menu, Search, Bell, ChevronDown } from "lucide-react";
 import { useAppDispatch } from "@/store/store";
 import { logout } from "@/store/slice/authSlice";
+import { useMutation } from "@tanstack/react-query";
+import authService from "@/services/authService";
+import { errorToast, successToast } from "@/utils/helper";
 
 const Header = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [isProfileOpen, setProfileOpen] = useState(false);
+
+  const logoutMutation = useMutation({
+    mutationFn: async () => {
+      return authService.logout();
+    },
+    onSuccess: (res) => {
+      console.log(res);
+      successToast("Log Out successful");
+      dispatch(logout());
+      navigate("/login", { replace: true });
+    },
+    onError: (err) => {
+      errorToast(err || "Failed to Log Out.");
+    },
+  });
 
   const handleLogout = () => {
     // Implement logout functionality here
     console.log("Logging out...");
-    dispatch(logout());
+    logoutMutation.mutate();
   };
 
   return (
@@ -98,9 +117,10 @@ const Header = () => {
               <div className="my-1 h-px bg-slate-200"></div>
               <button
                 onClick={handleLogout}
+                disabled={logoutMutation.isPending}
                 className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50"
               >
-                Sign Out
+                {logoutMutation.isPending ? "Signing Out..." : "Sign Out"}
               </button>
             </div>
           )}

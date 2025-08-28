@@ -7,3 +7,8 @@ export const ApiResponseSchema = <T extends z.ZodTypeAny>(dataSchema: T) =>
     success: z.boolean(),
     data: dataSchema,
   });
+
+const unknownSchema = z.unknown();
+export const ResponseSchema = ApiResponseSchema(unknownSchema);
+
+export type ApiResponse  = z.infer<typeof ResponseSchema>;

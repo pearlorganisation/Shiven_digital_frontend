@@ -6,7 +6,7 @@ const UserSchema = z.object({
   userName: z.string(),
   email: z.string(),
   role: z.string(),
-  refreshToken: z.string(),
+  refreshToken: z.nullable(z.string()).optional(),
 });
 
 const TokensSchema = z.object({
