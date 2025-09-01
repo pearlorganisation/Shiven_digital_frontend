@@ -1,31 +1,32 @@
 import { z } from "zod";
+import { ApiResponseSchema } from "../common/schema";
 
-export const LoggedInUserSchema = z.object({
+const UserSchema = z.object({
   _id: z.string(),
   userName: z.string(),
-  password: z.string(),
+  email: z.string(),
+  role: z.string(),
+  refreshToken: z.nullable(z.string()).optional(),
 });
 
-
-
-export const LoginResponseSchema = z.object({
-  data: z.object({
-    user: LoggedInUserSchema,
-    accessToken : z.string(), 
-    refreshToken : z.string(),
-    sessionId: z.string()
-  }),
-  message: z.string(),
+const TokensSchema = z.object({
+  accessToken: z.string(),
+  refreshToken: z.string(),
 });
 
-export const RefreshTOkenSchema = z.object({
-  data: z.object({
-    accessToken : z.string(), 
-    refreshToken : z.string(),
-  }),
-  success: z.boolean(),
-  message: z.string(),
+const AuthDataSchema = z.object({
+  user: UserSchema,
+  tokens: TokensSchema,
 });
 
-export type LoggedInUser = z.infer<typeof LoggedInUserSchema>;
-export type LoginResponse = z.infer<typeof LoginResponseSchema>;
+ 
+export const AuthResponseSchema = ApiResponseSchema(AuthDataSchema);
+export const TokenResponseSchema = ApiResponseSchema(TokensSchema);
+
+
+export type Tokens = z.infer<typeof TokensSchema>;
+export type AuthData = z.infer<typeof AuthDataSchema>;
+export type AuthResponse = z.infer<typeof AuthResponseSchema>;
+export type User = z.infer<typeof UserSchema>;
+
+ 
