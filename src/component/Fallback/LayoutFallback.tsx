@@ -1,6 +1,5 @@
 // src/components/Skeleton/SkeletonLayout.tsx
 
-import React from "react";
 
 const SkeletonLayout = () => {
   return (
