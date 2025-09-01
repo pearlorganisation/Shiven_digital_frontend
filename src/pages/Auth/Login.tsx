@@ -1,19 +1,62 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import Footer from "@/component/Layout/Footer/Footer";
 
 import { EyeIcon, EyeSlashIcon } from "@/assets/Icons/index";
+import { useMutation } from "@tanstack/react-query";
+import authService from "@/services/authService";
+import { errorToast, successToast } from "@/utils/helper";
+import type { AuthResponse } from "@/schemas/user/userSchema";
+import { setLoginData } from "@/store/slice/authSlice";
+import { useAppDispatch, useAppSelector } from "@/store/store";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const { userData } = useAppSelector((state) => state.auth);
+
   const [formState, setFormState] = useState<
     "signIn" | "signUp" | "forgotPassword"
   >("signIn");
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  const handleFormSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    alert(`Submitting ${formState} form...`);
-  };
+  const loginMutation = useMutation({
+    mutationFn: async (newEntryData: { email: string; password: string }) => {
+      return authService.login(newEntryData);
+    },
+    onSuccess: (res: AuthResponse) => {
+      console.log(res);
+      successToast("Login successful");
+      dispatch(setLoginData(res.data));
+      navigate("/", { replace: true });
+    },
+    onError: (err) => {
+      errorToast(err || "Failed to create cheque register entry.");
+    },
+  });
+
+  useEffect(() => {
+    if (userData) {
+      navigate("/", { replace: true });
+    }
+    setLoading(false);
+  }, [userData, navigate]);
+
+  const handleFormSubmit = useCallback(
+    (e: React.FormEvent) => {
+      e.preventDefault();
+      // alert(`Submitting ${formState} form...`);
+      if (formState === "signIn") {
+        const email = (e.target as any).email.value;
+        const password = (e.target as any).password.value;
+        loginMutation.mutate({ email, password });
+      }
+    },
+    [formState, loginMutation]
+  );
 
   const renderFormContent = () => {
     if (formState === "forgotPassword") {
@@ -195,14 +238,32 @@ const Login = () => {
           )}
           <button
             type="submit"
-            className="w-full px-4 py-3 font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700"
+            disabled={loginMutation.isPending}
+            className="w-full cursor-pointer px-4 py-3 font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700"
           >
-            {formState === "signIn" ? "Sign In" : "Sign Up"}
+            {formState === "signIn"
+              ? loginMutation.isPending
+                ? "Signing In.."
+                : "Sign In"
+              : "Sign Up"}
           </button>
         </form>
       </>
     );
   };
+
+  if (loading || userData) {
+    return (
+      <div
+        className="flex items-center justify-center min-h-screen bg-gray-100
+    "
+      >
+        <div className="text-center">
+          <h1 className="text-3xl font-bold text-gray-900">Loading...</h1>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>

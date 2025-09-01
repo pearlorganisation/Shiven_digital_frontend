@@ -1,26 +1,27 @@
-// src/App.jsx
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 import { Suspense } from "react";
-
-///// pages /////
-import { Layout, Login,Dashboard} from "@/pages/index";
-
-//Fallback Components
+import { Layout, Login, Dashboard } from "@/pages/index";
 import LayoutFallback from "@/component/Fallback/LayoutFallback";
 import NotFound from "@/component/Fallback/NotFound";
+import { Toaster } from "sonner";
+import { useAppSelector } from "./store/store";
 
-const router = createBrowserRouter([
+
+
+function App() {
+
+  const {userData} = useAppSelector(state => state.auth)
+
+  const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <Suspense fallback={<LayoutFallback />}>
-        <Layout />
-        
-      </Suspense>
-    ),
+    element: userData ? (
+        <Suspense fallback={<LayoutFallback />}>
+          <Layout />
+        </Suspense>
+      ) : (
+        <Navigate to="/login" replace />
+      ),
     children: [
       {
         path: "/",
@@ -50,8 +51,10 @@ const router = createBrowserRouter([
   },
 ]);
 
-function App() {
-  return <RouterProvider router={router} />;
+
+  return <>
+  <Toaster position="top-right" richColors />
+  <RouterProvider router={router}/></>;
 }
 
 export default App;
