@@ -1,10 +1,10 @@
 // src/components/Header/Header.tsx
 
-import React, { useState } from "react";
+import  { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { toggleSidebar } from "@/store/slice/globalDataSlice"; // Make sure this path is correct
-import { Menu, Search, Bell, User, ChevronDown } from "lucide-react";
+import { Menu, Search, Bell, ChevronDown } from "lucide-react";
 
 const Header = () => {
   const dispatch = useDispatch();

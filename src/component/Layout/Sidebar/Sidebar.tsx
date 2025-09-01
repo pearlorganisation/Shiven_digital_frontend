@@ -3,7 +3,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Home, Settings, Bell } from "lucide-react";
+import { Home, Settings} from "lucide-react";
 
 // --- Reusable SidebarItem Component (This part remains the same) ---
 interface SidebarItemProps {
