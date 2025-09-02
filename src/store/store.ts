@@ -1,30 +1,35 @@
 import { configureStore } from "@reduxjs/toolkit";
-import globalDataReducer from "./slice/globalDataSlice";
 import { useDispatch, useSelector } from "react-redux";
-import authReducer from "./slice/authSlice";
+import type { TypedUseSelectorHook } from "react-redux";
 import {
-  FLUSH,
-  PAUSE,
-  PERSIST,
   persistReducer,
   persistStore,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
   PURGE,
   REGISTER,
-  REHYDRATE,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import { setStore } from "@/lib/apiClient";
 
+// --- Import your slices ---
+import authReducer from "./slice/authSlice";
+import globalDataReducer from "./slice/globalDataSlice";
+
+// --- Persist config for auth slice ---
 const persistConfig = {
   key: "auth",
   storage,
 };
-const persistedReducer = persistReducer(persistConfig, authReducer);
 
+const persistedAuthReducer = persistReducer(persistConfig, authReducer);
+
+// --- Store setup ---
 export const store = configureStore({
   reducer: {
+    auth: persistedAuthReducer,
     globalData: globalDataReducer,
-    auth: persistedReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -34,12 +39,13 @@ export const store = configureStore({
     }),
 });
 
-setStore(store);
-
+// --- Persistor ---
 export const persistor = persistStore(store);
 
+// --- Types ---
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
-export const useAppDispatch = useDispatch.withTypes<AppDispatch>();
-export const useAppSelector = useSelector.withTypes<RootState>();
+// --- Typed hooks (all in one file 🚀) ---
+export const useAppDispatch: () => AppDispatch = useDispatch;
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

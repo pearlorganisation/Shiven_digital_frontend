@@ -1,47 +1,38 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import type { AuthData, Tokens, User } from "@/schemas/user/userSchema";
+import type { UserType } from "@/schemas/user/userSchema";
 
+// --- State shape ---
 export interface UserState {
-  userData: User | null;
-  refreshToken: string | null;
-  accessToken: string | null;
+  user: UserType | null;
 }
 
+// --- Initial state ---
 const initialState: UserState = {
-  userData: null,
-  refreshToken: null,
-  accessToken: null,
+  user: null,
 };
 
-// Centralized reset function
+// --- Centralized reset ---
 const resetState = (state: UserState): void => {
-  state.userData = null;
-  state.accessToken = null;
-  state.refreshToken = null;
+  state.user = null;
 };
 
-export const authSlice = createSlice({
-  name: "auth",
+// --- Slice ---
+export const userSlice = createSlice({
+  name: "user",
   initialState,
   reducers: {
-    setLoginData: (state, action: PayloadAction<AuthData>) => {
-      state.userData = action.payload.user;
-      state.accessToken = action.payload.tokens.accessToken;
-      state.refreshToken = action.payload.tokens.refreshToken;
+    setUser: (state, action: PayloadAction<UserType>) => {
+      state.user = action.payload;
     },
-
-    setAccessToken: (state, action: PayloadAction<Tokens>) => {
-      state.accessToken = action.payload.accessToken;
-      state.refreshToken = action.payload.refreshToken;
-    },
-    logout: (state) => {
+    clearUser: (state) => {
       resetState(state);
     },
   },
 });
 
-// Action creators are generated for each case reducer function
-export const { logout, setAccessToken, setLoginData } = authSlice.actions;
+// --- Export actions ---
+export const { setUser, clearUser } = userSlice.actions;
 
-export default authSlice.reducer;
+// --- Export reducer ---
+export default userSlice.reducer;
