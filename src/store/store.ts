@@ -12,6 +12,7 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import { setStore } from "@/lib/apiClient";
 
 // --- Import your slices ---
 import authReducer from "./slice/authSlice";
@@ -39,6 +40,7 @@ export const store = configureStore({
     }),
 });
 
+setStore(store);
 // --- Persistor ---
 export const persistor = persistStore(store);
 

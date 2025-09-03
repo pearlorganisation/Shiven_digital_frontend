@@ -1,35 +1,56 @@
-import axios, { AxiosError } from "axios";
+import axios, { AxiosError,  type InternalAxiosRequestConfig } from "axios";
+import type { Store } from "@reduxjs/toolkit";  
+import type { RootState } from "../store/store";  
+import { clearUser } from "@/store/slice/authSlice";
 
-const baseURL = import.meta.env.VITE_API_URL;
+let storeInstance: Store<RootState>;
+
+export const setStore = (store: Store<RootState>) => {
+  storeInstance = store;
+};
 
 const api = axios.create({
-  baseURL,
-  withCredentials: true, // ✅ important for cookies
+  baseURL: import.meta.env.VITE_API_URL,
+  withCredentials: true, // ✅ send cookies automatically
 });
 
 let isRefreshing = false;
-let failedQueue: Array<(ok: boolean) => void> = [];
+let failedQueue: {
+  resolve: (value?: unknown) => void;
+  reject: (reason?: unknown) => void;
+  config: InternalAxiosRequestConfig;
+}[] = [];
 
-const processQueue = (error: Error | null) => {
-  failedQueue.forEach((cb) => cb(!error));
+// Helper to process queued requests
+const processQueue = (error: unknown, tokenRefreshed: boolean) => {
+  failedQueue.forEach(({ resolve, reject, config }) => {
+    if (tokenRefreshed) {
+      resolve(api(config)); // retry request
+    } else {
+      reject(error);
+    }
+  });
   failedQueue = [];
 };
 
+// Response Interceptor
 api.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
-    const originalRequest = error.config as typeof error.config & {
-      _retry?: boolean;
-    };
+    const originalRequest = error.config as InternalAxiosRequestConfig & { _retry?: boolean };
 
-    if (error.response?.status === 404 && !originalRequest._retry) {
+    // If unauthorized
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      if (!storeInstance) {
+        console.error("Store not set for axios");
+        return Promise.reject(error);
+      }
+
       if (isRefreshing) {
-        // wait for refresh to finish
+        
+        // Queue other requests while refreshing
         return new Promise((resolve, reject) => {
-          failedQueue.push((ok) => {
-            if (ok) resolve(api(originalRequest!));
-            else reject(error);
-          });
+          failedQueue.push({ resolve, reject, config: originalRequest });
         });
       }
 
@@ -37,15 +58,14 @@ api.interceptors.response.use(
       isRefreshing = true;
 
       try {
-        console.log("Trying to refresh token...");
+        // Try refreshing session
+        await api.post("/auth/refresh-token");
 
-        await axios.post(`${baseURL}/user/refresh-token`, {}, { withCredentials: true });
-
-        processQueue(null);
-        return api(originalRequest);
+        processQueue(null, true);
+        return api(originalRequest); // retry original request
       } catch (refreshError) {
-        console.error("Token refresh failed", refreshError);
-        processQueue(refreshError as Error);
+        processQueue(refreshError, false);
+        storeInstance.dispatch(clearUser()); // logout if refresh fails
         return Promise.reject(refreshError);
       } finally {
         isRefreshing = false;

@@ -28,7 +28,6 @@ const Login = () => {
       return authService.login(newEntryData);
     },
     onSuccess: (res: UserApiResponseType) => {
-      console.log(res);
       successToast("Login successful");
       dispatch(setUser(res.data.user));
       navigate("/", { replace: true });
