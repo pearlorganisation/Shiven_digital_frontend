@@ -12,13 +12,12 @@ import {
   REGISTER,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import { setStore } from "@/lib/apiClient";
+import { setStore } from "@/lib/apiClient"; // ✅ safe now
 
-// --- Import your slices ---
+// Reducers
 import authReducer from "./slice/authSlice";
 import globalDataReducer from "./slice/globalDataSlice";
 
-// --- Persist config for auth slice ---
 const persistConfig = {
   key: "auth",
   storage,
@@ -26,7 +25,6 @@ const persistConfig = {
 
 const persistedAuthReducer = persistReducer(persistConfig, authReducer);
 
-// --- Store setup ---
 export const store = configureStore({
   reducer: {
     auth: persistedAuthReducer,
@@ -40,14 +38,15 @@ export const store = configureStore({
     }),
 });
 
+// ✅ now inject store into apiClient
 setStore(store);
-// --- Persistor ---
+
 export const persistor = persistStore(store);
 
-// --- Types ---
+// Types
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
-// --- Typed hooks (all in one file 🚀) ---
+// Typed hooks
 export const useAppDispatch: () => AppDispatch = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
