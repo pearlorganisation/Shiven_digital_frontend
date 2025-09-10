@@ -1,23 +1,37 @@
 // src/components/Sidebar/Sidebar.tsx
 
-import React from "react";
+import React, { useRef } from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
-import {sidebarConfig} from "./SidebarConfig";
+import { sidebarConfig } from "./SidebarConfig";
 
-
+// Props for SidebarItem, including the new callbacks
 interface SidebarItemProps {
   icon: React.ReactNode;
   text: string;
   to: string;
+  onShowTooltip: (text: string, rect: DOMRect) => void;
+  onHideTooltip: () => void;
 }
 
-const SidebarItem = ({ icon, text, to }: SidebarItemProps) => {
+const SidebarItem = ({ icon, text, to, onShowTooltip, onHideTooltip }: SidebarItemProps) => {
   const isSidebarOpen = useSelector((state: any) => state.globalData.isSidebarOpen);
+  const navRef = useRef<HTMLAnchorElement>(null);
+
+  const handleMouseEnter = () => {
+    // Only trigger tooltip logic if the sidebar is closed
+    if (!isSidebarOpen && navRef.current) {
+      const rect = navRef.current.getBoundingClientRect();
+      onShowTooltip(text, rect);
+    }
+  };
 
   return (
     <NavLink
+      ref={navRef}
       to={to}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={onHideTooltip}
       className={({ isActive }) => `
         relative flex items-center py-2.5 px-3 my-1
         font-medium rounded-lg cursor-pointer
@@ -35,28 +49,20 @@ const SidebarItem = ({ icon, text, to }: SidebarItemProps) => {
           isSidebarOpen ? "w-52 ml-3" : "hidden"
         }`}
       >
-        {text}  
+        {text}
       </span>
-
-      {!isSidebarOpen && (
-        <div
-          className={`
-          absolute left-full rounded-md px-2 py-1 ml-6 
-          bg-indigo-100 text-indigo-800 text-sm
-          invisible opacity-20 -translate-x-3 transition-all
-          group-hover:visible group-hover:opacity-100 group-hover:translate-x-0
-          whitespace-nowrap
-      `}
-        >
-          {text}
-        </div>
-      )}
+      {/* Tooltip has been removed from here */}
     </NavLink>
   );
 };
 
+// Props for Sidebar, which now accepts the tooltip handlers
+interface SidebarProps {
+  onShowTooltip: (text: string, rect: DOMRect) => void;
+  onHideTooltip: () => void;
+}
 
-const Sidebar = () => {
+const Sidebar = ({ onShowTooltip, onHideTooltip }: SidebarProps) => {
   const isSidebarOpen = useSelector((state: any) => state.globalData.isSidebarOpen);
   const userRole = useSelector((state: any) => state.auth?.user?.role || "viewer");
 
@@ -80,6 +86,9 @@ const Sidebar = () => {
               icon={item.icon}
               text={item.text}
               to={item.path}
+              // Pass the handlers down to each item
+              onShowTooltip={onShowTooltip}
+              onHideTooltip={onHideTooltip}
             />
           ))}
         </ul>
