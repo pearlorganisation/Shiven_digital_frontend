@@ -33,7 +33,7 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: 22
           script: |
-            cd /var/www/project
+            cd /home/new/fronted
             git pull origin main
             npm install --production
             npm run build
