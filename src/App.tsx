@@ -10,12 +10,12 @@ import { useAppSelector } from "./store/store";
 
 function App() {
 
-  const {userData} = useAppSelector(state => state.auth)
+  const {user} = useAppSelector(state => state.auth)
 
   const router = createBrowserRouter([
   {
     path: "/",
-    element: userData ? (
+    element: user ? (
         <Suspense fallback={<LayoutFallback />}>
           <Layout />
         </Suspense>

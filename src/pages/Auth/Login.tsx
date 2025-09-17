@@ -6,8 +6,8 @@ import { EyeIcon, EyeSlashIcon } from "@/assets/Icons/index";
 import { useMutation } from "@tanstack/react-query";
 import authService from "@/services/authService";
 import { errorToast, successToast } from "@/utils/helper";
-import type { AuthResponse } from "@/schemas/user/userSchema";
-import { setLoginData } from "@/store/slice/authSlice";
+import type { UserApiResponseType } from "@/schemas/user/userSchema";
+import { setUser } from "@/store/slice/authSlice";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { useNavigate } from "react-router-dom";
 
@@ -15,7 +15,7 @@ const Login = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const { userData } = useAppSelector((state) => state.auth);
+  const { user } = useAppSelector((state) => state.auth);
 
   const [formState, setFormState] = useState<
     "signIn" | "signUp" | "forgotPassword"
@@ -27,10 +27,9 @@ const Login = () => {
     mutationFn: async (newEntryData: { email: string; password: string }) => {
       return authService.login(newEntryData);
     },
-    onSuccess: (res: AuthResponse) => {
-      console.log(res);
+    onSuccess: (res: UserApiResponseType) => {
       successToast("Login successful");
-      dispatch(setLoginData(res.data));
+      dispatch(setUser(res.data.user));
       navigate("/", { replace: true });
     },
     onError: (err) => {
@@ -39,11 +38,11 @@ const Login = () => {
   });
 
   useEffect(() => {
-    if (userData) {
+    if (user) {
       navigate("/", { replace: true });
     }
     setLoading(false);
-  }, [userData, navigate]);
+  }, [user, navigate]);
 
   const handleFormSubmit = useCallback(
     (e: React.FormEvent) => {
@@ -252,7 +251,7 @@ const Login = () => {
     );
   };
 
-  if (loading || userData) {
+  if (loading || user) {
     return (
       <div
         className="flex items-center justify-center min-h-screen bg-gray-100

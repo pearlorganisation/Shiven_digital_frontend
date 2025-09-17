@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toggleSidebar } from "@/store/slice/globalDataSlice"; // Make sure this path is correct
 import { Menu, Search, Bell, ChevronDown } from "lucide-react";
 import { useAppDispatch } from "@/store/store";
-import { logout } from "@/store/slice/authSlice";
+import { clearUser } from "@/store/slice/authSlice";
 import { useMutation } from "@tanstack/react-query";
 import authService from "@/services/authService";
 import { errorToast, successToast } from "@/utils/helper";
@@ -23,7 +23,7 @@ const Header = () => {
     onSuccess: (res) => {
       console.log(res);
       successToast("Log Out successful");
-      dispatch(logout());
+      dispatch(clearUser());
       navigate("/login", { replace: true });
     },
     onError: (err) => {
