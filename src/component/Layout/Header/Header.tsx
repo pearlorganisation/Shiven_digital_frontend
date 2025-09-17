@@ -4,17 +4,20 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toggleSidebar } from "@/store/slice/globalDataSlice"; // Make sure this path is correct
 import { Menu, Search, Bell, ChevronDown } from "lucide-react";
-import { useAppDispatch } from "@/store/store";
+import { useAppDispatch , useAppSelector} from "@/store/store";
 import { clearUser } from "@/store/slice/authSlice";
 import { useMutation } from "@tanstack/react-query";
 import authService from "@/services/authService";
 import { errorToast, successToast } from "@/utils/helper";
 
 
+
 const Header = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [isProfileOpen, setProfileOpen] = useState(false);
+
+    const { user } = useAppSelector((state) => state.auth);
 
   const logoutMutation = useMutation({
     mutationFn: async () => {
@@ -89,13 +92,13 @@ const Header = () => {
             className="flex items-center gap-2 rounded-full p-1 pr-2 text-left hover:bg-slate-100 transition-colors"
           >
             <img
-              src="https://ui-avatars.com/api/?name=John+Doe&background=c7d2fe&color=3730a3&bold=true"
+              src={`https://ui-avatars.com/api/?name=${user?.firstName}+${user?.lastName}&background=c7d2fe&color=3730a3&bold=true`}
               alt="User Avatar"
               className="w-9 h-9 rounded-full"
             />
             <div className="hidden lg:block">
-              <p className="font-semibold text-sm text-slate-700">John Doe</p>
-              <p className="text-xs text-slate-500">Administrator</p>
+              <p className="font-semibold text-sm text-slate-700">{user?.firstName}</p>
+              <p className="text-xs text-slate-500">{user?.role}</p>
             </div>
             <ChevronDown size={16} className="text-slate-500 hidden lg:block" />
           </button>
