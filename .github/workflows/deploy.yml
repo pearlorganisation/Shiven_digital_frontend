@@ -3,7 +3,7 @@ name: Deploy to Production
 on:
   push:
     branches:
-      - master  # Trigger on push to main branch
+      - master  # Trigger on push to master branch
 
 jobs:
   deploy:
@@ -24,6 +24,14 @@ jobs:
       - name: Build project
         run: npm run build
 
+      # 🔎 Debug SSH Key BEFORE Deploy
+      - name: Debug SSH key
+        run: |
+          echo "${{ secrets.SERVER_SSH_KEY }}" > private_key
+          chmod 600 private_key
+          ssh -i private_key -o StrictHostKeyChecking=no \
+            ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "echo Connected!"
+
       - name: Deploy to Server
         uses: appleboy/ssh-action@v1.2.0
         with:
@@ -32,8 +40,8 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: 22
           script: |
-            cd /home/new/fronted
-            git pull origin main
-            npm install --production
+            cd /home/new/frontend  # ✅ Ensure folder name is correct
+            git pull origin master
+            npm ci --only=production
             npm run build
-            pm2 restart all
+            pm2 restart your-app-name
