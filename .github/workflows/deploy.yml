@@ -1,37 +1,39 @@
-  name: Deploy to Production
+name: Deploy to Production
 
-  on:
-    push:
-      branches:
-        - master  # Trigger on push to master branch
+on:
+  push:
+    branches:
+      - master  # Trigger on push to master branch
 
-  jobs:
-    deploy:
-      runs-on: ubuntu-latest
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
 
-      steps:
-        - name: Checkout code
-          uses: actions/checkout@v4
+    steps:
+      # 1️⃣ Checkout repository
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-        
-        
+      # 2️⃣ Debug SSH key connectivity
+      - name: Debug SSH key
+        run: |
+          echo "${{ secrets.SERVER_SSH_KEY }}" > private_key
+          chmod 600 private_key
+          ssh -i private_key \
+            -o StrictHostKeyChecking=no \
+            -o HostKeyAlgorithms=+ssh-rsa \
+            -o PubkeyAcceptedKeyTypes=+ssh-rsa \
+            ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "echo Connected!"
 
-        # 🔎 Debug SSH Key BEFORE Deploy
-        - name: Debug SSH key
-          run: |
-            echo "${{ secrets.SERVER_SSH_KEY }}" > private_key
-            chmod 600 private_key
-            ssh -i private_key -o StrictHostKeyChecking=no \
-              ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "echo Connected!"
-
-        - name: Deploy to Server
-          uses: appleboy/ssh-action@v1.2.0
-          with:
-            host: ${{ secrets.SERVER_HOST }}
-            username: ${{ secrets.SERVER_USER }}
-            key: ${{ secrets.SERVER_SSH_KEY }}
-            
-            script: |
-              cd /home/new/frontend  # ✅ Ensure folder name is correct
-              git pull origin master
-              
+      # 3️⃣ Deploy code to server (just pull latest changes)
+      - name: Deploy to Server
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          ssh_args: "-o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedKeyTypes=+ssh-rsa"
+          port: 22
+          script: |
+            cd /home/new/frontend  # ✅ Make sure this path exists on your server
+            git pull origin master
