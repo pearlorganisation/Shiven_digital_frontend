@@ -9,16 +9,16 @@ interface BrandCardProps {
   onDelete: () => void;
 }
 
-// const BrandCard: React.FC<BrandCardProps> = ({ brand, onView, onDelete }) => {
-//   const getSocialCount = () => {
-//     let count = 0;
-//     if (brand.social.instagram) count++;
-//     if (brand.social.facebook) count++;
-//     if (brand.social.twitter) count++;
-//     if (brand.social.youtube) count++;
-//     if (brand.social.linkedin) count++;
-//     return count;
-//   };
+const BrandCard: React.FC<BrandCardProps> = ({ brand, onView, onDelete }) => {
+  // const getSocialCount = () => {
+  //   let count = 0;
+  //   if (brand.social.instagram) count++;
+  //   if (brand.social.facebook) count++;
+  //   if (brand.social.twitter) count++;
+  //   if (brand.social.youtube) count++;
+  //   if (brand.social.linkedin) count++;
+  //   return count;
+  // };
 
   const SocialIcon = ({ platform, url }: { platform: keyof Brand['social']; url?: string }) => {
     const size = 16;
