@@ -1,6 +1,6 @@
 // BrandsPage.tsx
 import React, { useState, useEffect } from 'react';
-import { Plus, Search, Filter, AlertTriangle } from 'lucide-react';
+import { Plus, Search, Filter } from 'lucide-react';
 import BrandCard from '@/component/Brands/BrandCard';
 import BrandModal from '@/component/Brands/BrandModal';
 import type { Brand } from '@/component/Brands/types';
