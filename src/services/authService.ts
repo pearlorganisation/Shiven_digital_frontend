@@ -1,38 +1,44 @@
 import {
-  AuthResponseSchema,
-  type AuthResponse,
+  UserApiResponseSchema,
+  type UserApiResponseType,
 } from "@/schemas/user/userSchema";
 import instance from "../lib/apiClient";
 import {
-  ResponseSchema,
-  type ApiResponse,
+  EmptyApiResponseSchema,
+  type EmptyApiResponse,
 } from "@/schemas/common/schema";
 
 class AuthService {
+  // --- Login ---
   async login(payload: {
     email: string;
     password: string;
-  }): Promise<AuthResponse> {
+  }): Promise<UserApiResponseType> {
     try {
       const { data } = await instance.post(`/auth/login`, payload);
-      return AuthResponseSchema.parse(data);
+
+      // ✅ Validate response with Zod
+      console.log("Login response data:", data);
+      return UserApiResponseSchema.parse(data);
     } catch (error) {
-      console.error(error);
+      console.error("Login failed:", error);
       throw error;
     }
   }
 
-  async logout(): Promise<ApiResponse> {
+  // --- Logout ---
+  async logout(): Promise<EmptyApiResponse> {
     try {
       const { data } = await instance.post(`/auth/logout`);
-      return ResponseSchema.parse(data);
+
+      // ✅ Validate generic response
+      return EmptyApiResponseSchema.parse(data);
     } catch (error) {
-      console.error(error);
+      console.error("Logout failed:", error);
       throw error;
     }
   }
 }
 
 const authService = new AuthService();
-
 export default authService;
