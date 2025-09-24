@@ -47,5 +47,7 @@ export const AllBrandApiResponseSchema = createApiResponseSchema(
 );
 
 export type BrandType = z.infer<typeof BrandSchema>;
+
 export type GetBrandApiResponseType = z.infer<typeof GetBrandApiResponseSchema>;
+
 export type AllBrandApiResponseType = z.infer<typeof AllBrandApiResponseSchema>;

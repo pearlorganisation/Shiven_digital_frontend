@@ -3,16 +3,16 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import type { BrandType } from "@/schemas/brand/brandSchema";
 
 export interface BrandState {
-  brand: BrandType[] | null;
+  brands: BrandType[];
 }
 
 // --- Initial state ---
 const initialState: BrandState = {
-  brand: [],
+  brands: [],
 };
 
 const resetState = (state: BrandState): void => {
-  state.brand = [];
+  state.brands = [];
 };
 
 export const brandSlice = createSlice({
@@ -20,7 +20,7 @@ export const brandSlice = createSlice({
   initialState,
   reducers: {
     setbrand: (state, action: PayloadAction<BrandType[]>) => {
-      state.brand = action.payload;
+      state.brands = action.payload;
     },
     clearbrand: (state) => {
       resetState(state);

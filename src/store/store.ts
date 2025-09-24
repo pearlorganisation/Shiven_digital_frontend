@@ -30,7 +30,7 @@ export const store = configureStore({
   reducer: {
     auth: persistedAuthReducer,
     globalData: globalDataReducer,
-    brand: brandReducer,
+    brands: brandReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
