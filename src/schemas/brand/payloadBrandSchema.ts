@@ -2,6 +2,7 @@ import { z } from "zod";
 import { ContactSchema, SocialSchema } from "./brandSchema";
 import { createApiResponseSchema } from "../common/schema";
 
+// --- Create Brand Payload ---
 export const CreateBrandPayloadSchema = z.object({
   name: z.string(),
   logo: z.string().url().optional(),
@@ -11,7 +12,7 @@ export const CreateBrandPayloadSchema = z.object({
   social: SocialSchema.optional(),
 });
 
-
+// --- Update Brand Payload ---
 export const UpdateBrandPayloadSchema = z.object({
   name: z.string().optional(),
   logo: z.string().url().optional(),
@@ -21,9 +22,10 @@ export const UpdateBrandPayloadSchema = z.object({
   social: SocialSchema.partial().optional(),
 });
 
+// --- API Response Schemas ---
 export const CreateBrandApiResponseSchema = createApiResponseSchema(
   z.object({
-    brand: CreateBrandPayloadSchema, 
+    brand: CreateBrandPayloadSchema,
   })
 );
 
@@ -33,5 +35,6 @@ export const UpdateBrandApiResponseSchema = createApiResponseSchema(
   })
 );
 
+// --- Types ---
 export type CreateBrandPayloadType = z.infer<typeof CreateBrandPayloadSchema>;
 export type UpdateBrandPayloadType = z.infer<typeof UpdateBrandPayloadSchema>;

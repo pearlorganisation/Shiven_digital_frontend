@@ -19,14 +19,14 @@ import {
   Link,
   Share as ShareSocial,
 } from "lucide-react";
-import type { Brand } from "./types";
+import type { BrandType } from "@/schemas/brand/brandSchema";
 
 interface BrandModalProps {
   isOpen: boolean;
   mode: "create" | "view" | "edit";
-  brand?: Brand | null;
+  brand?: BrandType | null;
   onClose: () => void;
-  onSave: (brand: Brand) => void;
+  onSave: (brand: BrandType) => void;
 }
 
 const BrandModal: React.FC<BrandModalProps> = ({
@@ -36,7 +36,7 @@ const BrandModal: React.FC<BrandModalProps> = ({
   onClose,
   onSave,
 }) => {
-  const [formData, setFormData] = useState<Partial<Brand>>({
+  const [formData, setFormData] = useState<BrandType>({
     name: "",
     logo: "",
     description: "",
@@ -112,30 +112,30 @@ const BrandModal: React.FC<BrandModalProps> = ({
   const validateForm = (): boolean => {
     const newErrors: { [key: string]: string } = {};
     setSubmitError("");
-    
+
     // Validate name
     if (!formData.name?.trim()) {
       newErrors.name = "Brand name is required";
     }
-    
+
     // Validate email
     if (!formData.contact?.email?.trim()) {
       newErrors.email = "Email is required";
     } else if (!/^\S+@\S+\.\S+$/.test(formData.contact.email)) {
       newErrors.email = "Please enter a valid email address";
     }
-    
+
     // Validate logo
     if (!formData.logo?.trim()) {
       newErrors.logo = "Logo URL is required";
-    } else if (!formData.logo.startsWith('http')) {
+    } else if (!formData.logo.startsWith("http")) {
       newErrors.logo = "Please enter a valid URL (starting with http)";
     }
-    
+
     // Validate website
     if (!formData.website?.trim()) {
       newErrors.website = "Website URL is required";
-    } else if (!formData.website.startsWith('http')) {
+    } else if (!formData.website.startsWith("http")) {
       newErrors.website = "Please enter a valid URL (starting with http)";
     }
 
@@ -146,33 +146,43 @@ const BrandModal: React.FC<BrandModalProps> = ({
     if (!formData.contact?.address?.country?.trim()) {
       newErrors.country = "Country is required";
     }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const updateNestedField = (path: string, value: string) => {
-    const keys = path.split('.');
-    setFormData(prev => {
+    const keys = path.split(".");
+    setFormData((prev) => {
       const newData = { ...prev };
       let current: any = newData;
-      
+
       for (let i = 0; i < keys.length - 1; i++) {
         const key = keys[i];
         if (!current[key]) {
-          if (key === 'address') {
+          if (key === "address") {
             current[key] = { country: "", city: "", location: "" };
-          } else if (key === 'contact') {
-            current[key] = { email: "", phone: "", address: { country: "", city: "", location: "" } };
-          } else if (key === 'social') {
-            current[key] = { instagram: "", facebook: "", twitter: "", youtube: "", linkedin: "" };
+          } else if (key === "contact") {
+            current[key] = {
+              email: "",
+              phone: "",
+              address: { country: "", city: "", location: "" },
+            };
+          } else if (key === "social") {
+            current[key] = {
+              instagram: "",
+              facebook: "",
+              twitter: "",
+              youtube: "",
+              linkedin: "",
+            };
           } else {
             current[key] = {};
           }
         }
         current = current[key];
       }
-      
+
       current[keys[keys.length - 1]] = value;
       return newData;
     });
@@ -182,28 +192,26 @@ const BrandModal: React.FC<BrandModalProps> = ({
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    setErrors(prev => {
+    setErrors((prev) => {
       const newErrors = { ...prev };
       delete newErrors[name];
       return newErrors;
     });
 
-    if (name.includes('.')) {
+    if (name.includes(".")) {
       updateNestedField(name, value);
     } else {
-      setFormData(prev => ({ ...prev, [name]: value }));
+      setFormData((prev) => ({ ...prev, [name]: value }));
     }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (validateForm()) {
       try {
         // Create the complete brand object
-        const completeBrand: Brand = {
-          id: brand?.id || Date.now().toString(),
-          _id: brand?._id || Date.now().toString(),
+        const completeBrand: BrandType = {
           name: formData.name || "",
           logo: formData.logo || "",
           description: formData.description || "",
@@ -224,8 +232,6 @@ const BrandModal: React.FC<BrandModalProps> = ({
             youtube: formData.social?.youtube || "",
             linkedin: formData.social?.linkedin || "",
           },
-          createdAt: brand?.createdAt || new Date().toISOString(),
-          updatedAt: new Date().toISOString(),
         };
 
         onSave(completeBrand);
@@ -248,17 +254,17 @@ const BrandModal: React.FC<BrandModalProps> = ({
   const isDisabled = !isEditing && mode !== "create";
 
   const getFieldValue = (field: string): string => {
-    const keys = field.split('.');
+    const keys = field.split(".");
     let value: any = formData;
-    
+
     for (const key of keys) {
-      if (value && typeof value === 'object' && key in value) {
+      if (value && typeof value === "object" && key in value) {
         value = value[key];
       } else {
         return "";
       }
     }
-    
+
     return value || "";
   };
 
@@ -274,7 +280,11 @@ const BrandModal: React.FC<BrandModalProps> = ({
               </div>
               <div>
                 <h2 className="text-2xl font-bold">
-                  {mode === "create" ? "Create New Brand" : mode === "view" ? "Brand Details" : "Edit Brand"}
+                  {mode === "create"
+                    ? "Create New Brand"
+                    : mode === "view"
+                    ? "Brand Details"
+                    : "Edit Brand"}
                 </h2>
                 {brand && mode !== "create" && (
                   <p className="text-blue-100 text-sm">{brand.name}</p>
@@ -328,7 +338,10 @@ const BrandModal: React.FC<BrandModalProps> = ({
                   aria-describedby={errors.name ? "name-error" : undefined}
                 />
                 {errors.name && (
-                  <p id="name-error" className="text-red-500 text-sm mt-1 flex items-center space-x-1">
+                  <p
+                    id="name-error"
+                    className="text-red-500 text-sm mt-1 flex items-center space-x-1"
+                  >
                     <span>•</span>
                     <span>{errors.name}</span>
                   </p>
@@ -361,12 +374,15 @@ const BrandModal: React.FC<BrandModalProps> = ({
                   aria-describedby={errors.logo ? "logo-error" : undefined}
                 />
                 {errors.logo && (
-                  <p id="logo-error" className="text-red-500 text-sm mt-1 flex items-center space-x-1">
+                  <p
+                    id="logo-error"
+                    className="text-red-500 text-sm mt-1 flex items-center space-x-1"
+                  >
                     <span>•</span>
                     <span>{errors.logo}</span>
                   </p>
                 )}
-                
+
                 {formData.logo && (
                   <div className="mt-3 p-3 bg-gray-50 rounded-xl border border-gray-200">
                     <p className="text-xs text-gray-500 mb-2">Logo Preview:</p>
@@ -377,8 +393,8 @@ const BrandModal: React.FC<BrandModalProps> = ({
                         className="w-16 h-16 object-contain rounded-lg shadow-sm border border-gray-300"
                         onError={(e) => {
                           const target = e.target as HTMLImageElement;
-                          target.style.display = 'none';
-                          target.nextElementSibling?.classList.remove('hidden');
+                          target.style.display = "none";
+                          target.nextElementSibling?.classList.remove("hidden");
                         }}
                       />
                       <div className="hidden ml-2 text-red-500 text-sm">
@@ -409,7 +425,9 @@ const BrandModal: React.FC<BrandModalProps> = ({
                       : "border-gray-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-100 hover:border-gray-300"
                   } disabled:opacity-60`}
                   placeholder="Write a brief description about your brand..."
-                  aria-describedby={errors.description ? "description-error" : undefined}
+                  aria-describedby={
+                    errors.description ? "description-error" : undefined
+                  }
                 />
               </div>
 
@@ -437,11 +455,16 @@ const BrandModal: React.FC<BrandModalProps> = ({
                     placeholder="https://example.com"
                     required
                     aria-invalid={!!errors.website}
-                    aria-describedby={errors.website ? "website-error" : undefined}
+                    aria-describedby={
+                      errors.website ? "website-error" : undefined
+                    }
                   />
                 </div>
                 {errors.website && (
-                  <p id="website-error" className="text-red-500 text-sm mt-1 flex items-center space-x-1">
+                  <p
+                    id="website-error"
+                    className="text-red-500 text-sm mt-1 flex items-center space-x-1"
+                  >
                     <span>•</span>
                     <span>{errors.website}</span>
                   </p>
@@ -455,7 +478,7 @@ const BrandModal: React.FC<BrandModalProps> = ({
                 <Mail size={20} />
                 <span>Contact Information</span>
               </h3>
-              
+
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Email */}
                 <div>
@@ -481,11 +504,16 @@ const BrandModal: React.FC<BrandModalProps> = ({
                       placeholder="contact@brand.com"
                       required
                       aria-invalid={!!errors.email}
-                      aria-describedby={errors.email ? "email-error" : undefined}
+                      aria-describedby={
+                        errors.email ? "email-error" : undefined
+                      }
                     />
                   </div>
                   {errors.email && (
-                    <p id="email-error" className="text-red-500 text-sm mt-1 flex items-center space-x-1">
+                    <p
+                      id="email-error"
+                      className="text-red-500 text-sm mt-1 flex items-center space-x-1"
+                    >
                       <span>•</span>
                       <span>{errors.email}</span>
                     </p>
@@ -538,11 +566,13 @@ const BrandModal: React.FC<BrandModalProps> = ({
                         placeholder="Street address, building number, etc."
                       />
                     </div>
-                    
+
                     {/* City and Country */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-xs font-medium text-gray-600 mb-1">City</label>
+                        <label className="block text-xs font-medium text-gray-600 mb-1">
+                          City
+                        </label>
                         <input
                           type="text"
                           name="contact.address.city"
@@ -559,17 +589,24 @@ const BrandModal: React.FC<BrandModalProps> = ({
                           placeholder="City"
                           required
                           aria-invalid={!!errors.city}
-                          aria-describedby={errors.city ? "city-error" : undefined}
+                          aria-describedby={
+                            errors.city ? "city-error" : undefined
+                          }
                         />
                         {errors.city && (
-                          <p id="city-error" className="text-red-500 text-xs mt-1 flex items-center space-x-1">
+                          <p
+                            id="city-error"
+                            className="text-red-500 text-xs mt-1 flex items-center space-x-1"
+                          >
                             <span>•</span>
                             <span>{errors.city}</span>
                           </p>
                         )}
                       </div>
                       <div>
-                        <label className="block text-xs font-medium text-gray-600 mb-1">Country</label>
+                        <label className="block text-xs font-medium text-gray-600 mb-1">
+                          Country
+                        </label>
                         <input
                           type="text"
                           name="contact.address.country"
@@ -586,10 +623,15 @@ const BrandModal: React.FC<BrandModalProps> = ({
                           placeholder="Country"
                           required
                           aria-invalid={!!errors.country}
-                          aria-describedby={errors.country ? "country-error" : undefined}
+                          aria-describedby={
+                            errors.country ? "country-error" : undefined
+                          }
                         />
                         {errors.country && (
-                          <p id="country-error" className="text-red-500 text-xs mt-1 flex items-center space-x-1">
+                          <p
+                            id="country-error"
+                            className="text-red-500 text-xs mt-1 flex items-center space-x-1"
+                          >
                             <span>•</span>
                             <span>{errors.country}</span>
                           </p>
@@ -607,21 +649,51 @@ const BrandModal: React.FC<BrandModalProps> = ({
                 <ShareSocial size={20} />
                 <span>Social Media Profiles</span>
               </h3>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {[
-                  { key: 'instagram', icon: Instagram, label: 'Instagram', placeholder: 'https://instagram.com/username' },
-                  { key: 'facebook', icon: Facebook, label: 'Facebook', placeholder: 'https://facebook.com/username' },
-                  { key: 'twitter', icon: Twitter, label: 'Twitter', placeholder: 'https://twitter.com/username' },
-                  { key: 'youtube', icon: Youtube, label: 'YouTube', placeholder: 'https://youtube.com/@username' },
-                  { key: 'linkedin', icon: Linkedin, label: 'LinkedIn', placeholder: 'https://linkedin.com/company/username' },
+                  {
+                    key: "instagram",
+                    icon: Instagram,
+                    label: "Instagram",
+                    placeholder: "https://instagram.com/username",
+                  },
+                  {
+                    key: "facebook",
+                    icon: Facebook,
+                    label: "Facebook",
+                    placeholder: "https://facebook.com/username",
+                  },
+                  {
+                    key: "twitter",
+                    icon: Twitter,
+                    label: "Twitter",
+                    placeholder: "https://twitter.com/username",
+                  },
+                  {
+                    key: "youtube",
+                    icon: Youtube,
+                    label: "YouTube",
+                    placeholder: "https://youtube.com/@username",
+                  },
+                  {
+                    key: "linkedin",
+                    icon: Linkedin,
+                    label: "LinkedIn",
+                    placeholder: "https://linkedin.com/company/username",
+                  },
                 ].map(({ key, icon: Icon, label, placeholder }) => (
-                  <div key={key} className="flex items-start space-x-3 p-4 bg-white rounded-xl border border-gray-200 hover:border-gray-300 transition-colors">
+                  <div
+                    key={key}
+                    className="flex items-start space-x-3 p-4 bg-white rounded-xl border border-gray-200 hover:border-gray-300 transition-colors"
+                  >
                     <div className="flex-shrink-0 mt-1">
                       <Icon size={20} className="text-gray-500" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <label className="block text-sm font-medium text-gray-700 mb-2">{label}</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        {label}
+                      </label>
                       <div className="relative">
                         <input
                           type="url"
@@ -659,7 +731,7 @@ const BrandModal: React.FC<BrandModalProps> = ({
                 <span>{isEditing ? "Cancel Edit" : "Edit Brand"}</span>
               </button>
             )}
-            
+
             <div className="flex items-center space-x-3">
               <button
                 type="button"
@@ -677,7 +749,9 @@ const BrandModal: React.FC<BrandModalProps> = ({
                   disabled={Object.keys(errors).length > 0}
                 >
                   <Save size={16} />
-                  <span>{mode === "create" ? "Create Brand" : "Save Changes"}</span>
+                  <span>
+                    {mode === "create" ? "Create Brand" : "Save Changes"}
+                  </span>
                 </button>
               )}
             </div>

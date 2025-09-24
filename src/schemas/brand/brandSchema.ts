@@ -25,7 +25,6 @@ export const ContactSchema = z.object({
 
 export const BrandSchema = z.object({
   _id: z.string().optional(),
-  userId: z.string(),
   name: z.string(),
   logo: z.string().url().optional(),
   description: z.string().optional(),
