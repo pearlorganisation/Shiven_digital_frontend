@@ -1,10 +1,16 @@
 "use client";
 
 import { errorToast, successToast } from "@/utils/helper";
-import type { GetBrandApiResponseType, BrandType } from "@/schemas/brand/brandSchema";
-import type { CreateBrandPayloadType, UpdateBrandPayloadType } from "@/schemas/brand/payloadBrandSchema";
+import type {
+  GetBrandApiResponseType,
+  BrandType,
+} from "@/schemas/brand/brandSchema";
+import type {
+  CreateBrandPayloadType,
+  UpdateBrandPayloadType,
+} from "@/schemas/brand/payloadBrandSchema";
 import brandService from "@/services/brandService";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import React, { useEffect, useState } from "react";
 import { Plus, Loader2 } from "lucide-react";
@@ -16,14 +22,16 @@ import { setbrand } from "@/store/slice/brandSlice";
 
 const BrandsPage: React.FC = () => {
   const dispatch = useAppDispatch();
+  const queryClient = useQueryClient();
   const { brands } = useAppSelector((state) => state.brands);
-  const { user } = useAppSelector((state) => state.auth);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [currentBrand, setCurrentBrand] = useState<BrandType>();
+  const [currentBrand, setCurrentBrand] = useState<BrandType | undefined>(
+    undefined
+  );
   const [brandToDelete, setBrandToDelete] = useState<BrandType | null>(null);
-  const [modalMode, setModalMode] = useState<"create" | "view" | "edit">("create");
+  const [modalMode, setModalMode] = useState<"create" | "view">("create");
 
   // Fetch brands
   const getBrandMutation = useMutation({
@@ -36,31 +44,49 @@ const BrandsPage: React.FC = () => {
     },
   });
 
-  // Create / Update brand
-  const saveBrandMutation = useMutation({
-    mutationFn: async (brandData: CreateBrandPayloadType) => {
-      if (modalMode === "edit" && currentBrand?._id) {
-        return brandService.updateBrand(currentBrand._id, brandData);
-      } else {
-        return brandService.createBrand(brandData);
-      }
-    },
+  // Refetch brands after a mutation to ensure data is fresh
+  const onMutationSuccess = () => {
+    getBrandMutation.mutate();
+    handleCloseModal();
+  };
+
+  // Create brand
+  const createBrandMutation = useMutation({
+    mutationFn: (brandData: CreateBrandPayloadType) =>
+      brandService.createBrand(brandData),
     onSuccess: () => {
-      successToast(`Brand ${modalMode === "edit" ? "updated" : "created"} successfully!`);
-      getBrandMutation.mutate(); // Refresh list
-      handleCloseModal();
+      successToast("Brand created successfully!");
+      onMutationSuccess();
     },
     onError: (err: any) => {
-      errorToast(err.message || `Failed to ${modalMode} brand.`);
+      errorToast(err.message || "Failed to create brand.");
+    },
+  });
+
+  // Update brand
+  const updateBrandMutation = useMutation({
+    mutationFn: ({
+      id,
+      data,
+    }: {
+      id: string;
+      data: UpdateBrandPayloadType;
+    }) => brandService.updateBrand(id, data),
+    onSuccess: () => {
+      successToast("Brand updated successfully!");
+      onMutationSuccess();
+    },
+    onError: (err: any) => {
+      errorToast(err.message || "Failed to update brand.");
     },
   });
 
   // Delete brand
   const deleteBrandMutation = useMutation({
-    mutationFn: async (brandId: string) => brandService.deleteBrand(brandId),
+    mutationFn: (brandId: string) => brandService.deleteBrand(brandId),
     onSuccess: () => {
       successToast("Brand deleted successfully!");
-      getBrandMutation.mutate(); // Refresh list
+      getBrandMutation.mutate();
       handleCloseDeleteModal();
     },
     onError: (err: any) => {
@@ -72,7 +98,8 @@ const BrandsPage: React.FC = () => {
     getBrandMutation.mutate();
   }, []);
 
-  const handleOpenModal = (mode: "create" | "view" | "edit", brand?: BrandType) => {
+  // Simplified function to handle opening the modal in 'create' or 'view' mode
+  const handleOpenModal = (mode: "create" | "view", brand?: BrandType) => {
     setModalMode(mode);
     setCurrentBrand(brand);
     setIsModalOpen(true);
@@ -99,8 +126,15 @@ const BrandsPage: React.FC = () => {
     }
   };
 
-  const handleSaveBrand = (brandData: BrandType) => {
-    saveBrandMutation.mutate(brandData);
+  const handleCreateBrand = (brandData: CreateBrandPayloadType) => {
+    createBrandMutation.mutate(brandData);
+  };
+
+  const handleUpdateBrand = (
+    id: string,
+    brandData: UpdateBrandPayloadType
+  ) => {
+    updateBrandMutation.mutate({ id, data: brandData });
   };
 
   if (getBrandMutation.isPending) {
@@ -116,7 +150,7 @@ const BrandsPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 p-4">
-      {/* Header & Stats Section */}
+      {/* Header Section */}
       <div className="bg-white shadow-lg border-b border-gray-200 rounded-2xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -127,6 +161,7 @@ const BrandsPage: React.FC = () => {
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     strokeLinecap="round"
@@ -140,18 +175,18 @@ const BrandsPage: React.FC = () => {
                 <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">
                   My Brands
                 </h1>
-                <p className="text-gray-600 mt-1">Manage your brand portfolio</p>
+                <p className="text-gray-600 mt-1">
+                  Manage your brand portfolio
+                </p>
               </div>
             </div>
-            <div className="flex items-center space-x-3">
-              <button
-                onClick={() => handleOpenModal("create")}
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 flex items-center space-x-2"
-              >
-                <Plus size={20} />
-                <span>Add Brand</span>
-              </button>
-            </div>
+            <button
+              onClick={() => handleOpenModal("create")}
+              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 flex items-center space-x-2"
+            >
+              <Plus size={20} />
+              <span>Add Brand</span>
+            </button>
           </div>
         </div>
       </div>
@@ -160,8 +195,12 @@ const BrandsPage: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {brands.length === 0 ? (
           <div className="text-center py-12">
-            <h3 className="text-lg font-medium text-gray-900 mb-2">No brands found</h3>
-            <p className="text-gray-500 mb-6">Get started by creating your first brand</p>
+            <h3 className="text-lg font-medium text-gray-900 mb-2">
+              No brands found
+            </h3>
+            <p className="text-gray-500 mb-6">
+              Get started by creating your first brand
+            </p>
             <button
               onClick={() => handleOpenModal("create")}
               className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
@@ -176,7 +215,6 @@ const BrandsPage: React.FC = () => {
                 key={brand._id}
                 brand={brand}
                 onView={() => handleOpenModal("view", brand)}
-                // onEdit={() => handleOpenModal("edit", brand)}
                 onDelete={() => handleOpenDeleteModal(brand)}
               />
             ))}
@@ -187,10 +225,11 @@ const BrandsPage: React.FC = () => {
       {/* Modals */}
       <BrandModal
         isOpen={isModalOpen}
-        mode={modalMode}
+        mode={modalMode} // Will be 'create' or 'view'
         brand={currentBrand}
         onClose={handleCloseModal}
-        onSave={handleSaveBrand}
+        onCreate={handleCreateBrand}
+        onUpdate={handleUpdateBrand}
       />
 
       <DeleteModal

@@ -1,9 +1,6 @@
 import instance from "../lib/apiClient";
 
-// import {
-//   EmptyApiResponseSchema,
-//   type EmptyApiResponse,
-// } from "@/schemas/common/schema";
+
 
 import {
   GetBrandApiResponseSchema,
@@ -13,13 +10,9 @@ import {
 } from "@/schemas/brand/brandSchema";
 
 import {
-  CreateBrandPayloadSchema,
-  UpdateBrandPayloadSchema,
-  CreateBrandApiResponseSchema,
-  UpdateBrandApiResponseSchema,
   type CreateBrandPayloadType,
   type UpdateBrandPayloadType,
-} from "@/schemas/brand/payloadBrandSchema"; 
+} from "@/schemas/brand/payloadBrandSchema";
 
 class BrandService {
   async getBrand(): Promise<GetBrandApiResponseType> {
@@ -32,33 +25,20 @@ class BrandService {
     }
   }
 
-
-  async getBrandById(id: string): Promise<AllBrandApiResponseType> {
+  async createBrand(payload: CreateBrandPayloadType):Promise<AllBrandApiResponseType> {
     try {
-      const { data } = await instance.get(`/brands/${id}`); 
+      const { data } = await instance.post("/brands", payload);
       return AllBrandApiResponseSchema.parse(data);
-    } catch (error) {
-      console.error(`Fetching brand ${id} failed`, error);
-      throw error;
-    }
-  }
-
-  async createBrand(payload: CreateBrandPayloadType) {
-    try {
-      const parsedPayload = CreateBrandPayloadSchema.parse(payload);
-      const { data } = await instance.post("/brands", parsedPayload);
-      return CreateBrandApiResponseSchema.parse(data);
     } catch (error) {
       console.error("Creating brand failed", error);
       throw error;
     }
   }
 
-  async updateBrand(id: string, payload: UpdateBrandPayloadType) {
+  async updateBrand(id: string, payload: UpdateBrandPayloadType):Promise<AllBrandApiResponseType> {
     try {
-      const parsedPayload = UpdateBrandPayloadSchema.parse(payload);
-      const { data } = await instance.put(`/brands/${id}`, parsedPayload);
-      return UpdateBrandApiResponseSchema.parse(data);
+      const { data } = await instance.put(`/brands/${id}`, payload);
+      return AllBrandApiResponseSchema.parse(data);
     } catch (error) {
       console.error(`Updating brand ${id} failed`, error);
       throw error;
@@ -67,14 +47,13 @@ class BrandService {
 
   async deleteBrand(id: string): Promise<AllBrandApiResponseType> {
     try {
-      const { data } = await instance.delete(`/brands/${id}`); 
+      const { data } = await instance.delete(`/brands/${id}`);
       return AllBrandApiResponseSchema.parse(data);
     } catch (error) {
       console.error(`Deleting brand ${id} failed`, error);
       throw error;
     }
   }
-
 }
 
 const brandService = new BrandService();
