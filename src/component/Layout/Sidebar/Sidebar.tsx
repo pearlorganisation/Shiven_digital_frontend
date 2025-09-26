@@ -1,24 +1,37 @@
 // src/components/Sidebar/Sidebar.tsx
 
-import React from "react";
+import React, { useRef } from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Home, Settings} from "lucide-react";
+import { sidebarConfig } from "./SidebarConfig";
 
-// --- Reusable SidebarItem Component (This part remains the same) ---
+// Props for SidebarItem, including the new callbacks
 interface SidebarItemProps {
   icon: React.ReactNode;
   text: string;
   to: string;
-  alert?: boolean;
+  onShowTooltip: (text: string, rect: DOMRect) => void;
+  onHideTooltip: () => void;
 }
 
-const SidebarItem = ({ icon, text, to, alert }: SidebarItemProps) => {
+const SidebarItem = ({ icon, text, to, onShowTooltip, onHideTooltip }: SidebarItemProps) => {
   const isSidebarOpen = useSelector((state: any) => state.globalData.isSidebarOpen);
+  const navRef = useRef<HTMLAnchorElement>(null);
+
+  const handleMouseEnter = () => {
+    // Only trigger tooltip logic if the sidebar is closed
+    if (!isSidebarOpen && navRef.current) {
+      const rect = navRef.current.getBoundingClientRect();
+      onShowTooltip(text, rect);
+    }
+  };
 
   return (
     <NavLink
+      ref={navRef}
       to={to}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={onHideTooltip}
       className={({ isActive }) => `
         relative flex items-center py-2.5 px-3 my-1
         font-medium rounded-lg cursor-pointer
@@ -33,57 +46,51 @@ const SidebarItem = ({ icon, text, to, alert }: SidebarItemProps) => {
       {icon}
       <span
         className={`overflow-hidden transition-all ${
-          isSidebarOpen ? "w-52 ml-3" : "w-0"
+          isSidebarOpen ? "w-52 ml-3" : "hidden"
         }`}
       >
         {text}
       </span>
-      {alert && (
-        <div
-          className={`absolute right-2 w-2 h-2 rounded bg-indigo-400 ${
-            isSidebarOpen ? "" : "top-2"
-          }`}
-        />
-      )}
-
-      {/* Tooltip for when sidebar is collapsed */}
-      {!isSidebarOpen && (
-        <div
-          className={`
-          absolute left-full rounded-md px-2 py-1 ml-6
-          bg-indigo-100 text-indigo-800 text-sm
-          invisible opacity-20 -translate-x-3 transition-all
-          group-hover:visible group-hover:opacity-100 group-hover:translate-x-0
-      `}
-        >
-          {text}
-        </div>
-      )}
+      {/* Tooltip has been removed from here */}
     </NavLink>
   );
 };
 
+// Props for Sidebar, which now accepts the tooltip handlers
+interface SidebarProps {
+  onShowTooltip: (text: string, rect: DOMRect) => void;
+  onHideTooltip: () => void;
+}
 
-// --- Main Sidebar Component (Simplified) ---
-const Sidebar = () => {
+const Sidebar = ({ onShowTooltip, onHideTooltip }: SidebarProps) => {
   const isSidebarOpen = useSelector((state: any) => state.globalData.isSidebarOpen);
+  const userRole = useSelector((state: any) => state.auth?.user?.role || "viewer");
+
+  const filteredSidebarItems = sidebarConfig.filter(item =>
+    item.allowedRoles.includes(userRole)
+  );
 
   return (
     <aside
       className={`
-        fixed top-14 left-0 h-full bg-white border-b  shadow-sm 
-        transition-all duration-300 z-40
+        fixed top-14 left-0 h-full bg-white border-b shadow-sm
+        transition-all duration-300 z-40 overflow-y-auto scrollbar-hidden
         ${isSidebarOpen ? "w-64" : "w-16"}
       `}
     >
       <nav className="h-full flex flex-col">
-        {/* REMOVED: Logo and toggle button section is no longer needed here. */}
-        
-        {/* --- Navigation Links --- */}
-        {/* ADDED: 'pt-4' for better spacing from the top */}
         <ul className="flex-1 px-3 pt-4">
-          <SidebarItem icon={<Home size={20} />} text="Dashboard" to="/" />
-          <SidebarItem icon={<Settings size={20} />} text="Settings" to="/settings" />
+          {filteredSidebarItems.map((item) => (
+            <SidebarItem
+              key={item.path}
+              icon={item.icon}
+              text={item.text}
+              to={item.path}
+              // Pass the handlers down to each item
+              onShowTooltip={onShowTooltip}
+              onHideTooltip={onHideTooltip}
+            />
+          ))}
         </ul>
       </nav>
     </aside>

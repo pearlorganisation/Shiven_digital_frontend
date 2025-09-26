@@ -1,32 +1,22 @@
 import { z } from "zod";
-import { ApiResponseSchema } from "../common/schema";
+import { createApiResponseSchema } from "../common/schema";
 
-const UserSchema = z.object({
+// --- Schemas (runtime validation) ---
+export const UserSchema = z.object({
   _id: z.string(),
-  userName: z.string(),
-  email: z.string(),
+  firstName: z.string(),
+  lastName:z.string(),
+  email: z.string().email(),
   role: z.string(),
-  refreshToken: z.nullable(z.string()).optional(),
 });
 
-const TokensSchema = z.object({
-  accessToken: z.string(),
-  refreshToken: z.string(),
-});
+// API response schema that wraps user (runtime check)
+export const UserApiResponseSchema = createApiResponseSchema(
+  z.object({
+    user: UserSchema,
+  })
+);
 
-const AuthDataSchema = z.object({
-  user: UserSchema,
-  tokens: TokensSchema,
-});
-
- 
-export const AuthResponseSchema = ApiResponseSchema(AuthDataSchema);
-export const TokenResponseSchema = ApiResponseSchema(TokensSchema);
-
-
-export type Tokens = z.infer<typeof TokensSchema>;
-export type AuthData = z.infer<typeof AuthDataSchema>;
-export type AuthResponse = z.infer<typeof AuthResponseSchema>;
-export type User = z.infer<typeof UserSchema>;
-
- 
+// --- Types (static typing) ---
+export type UserType = z.infer<typeof UserSchema>;              // For Redux, props, state
+export type UserApiResponseType = z.infer<typeof UserApiResponseSchema>; // For API calls
