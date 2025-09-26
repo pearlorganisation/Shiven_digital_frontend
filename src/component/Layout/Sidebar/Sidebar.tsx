@@ -1,35 +1,128 @@
-// src/components/Sidebar/Sidebar.tsx
 
-import React, { useRef } from "react";
-import { NavLink } from "react-router-dom";
+
+import React, { useState, useRef, useMemo, useEffect } from "react";
+import { NavLink, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { ChevronDown } from "lucide-react"; 
 import { sidebarConfig } from "./SidebarConfig";
+import type { SidebarItemConfig } from "./SidebarConfig"; 
 
-// Props for SidebarItem, including the new callbacks
+
 interface SidebarItemProps {
-  icon: React.ReactNode;
-  text: string;
-  to: string;
+  item: SidebarItemConfig;
   onShowTooltip: (text: string, rect: DOMRect) => void;
   onHideTooltip: () => void;
 }
 
-const SidebarItem = ({ icon, text, to, onShowTooltip, onHideTooltip }: SidebarItemProps) => {
+const SidebarItem = ({ item, onShowTooltip, onHideTooltip }: SidebarItemProps) => {
+  const { icon, text, children } = item;
   const isSidebarOpen = useSelector((state: any) => state.globalData.isSidebarOpen);
-  const navRef = useRef<HTMLAnchorElement>(null);
+  const location = useLocation();
+  const navRef = useRef<HTMLButtonElement | HTMLAnchorElement>(null);
+
+  const hasChildren = children && children.length > 0;
+
+  
+  const isChildActive = useMemo(() => {
+    if (!hasChildren) return false;
+    return children.some(child => location.pathname === child.path);
+  }, [children, hasChildren, location.pathname]);
+
+  
+  const [isExpanded, setIsExpanded] = useState(isChildActive);
+
+  
+  useEffect(() => {
+    if (isChildActive) {
+      setIsExpanded(true);
+    }
+  }, [isChildActive]);
+
 
   const handleMouseEnter = () => {
-    // Only trigger tooltip logic if the sidebar is closed
     if (!isSidebarOpen && navRef.current) {
       const rect = navRef.current.getBoundingClientRect();
       onShowTooltip(text, rect);
     }
   };
 
+  
+  if (hasChildren) {
+    return (
+      <>
+        <button
+          ref={navRef as React.RefObject<HTMLButtonElement>}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={onHideTooltip}
+          onClick={() => setIsExpanded(e => !e)}
+          className={`
+            relative flex items-center justify-between w-full py-2.5 px-3 my-1
+            font-medium rounded-lg cursor-pointer
+            transition-colors group
+            ${
+              isChildActive && !isSidebarOpen
+                ? "bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800" 
+                : "hover:bg-indigo-50 text-gray-600"
+            }
+          `}
+        >
+          <div className="flex items-center">
+            {icon}
+            <span
+              className={`overflow-hidden transition-all ${
+                isSidebarOpen ? "w-full pl-2" : "hidden"
+              }`}
+            >
+              {text}
+            </span>
+          </div>
+          {isSidebarOpen && (
+             <ChevronDown
+                size={16}
+                className={`transition-transform duration-200 ${isExpanded ? "rotate-180" : ""}`}
+             />
+          )}
+        </button>
+
+        {}
+        {isSidebarOpen && (
+          <div
+            className={`overflow-hidden transition-[max-height] duration-300 ease-in-out ${
+              isExpanded ? "max-h-screen" : "max-h-0"
+            }`}
+          >
+            <ul className="pl-6 border-l border-indigo-100 ml-3.5 flex flex-col">
+              {children.map((child) => (
+                <li key={child.path}>
+                   <NavLink
+                    to={child.path}
+                    className={({ isActive }) => `
+                      block py-2 px-2 my-0.5
+                      font-medium rounded-md
+                      transition-colors text-sm
+                      ${
+                        isActive
+                          ? "text-indigo-600 bg-indigo-50"
+                          : "hover:bg-indigo-50 text-gray-500"
+                      }
+                  `}
+                  >
+                    {child.text}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </>
+    );
+  }
+
+  
   return (
     <NavLink
-      ref={navRef}
-      to={to}
+      ref={navRef as React.RefObject<HTMLAnchorElement>}
+      to={item.path!} 
       onMouseEnter={handleMouseEnter}
       onMouseLeave={onHideTooltip}
       className={({ isActive }) => `
@@ -51,12 +144,12 @@ const SidebarItem = ({ icon, text, to, onShowTooltip, onHideTooltip }: SidebarIt
       >
         {text}
       </span>
-      {/* Tooltip has been removed from here */}
     </NavLink>
   );
 };
 
-// Props for Sidebar, which now accepts the tooltip handlers
+
+
 interface SidebarProps {
   onShowTooltip: (text: string, rect: DOMRect) => void;
   onHideTooltip: () => void;
@@ -73,7 +166,7 @@ const Sidebar = ({ onShowTooltip, onHideTooltip }: SidebarProps) => {
   return (
     <aside
       className={`
-        fixed top-14 left-0 h-full bg-white border-b shadow-sm
+        fixed top-14 left-0 h-full  bg-white border-b shadow-sm
         transition-all duration-300 z-40 overflow-y-auto scrollbar-hidden
         ${isSidebarOpen ? "w-64" : "w-16"}
       `}
@@ -82,11 +175,8 @@ const Sidebar = ({ onShowTooltip, onHideTooltip }: SidebarProps) => {
         <ul className="flex-1 px-3 pt-4">
           {filteredSidebarItems.map((item) => (
             <SidebarItem
-              key={item.path}
-              icon={item.icon}
-              text={item.text}
-              to={item.path}
-              // Pass the handlers down to each item
+              key={item.text} 
+              item={item}
               onShowTooltip={onShowTooltip}
               onHideTooltip={onHideTooltip}
             />
