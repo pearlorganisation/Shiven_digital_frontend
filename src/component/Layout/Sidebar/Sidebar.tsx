@@ -1,11 +1,10 @@
-
-
 import React, { useState, useRef, useMemo, useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { ChevronDown } from "lucide-react"; 
+import { ChevronDown } from "lucide-react";
 import { sidebarConfig } from "./SidebarConfig";
-import type { SidebarItemConfig } from "./SidebarConfig"; 
+import type { SidebarItemConfig } from "./SidebarConfig";
+
 
 
 interface SidebarItemProps {
@@ -22,16 +21,13 @@ const SidebarItem = ({ item, onShowTooltip, onHideTooltip }: SidebarItemProps) =
 
   const hasChildren = children && children.length > 0;
 
-  
   const isChildActive = useMemo(() => {
     if (!hasChildren) return false;
     return children.some(child => location.pathname === child.path);
   }, [children, hasChildren, location.pathname]);
 
-  
   const [isExpanded, setIsExpanded] = useState(isChildActive);
 
-  
   useEffect(() => {
     if (isChildActive) {
       setIsExpanded(true);
@@ -46,7 +42,6 @@ const SidebarItem = ({ item, onShowTooltip, onHideTooltip }: SidebarItemProps) =
     }
   };
 
-  
   if (hasChildren) {
     return (
       <>
@@ -61,7 +56,7 @@ const SidebarItem = ({ item, onShowTooltip, onHideTooltip }: SidebarItemProps) =
             transition-colors group
             ${
               isChildActive && !isSidebarOpen
-                ? "bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800" 
+                ? "bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800"
                 : "hover:bg-indigo-50 text-gray-600"
             }
           `}
@@ -84,7 +79,6 @@ const SidebarItem = ({ item, onShowTooltip, onHideTooltip }: SidebarItemProps) =
           )}
         </button>
 
-        {}
         {isSidebarOpen && (
           <div
             className={`overflow-hidden transition-[max-height] duration-300 ease-in-out ${
@@ -118,11 +112,10 @@ const SidebarItem = ({ item, onShowTooltip, onHideTooltip }: SidebarItemProps) =
     );
   }
 
-  
   return (
     <NavLink
       ref={navRef as React.RefObject<HTMLAnchorElement>}
-      to={item.path!} 
+      to={item.path!}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={onHideTooltip}
       className={({ isActive }) => `
@@ -166,16 +159,18 @@ const Sidebar = ({ onShowTooltip, onHideTooltip }: SidebarProps) => {
   return (
     <aside
       className={`
-        fixed top-14 left-0 h-full  bg-white border-b shadow-sm
-        transition-all duration-300 z-40 overflow-y-auto scrollbar-hidden
+        fixed top-14 left-0 h-full bg-white border-b shadow-sm
+        transition-all duration-300 z-40
         ${isSidebarOpen ? "w-64" : "w-16"}
       `}
     >
-      <nav className="h-full flex flex-col">
-        <ul className="flex-1 px-3 pt-4">
+      {}
+      <nav className="h-full overflow-y-auto scrollbar-hidden">
+        {}
+        <ul className="px-3 pt-4 pb-24">
           {filteredSidebarItems.map((item) => (
             <SidebarItem
-              key={item.text} 
+              key={item.text}
               item={item}
               onShowTooltip={onShowTooltip}
               onHideTooltip={onHideTooltip}

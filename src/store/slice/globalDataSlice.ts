@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const globalDataSlice = createSlice({
   name: "globalData",
   initialState: {
-    isSidebarOpen: true,
+    isSidebarOpen: false,
   },
   reducers: {
     toggleSidebar: (state) => {

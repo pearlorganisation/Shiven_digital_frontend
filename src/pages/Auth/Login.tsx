@@ -29,7 +29,7 @@ const Login = () => {
       console.log(res);
       successToast("Login successful");
       dispatch(setUser(res.data.user));
-      navigate("/", { replace: true });
+      //navigate("/dashboard", { replace: true });
     },
     onError: (err) => {
       errorToast(err || "Failed to create cheque register entry.");
@@ -38,7 +38,7 @@ const Login = () => {
 
   useEffect(() => {
     if (user) {
-      navigate("/", { replace: true });
+      navigate("/dashboard", { replace: true });
     }
   }, [user, navigate]);
 

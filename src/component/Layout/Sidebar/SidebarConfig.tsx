@@ -46,7 +46,7 @@ export const sidebarConfig: SidebarItemConfig[] = [
     allowedRoles: ["user", "agency", "agencyStaff", "admin", "adminStaff"],
   },
   {
-    path: "/brands",
+    path: "/brand",
     icon: <Building2 size={20} />,
     text: "My Brands",
     allowedRoles: ["user","agency","agencyStaff"],
