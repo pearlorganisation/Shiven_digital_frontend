@@ -25,7 +25,7 @@ const initialAnnouncements: Announcement[] = [
 ];
 
 const Announcements: React.FC = () => {
-  const [announcements, setAnnouncements] = useState<Announcement[]>(initialAnnouncements);
+  const [announcements] = useState<Announcement[]>(initialAnnouncements);
 
   return (
     <div className="p-8 bg-gray-50 min-h-screen">
