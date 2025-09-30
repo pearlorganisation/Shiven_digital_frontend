@@ -6,7 +6,6 @@ import { sidebarConfig } from "./SidebarConfig";
 import type { SidebarItemConfig } from "./SidebarConfig";
 
 
-
 interface SidebarItemProps {
   item: SidebarItemConfig;
   onShowTooltip: (text: string, rect: DOMRect) => void;
@@ -151,6 +150,7 @@ interface SidebarProps {
 const Sidebar = ({ onShowTooltip, onHideTooltip }: SidebarProps) => {
   const isSidebarOpen = useSelector((state: any) => state.globalData.isSidebarOpen);
   const userRole = useSelector((state: any) => state.auth?.user?.role || "viewer");
+  const status = useSelector((state: any) => state.globalData.status); 
 
   const filteredSidebarItems = sidebarConfig.filter(item =>
     item.allowedRoles.includes(userRole)
@@ -162,6 +162,7 @@ const Sidebar = ({ onShowTooltip, onHideTooltip }: SidebarProps) => {
         fixed top-14 left-0 h-full bg-white border-b shadow-sm
         transition-all duration-300 z-40
         ${isSidebarOpen ? "w-64" : "w-16"}
+        ${status === "balance" ? "border-l-4 border-red-500" : "border-b"}
       `}
     >
       {}
