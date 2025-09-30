@@ -7,7 +7,6 @@ import AgencyStaffDashboard from "./AgencyStaffDashboard";
 
 const Dashboard = () => {
   const role = useSelector((state: any) => state.auth.user?.role);
-  console.log("check role in dashboard",role)
 
   if (role === "admin") return <AdminDashboard />;
   if (role === "agency") return <AgencyDashboard />;

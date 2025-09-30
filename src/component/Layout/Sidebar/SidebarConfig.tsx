@@ -4,29 +4,19 @@ import {
   ClipboardCheck,
   FolderKanban,
   CreditCard,
-  LifeBuoy,
-  FileText,
-  Bell,
   Building2,
-  Calendar,
   BarChart2,
-  Settings,
-  File,
   BookOpen,
-  BookMarked,
   Mail,
   MessageSquare,
   Megaphone,
   Layers,
   Folder,
   Ticket,
-  Notebook,
   ChartPie,
   Gift,
   FileCog,
   GraduationCap,
-  BookCopy,
-  FileTextIcon,
 } from "lucide-react";
 
 export interface SidebarItemConfig {
@@ -35,7 +25,7 @@ export interface SidebarItemConfig {
   text: string;
   allowedRoles: string[];
   children?: { text: string; path: string }[];
-  status:string
+  status?: string;
 }
 
 export const sidebarConfig: SidebarItemConfig[] = [
@@ -51,7 +41,7 @@ export const sidebarConfig: SidebarItemConfig[] = [
     path: "/brand",
     icon: <Building2 size={20} />,
     text: "My Brands",
-    allowedRoles: ["user","agency","agencyStaff"],
+    allowedRoles: ["user", "agency", "agencyStaff"],
     status:"balance"
   },
   {
@@ -167,7 +157,7 @@ export const sidebarConfig: SidebarItemConfig[] = [
   {
     path: "/landing",
     icon: <FileCog size={20} />,
-    text: "Landing Page Management",
+    text: "Landing Page Data",
     allowedRoles: ["admin", "adminStaff"],
     children: [
       { text: "Blogs", path: "/landing/blogs" },
@@ -257,7 +247,7 @@ export const sidebarConfig: SidebarItemConfig[] = [
   },
 
   // ---------- USER ----------
-  
+
   {
     path: "/connected-accounts",
     icon: <Users size={20} />,

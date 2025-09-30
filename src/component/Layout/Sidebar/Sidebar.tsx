@@ -6,6 +6,7 @@ import { sidebarConfig } from "./SidebarConfig";
 import type { SidebarItemConfig } from "./SidebarConfig";
 
 
+
 interface SidebarItemProps {
   item: SidebarItemConfig;
   onShowTooltip: (text: string, rect: DOMRect) => void;
@@ -13,6 +14,7 @@ interface SidebarItemProps {
 }
 
 const SidebarItem = ({ item, onShowTooltip, onHideTooltip }: SidebarItemProps) => {
+  console.log(item?.status)
   const { icon, text, children } = item;
   const isSidebarOpen = useSelector((state: any) => state.globalData.isSidebarOpen);
   const location = useLocation();
@@ -64,8 +66,10 @@ const SidebarItem = ({ item, onShowTooltip, onHideTooltip }: SidebarItemProps) =
             {icon}
             <span
               className={`overflow-hidden transition-all ${
-                isSidebarOpen ? "w-full pl-2" : "hidden"
-              }`}
+                isSidebarOpen ? "w-full ml-2" : "hidden"
+              }
+              ${item?.status === "balance" ? "border border-red-500 " : ""}  
+              `}
             >
               {text}
             </span>
@@ -131,8 +135,11 @@ const SidebarItem = ({ item, onShowTooltip, onHideTooltip }: SidebarItemProps) =
       {icon}
       <span
         className={`overflow-hidden transition-all ${
-          isSidebarOpen ? "w-52 ml-3" : "hidden"
-        }`}
+          isSidebarOpen ? "w-full ml-2" : "hidden"
+          
+        }
+       ${item?.status === "balance" ? "border border-red-500 " : ""}` 
+      }
       >
         {text}
       </span>
@@ -150,7 +157,6 @@ interface SidebarProps {
 const Sidebar = ({ onShowTooltip, onHideTooltip }: SidebarProps) => {
   const isSidebarOpen = useSelector((state: any) => state.globalData.isSidebarOpen);
   const userRole = useSelector((state: any) => state.auth?.user?.role || "viewer");
-  const status = useSelector((state: any) => state.globalData.status); 
 
   const filteredSidebarItems = sidebarConfig.filter(item =>
     item.allowedRoles.includes(userRole)
@@ -161,8 +167,7 @@ const Sidebar = ({ onShowTooltip, onHideTooltip }: SidebarProps) => {
       className={`
         fixed top-14 left-0 h-full bg-white border-b shadow-sm
         transition-all duration-300 z-40
-        ${isSidebarOpen ? "w-64" : "w-16"}
-        ${status === "balance" ? "border-l-4 border-red-500" : "border-b"}
+        ${isSidebarOpen ? "w-72" : "w-16"}
       `}
     >
       {}
