@@ -8,6 +8,7 @@ import { SocialSchema } from '@/schemas/brand/brandSchema'; // Make sure to expo
 // Define a precise type for social platforms, excluding '_id'
 type SocialPlatform = keyof Omit<z.infer<typeof SocialSchema>, "_id">;
 
+
 // --- 1. Define SocialIcon Component Outside BrandCard ---
 const SocialIcon = ({ platform, url }: { platform: SocialPlatform; url?: string }) => {
   const size = 16;
@@ -22,6 +23,7 @@ const SocialIcon = ({ platform, url }: { platform: SocialPlatform; url?: string 
     youtube: <Youtube size={size} className={className} />,
     linkedin: <Linkedin size={size} className={className} />,
   };
+
 
   return (
     // --- 2. Scope the group with "group/icon" ---

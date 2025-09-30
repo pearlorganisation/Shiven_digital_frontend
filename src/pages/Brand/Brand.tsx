@@ -1,4 +1,14 @@
+
 "use client";
+
+
+import React, { useState, useEffect } from 'react';
+import { Plus, Search, Filter } from 'lucide-react';
+import BrandCard from '@/component/Brands/BrandCard';
+import BrandModal from '@/component/Brands/BrandModal';
+import type { Brand } from '@/component/Brands/types';
+import DeleteModal from '@/component/Brands/DeleteModal';
+
 
 import { errorToast, successToast } from "@/utils/helper";
 import type {

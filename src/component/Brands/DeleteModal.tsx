@@ -1,7 +1,10 @@
 // DeleteModal.tsx
 import React from 'react';
 import { X, Trash2, AlertTriangle } from 'lucide-react';
+
 import type { BrandType } from "@/schemas/brand/brandSchema";
+
+
 
 interface DeleteModalProps {
   isOpen: boolean;
@@ -126,5 +129,6 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
     </div>
   );
 };
+
 
 export default DeleteModal;
