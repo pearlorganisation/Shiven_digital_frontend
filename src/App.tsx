@@ -4,7 +4,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import { Suspense } from "react";
-import { Layout, Login, Dashboard, Brand } from "@/pages/index";
+import { Layout, Login, Dashboard, Brand , FilesFolder ,Announcements ,StaffManagement , Plans ,SpaceManager ,CouponManager} from "@/pages/index";
 import LayoutFallback from "@/component/Fallback/LayoutFallback";
 import NotFound from "@/component/Fallback/NotFound";
 import { Toaster } from "sonner";
@@ -40,9 +40,33 @@ function App() {
           path: "/brand",
           element: <Brand />,
         },
+         {
+          path: "/files",
+          element: <FilesFolder/>,
+        },
+         {
+          path: "/announcements",
+          element: <Announcements/>,
+        },
+          {
+          path: "/subscription-plans",
+          element: <Plans/>,
+        },
+           {
+          path: "/space",
+          element: <SpaceManager/>,
+        },
+           {
+          path: "/coupons",
+          element: <CouponManager/>,
+        },
         {
           path: "*",
           element: <NotFound />,
+        },
+         {
+          path: "/staff",
+          element: <StaffManagement/>,
         },
       ],
     },
