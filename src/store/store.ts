@@ -17,6 +17,7 @@ import { setStore } from "@/lib/apiClient"; // ✅ safe now
 // Reducers
 import authReducer from "./slice/authSlice";
 import globalDataReducer from "./slice/globalDataSlice";
+import brandReducer from "./slice/brandSlice";
 
 const persistConfig = {
   key: "auth",
@@ -29,6 +30,7 @@ export const store = configureStore({
   reducer: {
     auth: persistedAuthReducer,
     globalData: globalDataReducer,
+    brands: brandReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

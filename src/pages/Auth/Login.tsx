@@ -20,7 +20,6 @@ const Login = () => {
     "signIn" | "signUp" | "forgotPassword"
   >("signIn");
   const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(true);
 
   const loginMutation = useMutation({
     mutationFn: async (newEntryData: { email: string; password: string }) => {
@@ -30,7 +29,7 @@ const Login = () => {
       console.log(res);
       successToast("Login successful");
       dispatch(setUser(res.data.user));
-      navigate("/", { replace: true });
+      //navigate("/dashboard", { replace: true });
     },
     onError: (err) => {
       errorToast(err || "Failed to create cheque register entry.");
@@ -39,9 +38,8 @@ const Login = () => {
 
   useEffect(() => {
     if (user) {
-      navigate("/", { replace: true });
+      navigate("/dashboard", { replace: true });
     }
-    setLoading(false);
   }, [user, navigate]);
 
   const handleFormSubmit = useCallback(
@@ -248,63 +246,54 @@ const Login = () => {
     );
   };
 
-  if (loading || user) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 animate-pulse-bg">
-        <div className="text-center p-8 bg-white rounded-xl shadow-2xl">
-          <h1 className="text-4xl font-extrabold text-gray-900 drop-shadow-md">
-            Loading...
-          </h1>
-        </div>
-      </div>
-    );
-  }
+  return (
+    <>
+      <Header />
+      <div className="flex flex-col min-h-screen bg-gradient-to-br from-gray-100 to-gray-200">
+        {/* Centered login card */}
+        <div className="flex flex-1 items-center justify-center m-8">
+          <div className="flex w-full max-w-4xl h-[572px] bg-white rounded-3xl shadow-2xl overflow-hidden animate-fade-in-up">
+            {/* Left Side - Image with Text Overlay */}
+            <div className="hidden md:flex flex-1 relative overflow-hidden">
+              <img
+                src="/test6.jpg"
+                alt="Login Illustration"
+                className="w-full h-full object-cover"
+              />
 
- return (
-  <>
-  <Header/>
-  <div className="flex flex-col min-h-screen bg-gradient-to-br from-gray-100 to-gray-200">
-    {/* Centered login card */}
-    <div className="flex flex-1 items-center justify-center m-8">
-      <div className="flex w-full max-w-4xl h-[572px] bg-white rounded-3xl shadow-2xl overflow-hidden animate-fade-in-up">
-        {/* Left Side - Image with Text Overlay */}
-        <div className="hidden md:flex flex-1 relative overflow-hidden">
-          <img
-            src="/test6.jpg"
-            alt="Login Illustration"
-            className="w-full h-full object-cover"
-          />
+              {/* Gradient overlay */}
+              <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-white via-white/50 to-transparent"></div>
 
-          {/* Gradient overlay */}
-          <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-white via-white/50 to-transparent"></div>
+              {/* Text overlay */}
+              <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
+                <h2 className="text-3xl font-bold text-gray-900 drop-shadow-lg">
+                  <span>
+                    Grow Your Business with Smarter Digital Marketing{" "}
+                  </span>
+                </h2>
+                <p className="text-lg text-gray-700 mt-3 max-w-md">
+                  We help brands increase visibility, generate qualified leads,
+                  and boost conversions with data-driven digital marketing
+                  strategies tailored to your business goals.
+                </p>
+              </div>
+            </div>
 
-          {/* Text overlay */}
-          <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
-            <h2 className="text-3xl font-bold text-gray-900 drop-shadow-lg">
-             <span>Grow Your Business with Smarter Digital Marketing </span> 
-            </h2>
-            <p className="text-lg text-gray-700 mt-3 max-w-md">
-             We help brands increase visibility, generate qualified leads, and boost conversions with data-driven digital marketing strategies tailored to your business goals.
-            </p>
+            {/* Right Side - Form */}
+            <div className="w-full md:w-1/2 p-8 md:p-12 space-y-8 flex flex-col justify-center relative z-10 bg-white">
+              <div className="absolute inset-0 z-0 opacity-10">
+                {/* SVG Background */}
+              </div>
+              <div className="relative z-10">{renderFormContent()}</div>
+            </div>
           </div>
         </div>
 
-        {/* Right Side - Form */}
-        <div className="w-full md:w-1/2 p-8 md:p-12 space-y-8 flex flex-col justify-center relative z-10 bg-white">
-          <div className="absolute inset-0 z-0 opacity-10">
-            {/* SVG Background */}
-          </div>
-          <div className="relative z-10">{renderFormContent()}</div>
-        </div>
+        {/* Footer always at bottom */}
+        <Footer />
       </div>
-    </div>
-
-    {/* Footer always at bottom */}
-    <Footer />
-  </div>
-  </>
-);
-
+    </>
+  );
 };
 
 export default Login;

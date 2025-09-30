@@ -1,198 +1,265 @@
 import {
   Home,
-  Settings,
   Users,
-  BarChart2,
-  CreditCard,
-  LifeBuoy,
-  FolderKanban,
   ClipboardCheck,
+  FolderKanban,
+  CreditCard,
   Building2,
-  Bell,
-  FileText,
-  Calendar,
+  BarChart2,
+  BookOpen,
+  Mail,
+  MessageSquare,
+  Megaphone,
+  Layers,
+  Folder,
+  Ticket,
+  ChartPie,
+  Gift,
+  FileCog,
+  GraduationCap,
 } from "lucide-react";
 
-interface SidebarItemConfig {
-  path: string;
+export interface SidebarItemConfig {
+  path?: string;
   icon: React.ReactNode;
   text: string;
   allowedRoles: string[];
+  children?: { text: string; path: string }[];
+  status?: string;
 }
 
 export const sidebarConfig: SidebarItemConfig[] = [
   // ---------- COMMON ----------
   {
-    path: "/",
+    path: "/dashboard",
     icon: <Home size={20} />,
     text: "Dashboard",
     allowedRoles: ["user", "agency", "agencyStaff", "admin", "adminStaff"],
+    status:"balance"
   },
-  {
-    path: "/analytics",
-    icon: <BarChart2 size={20} />,
-    text: "Analytics",
-    allowedRoles: ["user", "agency", "agencyStaff", "admin"],
-  },
-  {
-    path: "/billing",
-    icon: <CreditCard size={20} />,
-    text: "Billing",
-    allowedRoles: ["user", "agency", "admin"],
-  },
-  {
-    path: "/support",
-    icon: <LifeBuoy size={20} />,
-    text: "Support",
-    allowedRoles: ["user", "agency", "agencyStaff", "admin", "adminStaff"],
-  },
-  {
-    path: "/notifications",
-    icon: <Bell size={20} />,
-    text: "Notifications",
-    allowedRoles: ["user", "agency", "agencyStaff", "admin", "adminStaff"],
-  },
-
-  // ---------- CUSTOMER ----------
   {
     path: "/brand",
     icon: <Building2 size={20} />,
     text: "My Brands",
-    allowedRoles: ["user","admin","agency"],
+    allowedRoles: ["user", "agency", "agencyStaff"],
+    status:"balance"
   },
   {
-    path: "/social-media",
-    icon: <FolderKanban size={20} />,
-    text: "Social Media Manager",
-    allowedRoles: ["user"],
+    path: "/files",
+    icon: <Folder size={20} />,
+    text: "Files & Folders",
+    allowedRoles: ["user", "agency", "agencyStaff", "admin", "adminStaff"],
+    status:"balance"
   },
   {
-    path: "/content-calendar",
-    icon: <Calendar size={20} />,
-    text: "Content Calendar",
-    allowedRoles: ["user"],
+    path: "/billing",
+    icon: <CreditCard size={20} />,
+    text: "Billing & Subscription",
+    allowedRoles: ["user", "agency", "admin", "adminStaff"],
+    status:"balance"
   },
   {
-    path: "/tasks",
-    icon: <ClipboardCheck size={20} />,
-    text: "Tasks & Campaigns",
-    allowedRoles: ["user"],
+    path: "/tickets",
+    icon: <Ticket size={20} />,
+    text: "Queries & Tickets",
+    allowedRoles: ["user", "agency", "agencyStaff", "admin", "adminStaff"],
+    children: [
+      { text: "Tickets", path: "/tickets/list" },
+      { text: "Enquiry Management", path: "/tickets/enquiries" },
+    ],
+    status:"balance"
   },
   {
-    path: "/reports",
-    icon: <FileText size={20} />,
-    text: "Reports",
-    allowedRoles: ["user"],
-  },
-
-  // ---------- AGENCY ----------
-  {
-    path: "/clients",
-    icon: <Users size={20} />,
-    text: "Clients",
-    allowedRoles: ["agency"],
+    path: "/announcements",
+    icon: <Megaphone size={20} />,
+    text: "Announcements",
+    allowedRoles: ["user", "agency", "agencyStaff", "admin", "adminStaff"],
+    status:"balance"
   },
   {
-    path: "/brands",
-    icon: <Building2 size={20} />,
-    text: "Managed Brands",
-    allowedRoles: ["agency"],
-  },
-  {
-    path: "/social-media",
-    icon: <FolderKanban size={20} />,
-    text: "Social Media Hub",
-    allowedRoles: ["agency"],
-  },
-  {
-    path: "/staff",
-    icon: <Users size={20} />,
-    text: "Agency Team",
-    allowedRoles: ["agency"],
-  },
-  {
-    path: "/content-calendar",
-    icon: <Calendar size={20} />,
-    text: "Content Calendar",
-    allowedRoles: ["agency"],
-  },
-  {
-    path: "/tasks",
-    icon: <ClipboardCheck size={20} />,
-    text: "Team Tasks",
-    allowedRoles: ["agency"],
-  },
-
-  // ---------- AGENCY STAFF ----------
-  {
-    path: "/assigned-brands",
-    icon: <Building2 size={20} />,
-    text: "Assigned Brands",
-    allowedRoles: ["agencyStaff"],
-  },
-  {
-    path: "/tasks",
-    icon: <ClipboardCheck size={20} />,
-    text: "My Tasks",
-    allowedRoles: ["agencyStaff"],
-  },
-  {
-    path: "/content-calendar",
-    icon: <Calendar size={20} />,
-    text: "Content Calendar",
-    allowedRoles: ["agencyStaff"],
+    path: "/training",
+    icon: <GraduationCap size={20} />,
+    text: "Training",
+    allowedRoles: ["user", "agency", "agencyStaff", "admin", "adminStaff"],
+    children: [
+      { text: "Posting Guidelines", path: "/training/guidelines" },
+      { text: "API & Integration Docs", path: "/training/docs" },
+      { text: "Video Tutorials", path: "/training/tutorials" },
+    ],
+    status:"balance"
   },
 
   // ---------- ADMIN ----------
   {
+    path: "/staff",
+    icon: <Users size={20} />,
+    text: "Staff Management",
+    allowedRoles: ["admin", "adminStaff"],
+    status:"balance"
+  },
+  {
+    path: "/tasks",
+    icon: <ClipboardCheck size={20} />,
+    text: "Task Management",
+    allowedRoles: ["admin"],
+    status:"balance"
+  },
+  {
+    path: "/subscription-plans",
+    icon: <Layers size={20} />,
+    text: "Subscription Plan",
+    allowedRoles: ["admin", "adminStaff"],
+    status:"balance"
+  },
+  {
     path: "/users",
     icon: <Users size={20} />,
     text: "User Management",
-    allowedRoles: ["admin"],
+    allowedRoles: ["admin", "adminStaff"],
+    children: [
+      { text: "Account Approval", path: "/users/approval" },
+      { text: "Manage Users", path: "/users/manage" },
+    ],
+    status:"balance"
   },
   {
-    path: "/agencies",
-    icon: <Building2 size={20} />,
-    text: "Agencies",
-    allowedRoles: ["admin"],
+    path: "/payments",
+    icon: <CreditCard size={20} />,
+    text: "Payment Logs",
+    allowedRoles: ["admin", "adminStaff"],
+    status:"balance"
   },
   {
-    path: "/customers",
-    icon: <Users size={20} />,
-    text: "Customers",
+    path: "/space",
+    icon: <FolderKanban size={20} />,
+    text: "Space Management",
+    allowedRoles: ["admin", "adminStaff"],
+    status:"balance"
+  },
+  {
+    path: "/addons",
+    icon: <Layers size={20} />,
+    text: "Add-ons Management",
     allowedRoles: ["admin"],
+    status:"balance"
   },
   {
     path: "/reports",
     icon: <BarChart2 size={20} />,
-    text: "System Reports",
-    allowedRoles: ["admin"],
+    text: "Reports & Analytics",
+    allowedRoles: ["admin", "adminStaff"],
+    children: [
+      { text: "Tool Reports", path: "/reports/tools" },
+      { text: "Etc.", path: "/reports/etc" },
+    ],
+    status:"balance"
   },
   {
-    path: "/admin-staff",
-    icon: <Users size={20} />,
-    text: "Admin Staff",
-    allowedRoles: ["admin"],
+    path: "/landing",
+    icon: <FileCog size={20} />,
+    text: "Landing Page Data",
+    allowedRoles: ["admin", "adminStaff"],
+    children: [
+      { text: "Blogs", path: "/landing/blogs" },
+      { text: "Policy", path: "/landing/policy" },
+      { text: "Terms", path: "/landing/terms" },
+      { text: "Contact Us", path: "/landing/contact" },
+      { text: "Etc.", path: "/landing/etc" },
+    ],
+    status:"balance"
   },
   {
-    path: "/settings",
-    icon: <Settings size={20} />,
-    text: "Platform Settings",
-    allowedRoles: ["admin"],
+    path: "/coupons",
+    icon: <Gift size={20} />,
+    text: "Coupon Management",
+    allowedRoles: ["admin", "adminStaff"],
+    status:"balance"
   },
 
-  // ---------- ADMIN STAFF ----------
   {
-    path: "/users",
+    path: "/manage-users",
     icon: <Users size={20} />,
-    text: "User Access",
-    allowedRoles: ["adminStaff"],
+    text: "Manage Users",
+    allowedRoles: ["agency", "agencyStaff"],
+    children: [
+      { text: "Connect Users", path: "/manage-users/connect-users" },
+      { text: "Connect Handles", path: "/manage-users/connect-handles" },
+      { text: "Contact Management", path: "/manage-users/contacts" },
+      { text: "Brand Management", path: "/manage-users/brands" },
+    ],
+    status:"balance"
   },
   {
-    path: "/reports",
-    icon: <BarChart2 size={20} />,
-    text: "Reports",
-    allowedRoles: ["adminStaff"],
+    path: "/email-marketing",
+    icon: <Mail size={20} />,
+    text: "Email Marketing",
+    allowedRoles: ["agency", "agencyStaff", "user"],
+    status:"balance"
+  },
+  {
+    path: "/posting",
+    icon: <ClipboardCheck size={20} />,
+    text: "Posting",
+    allowedRoles: ["agency", "agencyStaff", "user"],
+    status:"balance"
+  },
+  {
+    path: "/sms",
+    icon: <MessageSquare size={20} />,
+    text: "SMS Marketing",
+    allowedRoles: ["agency", "agencyStaff", "user"],
+    status:"balance"
+  },
+  {
+    path: "/whatsapp",
+    icon: <MessageSquare size={20} />,
+    text: "WhatsApp Messaging",
+    allowedRoles: ["agency", "agencyStaff", "user"],
+    status:"balance"
+  },
+  {
+    path: "/ai-content",
+    icon: <BookOpen size={20} />,
+    text: "AI Content Generation",
+    allowedRoles: ["agency", "agencyStaff", "user"],
+    status:"balance"
+  },
+  {
+    path: "/staff",
+    icon: <Users size={20} />,
+    text: "Agency Staff Management",
+    allowedRoles: ["agency"],
+    status:"balance"
+  },
+  {
+    path: "/tasks",
+    icon: <ClipboardCheck size={20} />,
+    text: "Tasks",
+    allowedRoles: ["agency", "agencyStaff"],
+    status:"balance"
+  },
+  {
+    path: "/post-analytics",
+    icon: <ChartPie size={20} />,
+    text: "Post Analytics",
+    allowedRoles: ["agency", "agencyStaff", "user"],
+    status:"balance"
   },
 
+  // ---------- USER ----------
+
+  {
+    path: "/connected-accounts",
+    icon: <Users size={20} />,
+    text: "Connected Accounts",
+    allowedRoles: ["user"],
+    status:"balance"
+  },
+  {
+    path: "/campaigns",
+    icon: <ClipboardCheck size={20} />,
+    text: "Campaign & Content Control",
+    allowedRoles: ["user"],
+    status:"balance"
+  },
 ];

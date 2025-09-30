@@ -1,24 +1,20 @@
-"use client";
-
-import { useEffect } from "react";
-import axiosInstance from "@/lib/apiClient";
+import { useSelector } from "react-redux";
+import AdminDashboard from "./AdminDashboard";
+import AgencyDashboard from "./AgencyDashboard";
+import UserDashboard from "./UserDashboard";
+import NotFoundPage from "@/component/Fallback/NotFound";
+import AgencyStaffDashboard from "./AgencyStaffDashboard";
 
 const Dashboard = () => {
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        console.log("📡 Making test request...");
-        const res = await axiosInstance.get("/auth/me"); // replace with your secure API route
-        console.log("✅ Response:", res.data);
-      } catch (err) {
-        console.error("❌ Request failed:", err);
-      }
-    };
+  const role = useSelector((state: any) => state.auth.user?.role);
 
-    fetchData();
-  }, []);
+  if (role === "admin") return <AdminDashboard />;
+  if (role === "agency") return <AgencyDashboard />;
+  if (role === "user") return <UserDashboard />;
+  if (role === "agencyStaff") return <AgencyStaffDashboard/>
+  if (role === "adminStaff") return <AgencyStaffDashboard/>
 
-  return <div className="mt-2">Dashboard</div>;
+  return <NotFoundPage />;
 };
 
 export default Dashboard;

@@ -1,5 +1,3 @@
-
-
 const FallbackPage = () => {
   return (
     <div className="w-full sm:ps-48 border h-screen flex justify-center items-center">

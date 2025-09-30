@@ -1,11 +1,14 @@
 // DeleteModal.tsx
 import React from 'react';
 import { X, Trash2, AlertTriangle } from 'lucide-react';
-import type { Brand } from './types';
+
+import type { BrandType } from "@/schemas/brand/brandSchema";
+
+
 
 interface DeleteModalProps {
   isOpen: boolean;
-  brand?: Brand | null;
+  brand?: BrandType | null;
   onClose: () => void;
   onConfirm: () => void;
 }
@@ -127,15 +130,5 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
   );
 };
 
-// Helper function to count social profiles
-// const getSocialCount = (brand: Brand): number => {
-//   let count = 0;
-//   if (brand.social.instagram) count++;
-//   if (brand.social.facebook) count++;
-//   if (brand.social.twitter) count++;
-//   if (brand.social.youtube) count++;
-//   if (brand.social.linkedin) count++;
-//   return count;
-// };
 
 export default DeleteModal;
