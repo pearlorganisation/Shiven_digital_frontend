@@ -2,13 +2,14 @@
 
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { toggleSidebar } from "@/store/slice/globalDataSlice"; // Make sure this path is correct
-import { Menu, Search, Bell, ChevronDown } from "lucide-react";
+import { toggleSidebar } from "@/store/slice/globalDataSlice";
+import { Menu, Bell, ChevronDown } from "lucide-react";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { clearUser } from "@/store/slice/authSlice";
 import { useMutation } from "@tanstack/react-query";
 import authService from "@/services/authService";
 import { errorToast, successToast } from "@/utils/helper";
+import { HeaderConfig } from "./HeaderConfig";
 
 const Header = () => {
   const dispatch = useAppDispatch();
@@ -16,13 +17,18 @@ const Header = () => {
   const [isProfileOpen, setProfileOpen] = useState(false);
 
   const { user } = useAppSelector((state) => state.auth);
+  const userRole = useAppSelector((state: any) => state.auth?.user?.role || "viewer");
+
+  const roleFilteredItems = HeaderConfig.filter((item) =>
+    item.allowedRoles.includes(userRole)
+  );
+
+  // Split into primary (visible) and secondary (More dropdown)
+  const primaryLinks = roleFilteredItems.slice(0, 5);
 
   const logoutMutation = useMutation({
-    mutationFn: async () => {
-      return authService.logout();
-    },
-    onSuccess: (res) => {
-      console.log(res);
+    mutationFn: async () => authService.logout(),
+    onSuccess: () => {
       successToast("Log Out successful");
       dispatch(clearUser());
       navigate("/login", { replace: true });
@@ -32,22 +38,20 @@ const Header = () => {
     },
   });
 
-  const handleLogout = () => {
-    // Implement logout functionality here
-    console.log("Logging out...");
-    logoutMutation.mutate();
-  };
+  const handleLogout = () => logoutMutation.mutate();
+
+  const hasDropdown = (item: any) => item.children && item.children.length > 0;
 
   return (
-    <header className="fixed top-0 left-0 right-0 h-16 bg-white border-b border-slate-200 flex items-center justify-between px-4 z-50">
-      {/* --- Left Section: Toggle & Logo --- */}
-      <div className="flex items-center gap-4">
-        {/* Sidebar Toggle Button */}
+    <header className="fixed top-0 left-0 right-0 h-16 bg-white border-b border-slate-200 flex items-center justify-between px-4 z-50 shadow-sm">
+      {/* --- Left Section --- */}
+      <div className="flex items-center gap-3">
+        {/* Sidebar Toggle */}
         <button
           onClick={() => dispatch(toggleSidebar())}
-          className="py-1 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors"
+          className="p-2 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors"
         >
-          <Menu className="w-6 h-6" />
+          <Menu className="w-5 h-5" />
         </button>
 
         {/* Logo */}
@@ -58,29 +62,47 @@ const Header = () => {
             className="h-10 w-auto"
           />
         </Link>
+
+        {/* Navbar Links */}
+        <nav className="flex items-center gap-2 ml-4 border-l border-slate-200 pl-3">
+          {primaryLinks.map((item) => (
+            <div key={item.path} className="relative group">
+              <Link
+                to={item.path!}
+                className="flex items-center gap-1.5 text-xs font-medium text-slate-700 hover:text-indigo-600 transition-colors whitespace-nowrap py-1 px-3 rounded-md hover:bg-slate-50"
+              >
+                {item.icon}
+                <span className="hidden sm:inline">{item.text}</span>
+                {hasDropdown(item) && <ChevronDown size={14} className="text-slate-500 ml-1" />}
+              </Link>
+
+              {/* Dropdown for children */}
+              {hasDropdown(item) && (
+                <div className="absolute left-0 top-full mt-1 w-48 bg-white border border-slate-200 rounded-md shadow-lg py-1 opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all">
+                  {item.children!.map((child) => (
+                    <Link
+                      key={child.path}
+                      to={child.path}
+                      className="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-100 transition-colors"
+                    >
+                      {child.text}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </nav>
       </div>
 
-      {/* --- Center Section: Search Bar --- */}
-      <div className="flex-1 max-w-md mx-4 hidden md:block">
-        <div className="relative">
-          <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-            <Search className="w-5 h-5 text-slate-400" />
-          </span>
-          <input
-            type="text"
-            placeholder="Search..."
-            className="w-full py-2 pl-10 pr-4 border border-slate-300 rounded-lg bg-slate-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
-          />
-        </div>
-      </div>
+      {/* --- Center Spacer --- */}
+      <div className="flex-1" />
 
-      {/* --- Right Section: Actions & Profile --- */}
-      <div className="flex items-center gap-4">
-        {/* Notifications Button */}
+      {/* --- Right Section: Notifications & Profile --- */}
+      <div className="flex items-center gap-3">
         <button className="relative p-2 rounded-full text-slate-600 hover:bg-slate-100 transition-colors">
-          <Bell className="w-6 h-6" />
-          {/* Notification Badge */}
-          <span className="absolute top-1 right-1 block h-2 w-2 rounded-full bg-red-500 ring-2 ring-white" />
+          <Bell className="w-5 h-5" />
+          <span className="absolute -top-1 -right-1 h-3 w-3 rounded-full bg-red-500 ring-2 ring-white" />
         </button>
 
         {/* Profile Dropdown */}
@@ -91,30 +113,30 @@ const Header = () => {
           >
             <img
               src={`https://ui-avatars.com/api/?name=${user?.firstName}+${user?.lastName}&background=c7d2fe&color=3730a3&bold=true`}
-              alt="User Avatar"
+              alt={`${user?.firstName || ""} ${user?.lastName || ""}`.trim() || "User"}
               className="w-9 h-9 rounded-full"
             />
-            <div className="hidden lg:block">
-              <p className="font-semibold text-sm text-slate-700">
-                {user?.firstName}
+            <div className="hidden xl:block min-w-0">
+              <p className="font-semibold text-sm text-slate-700 truncate max-w-32">
+                {`${user?.firstName || ""} ${user?.lastName || ""}`.trim() || "User"}
               </p>
-              <p className="text-xs text-slate-500">{user?.lastName}</p>
             </div>
-            <ChevronDown size={16} className="text-slate-500 hidden lg:block" />
+            <ChevronDown size={16} className="text-slate-500 hidden xl:block ml-1" />
           </button>
 
-          {/* Dropdown Menu */}
           {isProfileOpen && (
-            <div className="absolute top-full right-0 mt-2 w-48 bg-white border border-slate-200 rounded-lg shadow-lg py-1">
+            <div className="absolute top-full right-0 mt-2 w-48 bg-white border border-slate-200 rounded-lg shadow-xl py-1 z-50">
               <Link
                 to="/profile"
                 className="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-100"
+                onClick={() => setProfileOpen(false)}
               >
                 My Profile
               </Link>
               <Link
                 to="/settings"
                 className="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-100"
+                onClick={() => setProfileOpen(false)}
               >
                 Settings
               </Link>
@@ -122,7 +144,7 @@ const Header = () => {
               <button
                 onClick={handleLogout}
                 disabled={logoutMutation.isPending}
-                className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50"
+                className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {logoutMutation.isPending ? "Signing Out..." : "Sign Out"}
               </button>
