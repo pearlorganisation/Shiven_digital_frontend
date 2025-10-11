@@ -38,14 +38,14 @@ export const sidebarConfig: SidebarItemConfig[] = [
     status:"balance"
   },
   {
-    path: "/brand",
+    path: "/brand", ////shift this to navbar
     icon: <Building2 size={20} />,
     text: "My Brands",
     allowedRoles: ["user", "agency", "agencyStaff"],
     status:"balance"
   },
   {
-    path: "/files",
+    path: "/files",  //shift this to navbar 
     icon: <Folder size={20} />,
     text: "Files & Folders",
     allowedRoles: ["user", "agency", "agencyStaff", "admin", "adminStaff"],
@@ -70,7 +70,7 @@ export const sidebarConfig: SidebarItemConfig[] = [
     status:"balance"
   },
   {
-    path: "/announcements",
+    path: "/announcements",  //shift this to navbar
     icon: <Megaphone size={20} />,
     text: "Announcements",
     allowedRoles: ["user", "agency", "agencyStaff", "admin", "adminStaff"],
@@ -98,7 +98,7 @@ export const sidebarConfig: SidebarItemConfig[] = [
     status:"balance"
   },
   {
-    path: "/tasks",
+    path: "/tasks", //shift this to navbar
     icon: <ClipboardCheck size={20} />,
     text: "Task Management",
     allowedRoles: ["admin"],
@@ -143,8 +143,8 @@ export const sidebarConfig: SidebarItemConfig[] = [
     allowedRoles: ["admin"],
     status:"balance"
   },
-  {
-    path: "/reports",
+  { 
+    path: "/reports", //shift this to navbar
     icon: <BarChart2 size={20} />,
     text: "Reports & Analytics",
     allowedRoles: ["admin", "adminStaff"],
@@ -155,7 +155,7 @@ export const sidebarConfig: SidebarItemConfig[] = [
     status:"balance"
   },
   {
-    path: "/landing",
+    path: "/landing",  //shift this to navbar
     icon: <FileCog size={20} />,
     text: "Landing Page Data",
     allowedRoles: ["admin", "adminStaff"],
@@ -190,35 +190,42 @@ export const sidebarConfig: SidebarItemConfig[] = [
     status:"balance"
   },
   {
-    path: "/email-marketing",
+    path: "/email-marketing", ////shift this to navbar
     icon: <Mail size={20} />,
     text: "Email Marketing",
     allowedRoles: ["agency", "agencyStaff", "user"],
     status:"balance"
   },
   {
-    path: "/posting",
+    path: "/social media", ////shift this to navbar
     icon: <ClipboardCheck size={20} />,
-    text: "Posting",
+    text: "Social Media",
     allowedRoles: ["agency", "agencyStaff", "user"],
+     children: [
+      { text: "Instagram", path: "/landing/blogs" },
+      { text: "Facebook", path: "/landing/policy" },
+      { text: "YouTube", path: "/landing/terms" },
+      { text: "Twitter / X", path: "/landing/contact" },
+      { text: "Etc", path: "/landing/etc" },
+     ],
     status:"balance"
   },
   {
-    path: "/sms",
+    path: "/sms", ////shift this to navbar
     icon: <MessageSquare size={20} />,
     text: "SMS Marketing",
     allowedRoles: ["agency", "agencyStaff", "user"],
     status:"balance"
   },
   {
-    path: "/whatsapp",
+    path: "/whatsapp", ////shift this to navbar
     icon: <MessageSquare size={20} />,
     text: "WhatsApp Messaging",
     allowedRoles: ["agency", "agencyStaff", "user"],
     status:"balance"
   },
   {
-    path: "/ai-content",
+    path: "/ai-content", ////shift this to navbar
     icon: <BookOpen size={20} />,
     text: "AI Content Generation",
     allowedRoles: ["agency", "agencyStaff", "user"],
@@ -256,7 +263,7 @@ export const sidebarConfig: SidebarItemConfig[] = [
     status:"balance"
   },
   {
-    path: "/campaigns",
+    path: "/campaigns", ////shift this to navbar
     icon: <ClipboardCheck size={20} />,
     text: "Campaign & Content Control",
     allowedRoles: ["user"],

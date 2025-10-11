@@ -43,7 +43,7 @@ const Layout = () => {
       
       <main
         className={`pt-14 transition-all duration-300 ${
-          isSidebarOpen ? "ml-64" : "ml-16"
+          isSidebarOpen ? "ml-72" : "ml-16"
         }`}
       >
         <Suspense fallback={<FallbackPage />}>
