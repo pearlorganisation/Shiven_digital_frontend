@@ -37,13 +37,13 @@ export const sidebarConfig: SidebarItemConfig[] = [
     allowedRoles: ["user", "agency", "agencyStaff", "admin", "adminStaff"],
     status:"balance"
   },
-  {
-    path: "/brand", ////shift this to navbar
-    icon: <Building2 size={20} />,
-    text: "My Brands",
-    allowedRoles: ["user", "agency", "agencyStaff"],
-    status:"balance"
-  },
+  // {
+  //   path: "/brand", ////shift this to navbar
+  //   icon: <Building2 size={20} />,
+  //   text: "My Brands",
+  //   allowedRoles: ["user", "agency", "agencyStaff"],
+  //   status:"balance"
+  // },
   {
     path: "/files",  //shift this to navbar 
     icon: <Folder size={20} />,
@@ -97,13 +97,13 @@ export const sidebarConfig: SidebarItemConfig[] = [
     allowedRoles: ["admin", "adminStaff"],
     status:"balance"
   },
-  {
-    path: "/tasks", //shift this to navbar
-    icon: <ClipboardCheck size={20} />,
-    text: "Task Management",
-    allowedRoles: ["admin"],
-    status:"balance"
-  },
+  // {
+  //   path: "/tasks", //shift this to navbar
+  //   icon: <ClipboardCheck size={20} />,
+  //   text: "Task Management",
+  //   allowedRoles: ["admin"],
+  //   status:"balance"
+  // },
   {
     path: "/subscription-plans",
     icon: <Layers size={20} />,
@@ -143,31 +143,31 @@ export const sidebarConfig: SidebarItemConfig[] = [
     allowedRoles: ["admin"],
     status:"balance"
   },
-  { 
-    path: "/reports", //shift this to navbar
-    icon: <BarChart2 size={20} />,
-    text: "Reports & Analytics",
-    allowedRoles: ["admin", "adminStaff"],
-    children: [
-      { text: "Tool Reports", path: "/reports/tools" },
-      { text: "Etc.", path: "/reports/etc" },
-    ],
-    status:"balance"
-  },
-  {
-    path: "/landing",  //shift this to navbar
-    icon: <FileCog size={20} />,
-    text: "Landing Page Data",
-    allowedRoles: ["admin", "adminStaff"],
-    children: [
-      { text: "Blogs", path: "/landing/blogs" },
-      { text: "Policy", path: "/landing/policy" },
-      { text: "Terms", path: "/landing/terms" },
-      { text: "Contact Us", path: "/landing/contact" },
-      { text: "Etc.", path: "/landing/etc" },
-    ],
-    status:"balance"
-  },
+  // { 
+  //   path: "/reports", //shift this to navbar
+  //   icon: <BarChart2 size={20} />,
+  //   text: "Reports & Analytics",
+  //   allowedRoles: ["admin", "adminStaff"],
+  //   children: [
+  //     { text: "Tool Reports", path: "/reports/tools" },
+  //     { text: "Etc.", path: "/reports/etc" },
+  //   ],
+  //   status:"balance"
+  // },
+  // {
+  //   path: "/landing",  //shift this to navbar
+  //   icon: <FileCog size={20} />,
+  //   text: "Landing Page Data",
+  //   allowedRoles: ["admin", "adminStaff"],
+  //   children: [
+  //     { text: "Blogs", path: "/landing/blogs" },
+  //     { text: "Policy", path: "/landing/policy" },
+  //     { text: "Terms", path: "/landing/terms" },
+  //     { text: "Contact Us", path: "/landing/contact" },
+  //     { text: "Etc.", path: "/landing/etc" },
+  //   ],
+  //   status:"balance"
+  // },
   {
     path: "/coupons",
     icon: <Gift size={20} />,
@@ -189,48 +189,48 @@ export const sidebarConfig: SidebarItemConfig[] = [
     ],
     status:"balance"
   },
-  {
-    path: "/email-marketing", ////shift this to navbar
-    icon: <Mail size={20} />,
-    text: "Email Marketing",
-    allowedRoles: ["agency", "agencyStaff", "user"],
-    status:"balance"
-  },
-  {
-    path: "/social media", ////shift this to navbar
-    icon: <ClipboardCheck size={20} />,
-    text: "Social Media",
-    allowedRoles: ["agency", "agencyStaff", "user"],
-     children: [
-      { text: "Instagram", path: "/landing/blogs" },
-      { text: "Facebook", path: "/landing/policy" },
-      { text: "YouTube", path: "/landing/terms" },
-      { text: "Twitter / X", path: "/landing/contact" },
-      { text: "Etc", path: "/landing/etc" },
-     ],
-    status:"balance"
-  },
-  {
-    path: "/sms", ////shift this to navbar
-    icon: <MessageSquare size={20} />,
-    text: "SMS Marketing",
-    allowedRoles: ["agency", "agencyStaff", "user"],
-    status:"balance"
-  },
-  {
-    path: "/whatsapp", ////shift this to navbar
-    icon: <MessageSquare size={20} />,
-    text: "WhatsApp Messaging",
-    allowedRoles: ["agency", "agencyStaff", "user"],
-    status:"balance"
-  },
-  {
-    path: "/ai-content", ////shift this to navbar
-    icon: <BookOpen size={20} />,
-    text: "AI Content Generation",
-    allowedRoles: ["agency", "agencyStaff", "user"],
-    status:"balance"
-  },
+  // {
+  //   path: "/email-marketing", ////shift this to navbar
+  //   icon: <Mail size={20} />,
+  //   text: "Email Marketing",
+  //   allowedRoles: ["agency", "agencyStaff", "user"],
+  //   status:"balance"
+  // },
+  // {
+  //   path: "/social media", ////shift this to navbar
+  //   icon: <ClipboardCheck size={20} />,
+  //   text: "Social Media",
+  //   allowedRoles: ["agency", "agencyStaff", "user"],
+  //    children: [
+  //     { text: "Instagram", path: "/landing/blogs" },
+  //     { text: "Facebook", path: "/landing/policy" },
+  //     { text: "YouTube", path: "/landing/terms" },
+  //     { text: "Twitter / X", path: "/landing/contact" },
+  //     { text: "Etc", path: "/landing/etc" },
+  //    ],
+  //   status:"balance"
+  // },
+  // {
+  //   path: "/sms", ////shift this to navbar
+  //   icon: <MessageSquare size={20} />,
+  //   text: "SMS Marketing",
+  //   allowedRoles: ["agency", "agencyStaff", "user"],
+  //   status:"balance"
+  // },
+  // {
+  //   path: "/whatsapp", ////shift this to navbar
+  //   icon: <MessageSquare size={20} />,
+  //   text: "WhatsApp Messaging",
+  //   allowedRoles: ["agency", "agencyStaff", "user"],
+  //   status:"balance"
+  // },
+  // {
+  //   path: "/ai-content", ////shift this to navbar
+  //   icon: <BookOpen size={20} />,
+  //   text: "AI Content Generation",
+  //   allowedRoles: ["agency", "agencyStaff", "user"],
+  //   status:"balance"
+  // },
   {
     path: "/staff",
     icon: <Users size={20} />,
@@ -262,11 +262,11 @@ export const sidebarConfig: SidebarItemConfig[] = [
     allowedRoles: ["user"],
     status:"balance"
   },
-  {
-    path: "/campaigns", ////shift this to navbar
-    icon: <ClipboardCheck size={20} />,
-    text: "Campaign & Content Control",
-    allowedRoles: ["user"],
-    status:"balance"
-  },
+  // {
+  //   path: "/campaigns", ////shift this to navbar
+  //   icon: <ClipboardCheck size={20} />,
+  //   text: "Campaign & Content Control",
+  //   allowedRoles: ["user"],
+  //   status:"balance"
+  // },
 ];
