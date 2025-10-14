@@ -1,7 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-
 import Footer from "@/component/Layout/Footer/Footer";
-
 import { EyeIcon, EyeSlashIcon } from "@/assets/Icons/index";
 import { useMutation } from "@tanstack/react-query";
 import authService from "@/services/authService";
@@ -10,6 +8,7 @@ import type { UserApiResponseType } from "@/schemas/user/userSchema";
 import { setUser } from "@/store/slice/authSlice";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { useNavigate } from "react-router-dom";
+import Header from "../Header/Header";
 
 const Login = () => {
   const dispatch = useAppDispatch();
@@ -21,16 +20,16 @@ const Login = () => {
     "signIn" | "signUp" | "forgotPassword"
   >("signIn");
   const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(true);
 
   const loginMutation = useMutation({
     mutationFn: async (newEntryData: { email: string; password: string }) => {
       return authService.login(newEntryData);
     },
     onSuccess: (res: UserApiResponseType) => {
+      console.log(res);
       successToast("Login successful");
       dispatch(setUser(res.data.user));
-      navigate("/", { replace: true });
+      //navigate("/dashboard", { replace: true });
     },
     onError: (err) => {
       errorToast(err || "Failed to create cheque register entry.");
@@ -39,15 +38,13 @@ const Login = () => {
 
   useEffect(() => {
     if (user) {
-      navigate("/", { replace: true });
+      navigate("/dashboard", { replace: true });
     }
-    setLoading(false);
   }, [user, navigate]);
 
   const handleFormSubmit = useCallback(
     (e: React.FormEvent) => {
       e.preventDefault();
-      // alert(`Submitting ${formState} form...`);
       if (formState === "signIn") {
         const email = (e.target as any).email.value;
         const password = (e.target as any).password.value;
@@ -61,9 +58,8 @@ const Login = () => {
     if (formState === "forgotPassword") {
       return (
         <>
-          {/* Forgot Password Form */}
           <div className="text-center">
-            <h1 className="text-3xl font-bold text-gray-900">Reset Password</h1>
+            <h1 className="text-3xl font-bold text-gray-800">Reset Password</h1>
             <p className="mt-2 text-sm text-gray-600">
               Enter your email to receive a reset link
             </p>
@@ -82,12 +78,12 @@ const Login = () => {
                 type="email"
                 required
                 placeholder="Enter your email"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-purple-500 focus:border-purple-500 transition duration-300"
               />
             </div>
             <button
               type="submit"
-              className="w-full px-4 py-3 font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700"
+              className="w-full px-4 py-3 font-semibold text-white bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg hover:from-purple-600 hover:to-pink-600 transition duration-300 transform hover:scale-105"
             >
               Send Reset Link
             </button>
@@ -95,7 +91,7 @@ const Login = () => {
               <button
                 type="button"
                 onClick={() => setFormState("signIn")}
-                className="text-sm text-blue-600 hover:underline"
+                className="text-sm text-purple-600 hover:underline transition duration-300"
               >
                 Back to Sign In
               </button>
@@ -107,41 +103,40 @@ const Login = () => {
 
     return (
       <>
-        {/* Header */}
         <div className="text-center">
-          <h1 className="text-3xl font-bold text-gray-900">Welcome</h1>
-          <p className="mt-2 text-sm text-gray-600">
+          <h1 className="text-2xl font-extrabold text-gray-900 drop-shadow-md">
+            Welcome!
+          </h1>
+          <p className="mt-3 text-md text-gray-700">
             {formState === "signIn"
               ? "Sign in to your account"
               : "Create a new account"}
           </p>
         </div>
 
-        {/* Toggle */}
-        <div className="flex p-1 bg-gray-100 rounded-full">
+        <div className="flex p-1 bg-gray-100 rounded-full shadow-inner">
           <button
             onClick={() => setFormState("signIn")}
-            className={`w-1/2 py-2.5 text-sm font-medium rounded-full transition-all duration-300 ${
+            className={`flex-1 py-2.5 text-md font-medium rounded-full transition-all duration-300 transform ${
               formState === "signIn"
-                ? "bg-white shadow text-gray-900"
-                : "text-gray-500 hover:text-gray-700"
+                ? "bg-white shadow-md text-gray-900 scale-105"
+                : "text-gray-500 hover:text-gray-700 hover:bg-gray-50"
             }`}
           >
             Sign In
           </button>
           <button
             onClick={() => setFormState("signUp")}
-            className={`w-1/2 py-2.5 text-sm font-medium rounded-full transition-all duration-300 ${
+            className={`flex-1 py-2.5 text-md font-medium rounded-full transition-all duration-300 transform ${
               formState === "signUp"
-                ? "bg-white shadow text-gray-900"
-                : "text-gray-500 hover:text-gray-700"
+                ? "bg-white shadow-md text-gray-900 scale-105"
+                : "text-gray-500 hover:text-gray-700 hover:bg-gray-50"
             }`}
           >
             Sign Up
           </button>
         </div>
 
-        {/* Form */}
         <form className="space-y-6" onSubmit={handleFormSubmit}>
           {formState === "signUp" && (
             <div>
@@ -157,7 +152,7 @@ const Login = () => {
                 type="text"
                 required
                 placeholder="Enter your full name"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-purple-500 focus:border-purple-500 transition duration-300"
               />
             </div>
           )}
@@ -174,7 +169,7 @@ const Login = () => {
               type="email"
               required
               placeholder="Enter your email"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-purple-500 focus:border-purple-500 transition duration-300"
             />
           </div>
           <div>
@@ -191,12 +186,12 @@ const Login = () => {
                 type={showPassword ? "text" : "password"}
                 required
                 placeholder="Enter your password"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-purple-500 focus:border-purple-500 transition duration-300 pr-10"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute inset-y-0 right-0 flex items-center px-3 text-gray-400 hover:text-gray-600"
+                className="absolute inset-y-0 right-0 flex items-center px-3 text-gray-400 hover:text-gray-600 transition duration-300"
               >
                 {showPassword ? (
                   <EyeSlashIcon className="w-5 h-5" />
@@ -220,7 +215,7 @@ const Login = () => {
                 type="password"
                 required
                 placeholder="Confirm your password"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-purple-500 focus:border-purple-500 transition duration-300"
               />
             </div>
           )}
@@ -229,7 +224,7 @@ const Login = () => {
               <button
                 type="button"
                 onClick={() => setFormState("forgotPassword")}
-                className="text-sm text-blue-600 hover:underline"
+                className="text-sm text-purple-600 hover:underline transition duration-300"
               >
                 Forgot password?
               </button>
@@ -238,11 +233,11 @@ const Login = () => {
           <button
             type="submit"
             disabled={loginMutation.isPending}
-            className="w-full cursor-pointer px-4 py-3 font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700"
+            className="w-full cursor-pointer px-4 py-3 font-semibold text-white bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg hover:from-purple-600 hover:to-pink-600 transition duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {formState === "signIn"
               ? loginMutation.isPending
-                ? "Signing In.."
+                ? "Signing In..."
                 : "Sign In"
               : "Sign Up"}
           </button>
@@ -251,27 +246,52 @@ const Login = () => {
     );
   };
 
-  if (loading || user) {
-    return (
-      <div
-        className="flex items-center justify-center min-h-screen bg-gray-100
-    "
-      >
-        <div className="text-center">
-          <h1 className="text-3xl font-bold text-gray-900">Loading...</h1>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <>
-      <div className="flex items-center justify-center min-h-screen bg-gray-100">
-        <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-xl shadow-lg">
-          {renderFormContent()}
+      <Header />
+      <div className="flex flex-col min-h-screen bg-gradient-to-br from-gray-100 to-gray-200">
+        {/* Centered login card */}
+        <div className="flex flex-1 items-center justify-center m-8">
+          <div className="flex w-full max-w-4xl h-[572px] bg-white rounded-3xl shadow-2xl overflow-hidden animate-fade-in-up">
+            {/* Left Side - Image with Text Overlay */}
+            <div className="hidden md:flex flex-1 relative overflow-hidden">
+              <img
+                src="/test6.jpg"
+                alt="Login Illustration"
+                className="w-full h-full object-cover"
+              />
+
+              {/* Gradient overlay */}
+              <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-white via-white/50 to-transparent"></div>
+
+              {/* Text overlay */}
+              <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
+                <h2 className="text-3xl font-bold text-gray-900 drop-shadow-lg">
+                  <span>
+                    Grow Your Business with Smarter Digital Marketing{" "}
+                  </span>
+                </h2>
+                <p className="text-lg text-gray-700 mt-3 max-w-md">
+                  We help brands increase visibility, generate qualified leads,
+                  and boost conversions with data-driven digital marketing
+                  strategies tailored to your business goals.
+                </p>
+              </div>
+            </div>
+
+            {/* Right Side - Form */}
+            <div className="w-full md:w-1/2 p-8 md:p-12 space-y-8 flex flex-col justify-center relative z-10 bg-white">
+              <div className="absolute inset-0 z-0 opacity-10">
+                {/* SVG Background */}
+              </div>
+              <div className="relative z-10">{renderFormContent()}</div>
+            </div>
+          </div>
         </div>
+
+        {/* Footer always at bottom */}
+        <Footer />
       </div>
-      <Footer />
     </>
   );
 };

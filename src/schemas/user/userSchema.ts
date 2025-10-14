@@ -4,7 +4,8 @@ import { createApiResponseSchema } from "../common/schema";
 // --- Schemas (runtime validation) ---
 export const UserSchema = z.object({
   _id: z.string(),
-  userName: z.string(),
+  firstName: z.string(),
+  lastName:z.string(),
   email: z.string().email(),
   role: z.string(),
 });
