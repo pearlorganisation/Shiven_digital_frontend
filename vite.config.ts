@@ -14,4 +14,14 @@ export default defineConfig({
       "@": path.resolve(__dirname, "src"),
     },
   },
+  server: {
+    host: true, // allows access from LAN or domain
+    allowedHosts: [
+    "www.chicku.info",
+    "chicku.info",
+      "chicku.in",     
+      "www.chicku.in",  
+    ],
+    port: 5173, // optional (default Vite port)
+  },
 });
