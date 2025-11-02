@@ -43,7 +43,7 @@ const Home = () => {
       >
          This page is part of our new landing experience, which is currently under development.  
         We’re actively working to bring you polished and engaging designs soon.  
-        Meanwhile, you can continue to the main app. this is for testing purpose.ci cd pipeline bania hainmaine 
+        Meanwhile, you can continue to the main app.
       </p>
 
       {/* Call-to-Action Button */}
