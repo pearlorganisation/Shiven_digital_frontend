@@ -31,7 +31,8 @@ const Home = () => {
           mb-6 tracking-tight
         "
       >
-        Something <span className="text-indigo-600">Awesome</span> is Coming Soon
+        Something <span className="text-indigo-600">Awesome</span> is Coming
+        Soon
       </h1>
 
       {/* Descriptive Subtitle */}
@@ -41,9 +42,9 @@ const Home = () => {
           max-w-2xl mx-auto mb-12 leading-relaxed
         "
       >
-         This page is part of our new landing experience, which is currently under development.  
-        We’re actively working to bring you polished and engaging designs soon.  
-        Meanwhile, you can continue to the main app.
+        This page is part of our new landing experience, which is currently
+        under development. We’re actively working to bring you polished and
+        engaging designs soon. Meanwhile, you can continue to the main app.
       </p>
 
       {/* Call-to-Action Button */}
@@ -68,7 +69,33 @@ const Home = () => {
 
       {/* Footer Section */}
       <footer className="absolute bottom-8 text-gray-500 text-sm md:text-base">
-        © {new Date().getFullYear()} <span className="font-semibold text-indigo-600">Chicku</span>. All rights reserved.
+        {(() => {
+          const currentDomain = window.location.hostname;
+          const siteName = currentDomain.includes("chicku.in")
+            ? "chicku.in"
+            : "chicku.info";
+          return (
+            <>
+              © {new Date().getFullYear()}{" "}
+              <a
+                href={`https://${siteName}/`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {siteName}
+              </a>{" "}
+              All rights reserved. Powered By{" "}
+              <a
+                className="text-blue-800"
+                href="https://www.pearlorganisation.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Pearl Organisation
+              </a>
+            </>
+          );
+        })()}
       </footer>
     </div>
   );
