@@ -163,9 +163,7 @@ const Footer: React.FC = () => {
           <footer className="text-gray-500 text-sm md:text-base text-center">
             {(() => {
               const currentDomain = window.location.hostname;
-              const siteName = currentDomain.includes("chicku.in")
-                ? "chicku.in"
-                : "chicku.info";
+              const siteName = currentDomain === "chicku.in" ? "chicku.in" : "chicku.info";
               return (
                 <>
                   © {new Date().getFullYear()}{" "}

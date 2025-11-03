@@ -71,9 +71,7 @@ const Home = () => {
       <footer className="absolute bottom-8 text-gray-500 text-sm md:text-base">
         {(() => {
           const currentDomain = window.location.hostname;
-          const siteName = currentDomain.includes("chicku.in")
-            ? "chicku.in"
-            : "chicku.info";
+         const siteName = currentDomain === "chicku.in" ? "chicku.in" : "chicku.info";
           return (
             <>
               © {new Date().getFullYear()}{" "}
