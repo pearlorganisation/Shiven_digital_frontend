@@ -1,3 +1,4 @@
+
 name: 🚀 Deploy Frontend to VPS
 
 on:
@@ -16,7 +17,7 @@ jobs:
       - name: 📡 Deploy to VPS via SSH
         uses: appleboy/ssh-action@v1.0.0
         with:
-          host: ${{ secrets.SERVER_HOST }}
+          host: 162.241.87.129
           username: root
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
