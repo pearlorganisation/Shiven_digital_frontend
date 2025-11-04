@@ -22,7 +22,3 @@ jobs:
           script: |
             echo "✅ Starting deploy script on VPS..."
             bash /home/chiku/deploy_frontend.sh
-
-
-
-
