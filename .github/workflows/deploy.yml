@@ -20,5 +20,26 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            echo "✅ Starting deploy script on VPS..."
-            bash /home/chiku/deploy_frontend.sh
+            echo "🚀 Starting frontend deploy script on VPS..."
+
+            # Load NVM so Node, npm, and PM2 are available
+            export NVM_DIR="/root/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+            # Navigate to frontend directory
+            cd /home/chiku/Shiven_digital_frontend || exit
+
+            echo "🔁 Pulling latest frontend changes..."
+            git pull origin master
+
+            echo "📦 Installing dependencies..."
+            npm ci
+
+            echo "🏗️ Building frontend..."
+            npm run build
+
+            echo "🚀 Restarting PM2 service..."
+            pm2 restart 1
+
+            echo "✅ Frontend deployed successfully!"
