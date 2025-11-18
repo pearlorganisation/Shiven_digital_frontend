@@ -6,7 +6,7 @@ export const createApiResponseSchema = <T extends z.ZodTypeAny>(dataSchema: T) =
     statusCode: z.number(),
     message: z.string(),
     success: z.boolean(),
-    data: dataSchema,
+    data: dataSchema.nullable(),
   });
 
 
@@ -14,11 +14,11 @@ export const createApiResponseSchema = <T extends z.ZodTypeAny>(dataSchema: T) =
 
 
 
-//this thing is serate
+//this thing is seprate
   // 🔹 For responses with unknown/empty data
 const unknownDataSchema = z.unknown();
 
 export const EmptyApiResponseSchema = createApiResponseSchema(unknownDataSchema); // this is to validate the api response
 
 // --- Types ---
-export type EmptyApiResponse = z.infer<typeof EmptyApiResponseSchema>; //this is type for safety typing
+export type EmptyApiResponseType = z.infer<typeof EmptyApiResponseSchema>; //this is type for safety typing

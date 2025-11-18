@@ -7,8 +7,7 @@ export const errorToast = (message: any) => {
   if (message instanceof ZodError) {
     errorMessage = "Data validation Error";
   } else {
-    errorMessage =
-      typeof message === "string" ? message : "Something went wrong";
+    errorMessage = typeof message === "string" ? message : "Something went wrong";
 
     if (typeof message !== "string") {
       if (typeof message?.response?.data?.message === "string") {

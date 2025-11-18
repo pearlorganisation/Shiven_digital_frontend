@@ -22,6 +22,7 @@ import {
   Home
 } from "@/pages/landing/index"
 
+
 import LayoutFallback from "@/component/Fallback/LayoutFallback";
 import NotFound from "@/component/Fallback/NotFound";
 import { Toaster } from "sonner";

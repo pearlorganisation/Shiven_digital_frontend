@@ -5,7 +5,7 @@ import {
 import instance from "../lib/apiClient";
 import {
   EmptyApiResponseSchema,
-  type EmptyApiResponse,
+  type EmptyApiResponseType,
 } from "@/schemas/common/schema";
 
 class AuthService {
@@ -17,8 +17,6 @@ class AuthService {
     try {
       const { data } = await instance.post(`/auth/login`, payload);
 
-      // ✅ Validate response with Zod
-      console.log("Login response data:", data);
       return UserApiResponseSchema.parse(data);
     } catch (error) {
       console.error("Login failed:", error);
@@ -26,8 +24,35 @@ class AuthService {
     }
   }
 
+  async register(payload: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+    role: string;
+  }): Promise<EmptyApiResponseType> {
+    try {
+      const { data } = await instance.post(`/auth/register`, payload);
+      return EmptyApiResponseSchema.parse(data);
+    } catch (err) {
+      console.error("Register failed:", err);
+      throw err;
+    }
+  }
+
+  // --- Forgot Password ---
+  async forgotPassword(payload: { email: string }): Promise<EmptyApiResponseType> {
+    try {
+      const { data } = await instance.post(`/auth/forgot-password`, payload);
+      return EmptyApiResponseSchema.parse(data);
+    } catch (err) {
+      console.error("Forgot password failed:", err);
+      throw err;
+    }
+  }
+
   // --- Logout ---
-  async logout(): Promise<EmptyApiResponse> {
+  async logout(): Promise<EmptyApiResponseType> {
     try {
       const { data } = await instance.post(`/auth/logout`);
 
