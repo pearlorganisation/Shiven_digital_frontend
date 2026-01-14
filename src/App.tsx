@@ -23,8 +23,8 @@ import {
 } from "@/pages/landing/index"
 
 
-import LayoutFallback from "@/component/Fallback/LayoutFallback";
-import NotFound from "@/component/Fallback/NotFound";
+import LayoutFallback from "@/components/Fallback/LayoutFallback";
+import NotFound from "@/components/Fallback/NotFound";
 import { Toaster } from "sonner";
 import { useAppSelector } from "./store/store";
 
@@ -32,7 +32,7 @@ function App() {
   const { user } = useAppSelector((state) => state.auth);
 
   const router = createBrowserRouter([
-    // ---------- Public Landing Pages ----------
+    
     {
       path: "/",
       children: [
@@ -42,7 +42,7 @@ function App() {
       ],
     },
 
-    // ---------- App (Protected Routes) ----------
+    
     {
       path: "/app",
       element: user ? (
@@ -66,7 +66,7 @@ function App() {
       ],
     },
 
-    // ---------- App Login (Public) ----------
+    
     {
       path: "/app/login",
       element: (

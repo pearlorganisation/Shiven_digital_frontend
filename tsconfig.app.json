@@ -8,9 +8,9 @@
     "skipLibCheck": true,
 
     /* Aliases */
-    "baseUrl": ".",
+    // "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["./src/*"]
     },
 
     /* Bundler mode */

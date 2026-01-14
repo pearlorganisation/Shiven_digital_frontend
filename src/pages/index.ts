@@ -1,6 +1,6 @@
 import { lazy } from "react";
 
-const Layout = lazy(() => import("@/component/Layout/Layout"));
+const Layout = lazy(() => import("@/components/Layout/Layout"));
 const Login = lazy(() => import("./Auth/Login"));
 const Dashboard = lazy(() => import("./Dashboard/Dashboard"));
 const Brand = lazy(() => import("./Brand/Brand"));
