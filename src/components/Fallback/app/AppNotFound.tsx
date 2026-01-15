@@ -2,7 +2,7 @@
 import { useNavigate } from "react-router-dom";
 import { Home, SearchX, Rocket } from "lucide-react";
 
-const NotFoundPage = () => {
+const AppNotFoundPage = () => {
   const navigate = useNavigate();
 
   return (
@@ -26,7 +26,7 @@ const NotFoundPage = () => {
       {/* CTA Buttons */}
       <div className="flex gap-4">
         <button
-          onClick={() => navigate("/")}
+          onClick={() => navigate("/app")}
           className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-3 rounded-xl shadow-lg transition-all"
         >
           <Home size={20} /> Back to Home
@@ -45,4 +45,4 @@ const NotFoundPage = () => {
   );
 };
 
-export default NotFoundPage;
+export default AppNotFoundPage;

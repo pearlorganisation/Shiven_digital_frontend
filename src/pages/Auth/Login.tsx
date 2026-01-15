@@ -1,7 +1,7 @@
 
 
 import React, { useCallback, useEffect, useState } from "react";
-import Footer from "@/component/Layout/Footer/Footer";
+import Footer from "@/components/Layout/Footer/Footer"; 
 import { EyeIcon, EyeSlashIcon } from "@/assets/Icons/index";
 import { useMutation } from "@tanstack/react-query";
 import authService from "@/services/authService";
@@ -11,7 +11,7 @@ import { setUser } from "@/store/slice/authSlice";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { useNavigate } from "react-router-dom";
 import Header from "../app/Header/Header";
-import { MessageModal } from "@/component/Common/index";
+import { MessageModal } from "@/components/Common"; 
 import type { EmptyApiResponseType } from "@/schemas/common/schema";
 
 const Login = () => {

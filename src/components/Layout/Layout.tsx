@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom";
 
 import Sidebar from "../../layouts/AppLayout/Sidebar/Sidebar";
 import Header from "../../layouts/AppLayout/Header/Header";
-import FallbackPage from "../Fallback/FallbackPage";
+import FallbackPage from "../Fallback/app/AppFallbackPage";
 
 const Layout = () => {
   const isSidebarOpen = useSelector(

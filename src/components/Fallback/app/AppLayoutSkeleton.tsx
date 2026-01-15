@@ -1,7 +1,7 @@
-// src/components/Skeleton/SkeletonLayout.tsx
 
 
-const SkeletonLayout = () => {
+
+const AppLayoutSkeleton = () => {
   return (
     <div className="w-full min-h-screen bg-white">
       {/* --- Skeleton Header --- */}
@@ -64,4 +64,4 @@ const SkeletonLayout = () => {
   );
 };
 
-export default SkeletonLayout;
+export default AppLayoutSkeleton;

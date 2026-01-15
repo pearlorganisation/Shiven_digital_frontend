@@ -4,9 +4,9 @@ import { Outlet } from "react-router-dom";
 
 import Sidebar from "./Sidebar/Sidebar";
 import Header from "./Header/Header";
-import FallbackPage from "@/components/Fallback/FallbackPage"; 
+import FallbackPage from "@/components/Fallback/app/AppFallbackPage"; 
 
-const Layout = () => {
+const AppLayout = () => {
   const isSidebarOpen = useSelector(
     (state: any) => state.globalData.isSidebarOpen
   );
@@ -36,4 +36,4 @@ const Layout = () => {
   );
 };
 
-export default Layout;
+export default AppLayout;

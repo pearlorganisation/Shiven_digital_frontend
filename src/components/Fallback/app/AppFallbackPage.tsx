@@ -1,4 +1,4 @@
-const FallbackPage = () => {
+const AppFallbackPage = () => {
   return (
     <div className="w-full sm:ps-48 border h-screen flex justify-center items-center">
       <div className="flex flex-col items-center">
@@ -18,4 +18,4 @@ const FallbackPage = () => {
   );
 };
 
-export default FallbackPage;
+export default AppFallbackPage;
