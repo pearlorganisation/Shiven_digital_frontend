@@ -1,7 +1,6 @@
 import { lazy } from "react";
 
 const Layout = lazy(() => import("@/components/Layout/Layout"));
-const Login = lazy(() => import("./Auth/Login"));
 const Dashboard = lazy(() => import("./Dashboard/Dashboard"));
 const Brand = lazy(() => import("./Brand/Brand"));
 const FilesFolder = lazy(()=> import("./FilesFolder/FilesFolder"))
@@ -12,4 +11,4 @@ const SpaceManager = lazy(()=> import("./SpaceMange/SpaceM"))
 const CouponManager = lazy(()=> import("./Coupoun/Coupoun"))
 
 
-export { Layout, Login, Dashboard, Brand , FilesFolder , Announcements ,StaffManagement ,Plans ,SpaceManager,CouponManager};
+export { Layout, Dashboard, Brand , FilesFolder , Announcements ,StaffManagement ,Plans ,SpaceManager,CouponManager};

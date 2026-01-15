@@ -2,9 +2,9 @@ import { Suspense } from "react";
 import { useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
 
-import Sidebar from "../../layouts/AppLayout/Sidebar/Sidebar";
-import Header from "../../layouts/AppLayout/Header/Header";
-import FallbackPage from "../Fallback/FallbackPage";
+import Sidebar from "./Sidebar/Sidebar";
+import Header from "./Header/Header";
+import FallbackPage from "@/components/Fallback/FallbackPage"; 
 
 const Layout = () => {
   const isSidebarOpen = useSelector(

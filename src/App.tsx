@@ -15,12 +15,12 @@ import {
   Plans,
   SpaceManager,
   CouponManager,
-} from "@/pages/index";
+} from "@/pages/app/index";
 
 
 import {
   Home
-} from "@/pages/landing/index"
+} from "@/pages/public/index"
 
 
 import LayoutFallback from "@/components/Fallback/LayoutFallback";
