@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom";
 
 import Sidebar from "./Sidebar/Sidebar";
 import Header from "./Header/Header";
-import FallbackPage from "@/components/Fallback/app/AppFallbackPage"; 
+import AppFallbackPage from "@/components/Fallback/app/AppFallbackPage"; 
 
 const AppLayout = () => {
   const isSidebarOpen = useSelector(
@@ -27,7 +27,7 @@ const AppLayout = () => {
         </header>
 
         <main className="flex-1 overflow-y-auto  p-2">
-          <Suspense fallback={<FallbackPage />}>
+          <Suspense fallback={<AppFallbackPage />}>
             <Outlet />
           </Suspense>
         </main>

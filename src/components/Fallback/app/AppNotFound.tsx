@@ -1,4 +1,3 @@
-
 import { useNavigate } from "react-router-dom";
 import { Home, SearchX, Rocket } from "lucide-react";
 
@@ -19,8 +18,8 @@ const AppNotFoundPage = () => {
 
       {/* Subtext */}
       <p className="text-lg text-gray-600 mb-6 max-w-xl">
-        Oops! Looks like the page you’re searching for has gone missing.  
-        Don’t worry — our digital tools are here to get you back on track.
+        Oops! Looks like the page you’re searching for has gone missing. Don’t
+        worry — our digital tools are here to get you back on track.
       </p>
 
       {/* CTA Buttons */}
@@ -32,15 +31,10 @@ const AppNotFoundPage = () => {
           <Home size={20} /> Back to Home
         </button>
 
-        <button
-          className="flex items-center gap-2 border border-indigo-600 text-indigo-600 hover:bg-indigo-50 font-semibold px-6 py-3 rounded-xl transition-all"
-        >
+        <button className="flex items-center gap-2 border border-indigo-600 text-indigo-600 hover:bg-indigo-50 font-semibold px-6 py-3 rounded-xl transition-all">
           Explore Features <Rocket size={20} />
         </button>
       </div>
-
-      
-      
     </div>
   );
 };

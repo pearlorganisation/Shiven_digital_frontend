@@ -40,7 +40,7 @@ const Navbar: React.FC = () => {
         <div className="flex items-center gap-3">
           {/* Login / CTA Button (Styled like "Get Started") */}
           <Link
-            to="/login"
+            to="/auth/login"
             className="group relative hidden md:flex items-center gap-2 overflow-hidden rounded-full bg-orange-600 px-6 py-2.5 text-sm font-semibold text-white transition-all hover:bg-orange-500 active:scale-95"
           >
             <span>Login</span>

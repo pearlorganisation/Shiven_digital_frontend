@@ -1,7 +1,6 @@
 
 
 import React, { useCallback, useEffect, useState } from "react";
-import Footer from "@/components/Layout/Footer/Footer"; 
 import { EyeIcon, EyeSlashIcon } from "@/assets/Icons/index";
 import { useMutation } from "@tanstack/react-query";
 import authService from "@/services/authService";
@@ -10,7 +9,6 @@ import type { UserApiResponseType } from "@/schemas/user/userSchema";
 import { setUser } from "@/store/slice/authSlice";
 import { useAppDispatch, useAppSelector } from "@/store/store";
 import { useNavigate } from "react-router-dom";
-import Header from "../app/Header/Header";
 import { MessageModal } from "@/components/Common"; 
 import type { EmptyApiResponseType } from "@/schemas/common/schema";
 
@@ -331,7 +329,6 @@ const Login = () => {
   };
   return (
     <>
-      <Header />
       <div className="flex flex-col min-h-screen bg-gray-50">
         <main className="flex-grow flex items-center justify-center p-4">
           <div className="w-full max-w-4xl mx-auto grid md:grid-cols-2 bg-white rounded-2xl shadow-xl overflow-hidden">
@@ -359,7 +356,7 @@ const Login = () => {
             </div>
           </div>
         </main>
-        <Footer />
+      
         <MessageModal
           isOpen={modalOpen}
           onClose={() => setModalOpen(false)}
@@ -372,3 +369,167 @@ const Login = () => {
 };
 
 export default Login;
+
+
+// import React from "react";
+// import { motion } from "framer-motion";
+
+// const AuthBackground = ({ children }) => {
+//   return (
+//     <div className="relative w-full min-h-screen bg-light-texture flex overflow-hidden font-sans text-gray-800">
+      
+//       {/* ==============================================
+//           LEFT SIDE: The Creative Marketing Animation 
+//          ============================================== */}
+//       <div className="relative hidden lg:block w-1/2 overflow-hidden">
+        
+//         {/* Soft animated gradient orbs */}
+//         <div className="absolute -top-32 -left-32 w-[700px] h-[700px] bg-gradient-to-br from-blue-200/40 to-purple-300/30 rounded-full blur-3xl animate-pulse-slow mix-blend-multiply" />
+//         <div
+//           className="absolute -bottom-52 -right-52 w-[900px] h-[900px] bg-gradient-to-tl from-pink-200/40 to-cyan-200/30 rounded-full blur-3xl animate-pulse-slow mix-blend-multiply"
+//           style={{ animationDelay: "4s" }}
+//         />
+//         <div
+//           className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-gradient-to-r from-indigo-200/30 to-teal-200/20 rounded-full blur-2xl animate-pulse-slow mix-blend-multiply"
+//           style={{ animationDelay: "8s" }}
+//         />
+
+//         {/* Main orthogonal grid */}
+//         <div
+//           className="absolute inset-0 opacity-[0.3]"
+//           style={{
+//             backgroundImage: `
+//               linear-gradient(to right, rgba(99, 102, 241, 0.2) 1px, transparent 1px),
+//               linear-gradient(to bottom, rgba(99, 102, 241, 0.2) 1px, transparent 1px)
+//             `,
+//             backgroundSize: "90px 90px",
+//           }}
+//         />
+
+//         {/* Diagonal overlay grid */}
+//         <div
+//           className="absolute inset-0 opacity-[0.15]"
+//           style={{
+//             backgroundImage: `
+//               linear-gradient(45deg, rgba(139, 92, 246, 0.3) 1px, transparent 1px),
+//               linear-gradient(-45deg, rgba(139, 92, 246, 0.3) 1px, transparent 1px)
+//             `,
+//             backgroundSize: "110px 110px",
+//           }}
+//         />
+
+//         {/* --- Floating Elements Container --- */}
+//         <div className="absolute inset-0 z-10 pointer-events-none">
+          
+//           {/* Badge 1: Campaign Performance */}
+//           <motion.div
+//             className="absolute top-[20%] left-[10%] bg-white/70 backdrop-blur-xl border border-indigo-200 rounded-2xl px-6 py-4 shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
+//             initial={{ y: 25, opacity: 0 }}
+//             animate={{ y: 0, opacity: 1 }}
+//             transition={{ duration: 1.1, delay: 0.3 }}
+//           >
+//             <div className="flex items-center gap-3">
+//               <div className="h-8 w-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600">
+//                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+//               </div>
+//               <div>
+//                  <p className="text-sm font-bold text-gray-800">Campaign Stats</p>
+//                  <p className="text-xs text-indigo-600 font-medium">+2.5K impressions</p>
+//               </div>
+//             </div>
+//           </motion.div>
+
+//           {/* Badge 2: Social Reach */}
+//           <motion.div
+//             className="absolute bottom-[25%] right-[15%] bg-white/70 backdrop-blur-xl border border-pink-200 rounded-2xl px-6 py-4 shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
+//             initial={{ y: -25, opacity: 0 }}
+//             animate={{ y: 0, opacity: 1 }}
+//             transition={{ duration: 1.1, delay: 0.7 }}
+//           >
+//              <div className="flex items-center gap-3">
+//               <div className="h-8 w-8 rounded-full bg-pink-100 flex items-center justify-center text-pink-600">
+//                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" x2="23" y1="8" y2="11"/><line x1="23" x2="20" y1="8" y2="11"/></svg>
+//               </div>
+//               <div>
+//                 <p className="text-sm font-bold text-gray-800">Social Reach</p>
+//                 <p className="text-xs text-pink-600 font-medium">8.2K new followers</p>
+//               </div>
+//             </div>
+//           </motion.div>
+
+//           {/* Badge 3: Engagement */}
+//           <motion.div
+//             className="absolute top-[45%] right-[10%] bg-white/60 backdrop-blur-lg border border-purple-200 rounded-xl px-5 py-3 shadow-sm"
+//             initial={{ x: 35, opacity: 0 }}
+//             animate={{ x: 0, opacity: 1 }}
+//             transition={{ duration: 1.3, delay: 1.1 }}
+//           >
+//             <p className="text-xs font-semibold text-purple-800">Engagement Rate ↑</p>
+//             <p className="text-lg font-black text-gray-800">12.4%</p>
+//           </motion.div>
+
+//           {/* Floating Arrows */}
+//           <motion.div
+//             className="absolute top-[28%] left-[25%] text-6xl text-indigo-400/20"
+//             animate={{ y: [0, -14, 0], rotate: [0, 4, -4, 0] }}
+//             transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+//           >
+//             ↗
+//           </motion.div>
+
+//           <motion.div
+//             className="absolute bottom-[35%] right-[28%] text-7xl text-pink-400/20"
+//             animate={{ y: [0, 16, 0], rotate: [0, -5, 5, 0] }}
+//             transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 5 }}
+//           >
+//             ↑
+//           </motion.div>
+
+//           {/* Decorative Lines */}
+//           <motion.div
+//             className="absolute top-[15%] right-[8%] w-28 h-[3px] bg-gradient-to-r from-blue-400/20 to-transparent rounded-full"
+//             animate={{ x: [0, 12, 0] }}
+//             transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+//           />
+//           <motion.div
+//             className="absolute bottom-[20%] left-[5%] w-36 h-[2px] bg-gradient-to-r from-purple-400/20 to-transparent rounded-full"
+//             animate={{ x: [-12, 6, -12] }}
+//             transition={{ duration: 11, repeat: Infinity, ease: "easeInOut", delay: 3 }}
+//           />
+//         </div>
+
+//         {/* Text Area on Left */}
+//         <div className="absolute bottom-12 left-12 z-20">
+//             <h2 className="text-4xl font-black tracking-tight text-gray-900 mb-2">
+//               Power Your Business.
+//             </h2>
+//             <p className="text-lg text-gray-600 max-w-md">
+//               The all-in-one platform for campaigns, messaging, and growth.
+//             </p>
+//         </div>
+//       </div>
+
+//       {/* ==============================================
+//           RIGHT SIDE: The Login Form Container 
+//          ============================================== */}
+//       <div className="w-full lg:w-1/2 flex items-center justify-center relative z-30">
+        
+//         {/* Mobile Background: Only visible on small screens */}
+//         <div className="absolute inset-0 lg:hidden bg-light-texture">
+//            {/* Add a simplified orb for mobile atmosphere */}
+//            <div className="absolute top-0 right-0 w-64 h-64 bg-purple-300/20 blur-3xl rounded-full" />
+//         </div>
+
+//         {/* Form Card wrapper */}
+//         <div className="w-full max-w-[480px] px-6">
+//           <div className="bg-white/40 backdrop-blur-md border border-white/60 shadow-[0_8px_40px_rgba(0,0,0,0.05)] rounded-3xl p-8 lg:p-12 relative">
+//              {children}
+//           </div>
+//         </div>
+//       </div>
+
+//     </div>
+//   );
+// };
+
+// export default AuthBackground;

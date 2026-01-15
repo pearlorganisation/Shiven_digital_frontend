@@ -1,5 +1,3 @@
-
-
 import {
   createBrowserRouter,
   Navigate,
@@ -24,7 +22,7 @@ import {
   Plans,
   SpaceManager,
   CouponManager,
-  Billings
+  Billings,
 } from "@/pages/app";
 
 /* public pages */
@@ -35,7 +33,9 @@ import { Login } from "@/pages/auth";
 
 /* fallbacks */
 import AppLayoutSkeleton from "@/components/Fallback/app/AppLayoutSkeleton";
-import AppNotFound from "@/components/Fallback/app/AppNotFound";
+import AppNotFoundPage from "@/components/Fallback/app/AppNotFound";
+
+import PublicNotFoundPage from "@/components/Fallback/public/PublicNotFound";
 
 function App() {
   const { user } = useAppSelector((state) => state.auth);
@@ -45,7 +45,12 @@ function App() {
     {
       path: "/",
       element: <PublicLayout />,
-      children: [{ index: true, element: <Home /> }],
+      children: [
+        { index: true, element: <Home /> },
+        { path: "*", element: <PublicNotFoundPage /> },
+      
+      
+      ],
     },
 
     /* ================= AUTH ROUTES ================= */
@@ -57,6 +62,7 @@ function App() {
           path: "login",
           element: <Login />,
         },
+        { path: "*", element: <AppNotFoundPage /> },
       ],
     },
 
@@ -82,17 +88,13 @@ function App() {
         { path: "space", element: <SpaceManager /> },
         { path: "coupons", element: <CouponManager /> },
         { path: "staff", element: <StaffManagement /> },
-        {path:"billing",element:<Billings/>},
+        { path: "billing", element: <Billings /> },
 
-        { path: "*", element: <AppNotFound /> },
+        { path: "*", element: <AppNotFoundPage /> },
       ],
     },
 
-    /* ================= GLOBAL FALLBACK ================= */
-    {
-      path: "*",
-      element: <AppNotFound />,
-    },
+   
   ]);
 
   return (

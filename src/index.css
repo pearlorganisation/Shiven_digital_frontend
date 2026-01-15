@@ -1,14 +1,42 @@
 @import "tailwindcss";
 
-
+/* === UTILITIES === */
 .scrollbar-hidden::-webkit-scrollbar {
   display: none;
 }
-
 .scrollbar-hidden {
   -ms-overflow-style: none;  
   scrollbar-width: none;     
 }
 
+/* === BACKGROUND TEXTURE === */
+.bg-light-texture {
+  background-color: #f8f9ff; /* Fallback */
+  background-image:
+    /* Soft pastel base gradient */
+    linear-gradient(135deg, #f8f9ff 0%, #f0f4ff 40%, #f5f0ff 70%, #faf5ff 100%),
+    /* Very subtle grain/noise texture overlay */
+    radial-gradient(circle at 25% 25%, rgba(99, 102, 241, 0.03) 0%, transparent 10%),
+    radial-gradient(circle at 75% 75%, rgba(236, 72, 153, 0.03) 0%, transparent 12%),
+    radial-gradient(circle at 30% 70%, rgba(139, 92, 246, 0.025) 0%, transparent 8%),
+    /* Fine noise pattern */
+    repeating-radial-gradient(
+      circle at 0% 0%,
+      transparent 0%,
+      transparent 1px,
+      rgba(99, 102, 241, 0.015) 1.5px,
+      rgba(99, 102, 241, 0.015) 2px
+    );
+  background-size: 200% 200%, 100% 100%, 100% 100%, 4px 4px;
+  background-blend-mode: overlay, overlay, overlay, soft-light;
+}
 
+/* === ANIMATIONS === */
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.35; transform: scale(1); }
+  50% { opacity: 0.65; transform: scale(1.08); }
+}
 
+.animate-pulse-slow {
+  animation: pulse-slow 20s infinite ease-in-out;
+}
