@@ -1,100 +1,30 @@
-// src/pages/landing/Home.tsx
-import { useNavigate } from "react-router-dom";
-import { Wrench, ArrowRight, Sparkles } from "lucide-react";
+import React from "react";
+import Hero from "@/components/Landing/Hero";
+import Features from "@/components/Landing/Features";
+import TargetAudience from "@/components/Landing/TargetAudience";
+import FAQ from "@/components/Landing/FAQ";
+import WhyUs from "@/components/Landing/WhyUs";
+import Testimonials from "@/components/Landing/Testimonials";
 
-const Home = () => {
-  const navigate = useNavigate();
 
+const Home: React.FC = () => {
   return (
-    <div
-      className="
-        relative min-h-screen 
-        flex flex-col items-center justify-center 
-        bg-gradient-to-br from-indigo-100 via-white to-indigo-200
-        text-center p-8 overflow-hidden
-      "
-    >
-      {/* Soft Background Accent Circles */}
-      <div className="absolute top-20 left-10 w-40 h-40 bg-indigo-200 rounded-full blur-3xl opacity-30 animate-pulse" />
-      <div className="absolute bottom-20 right-10 w-60 h-60 bg-indigo-300 rounded-full blur-3xl opacity-20 animate-ping" />
-
-      {/* Animated Construction Icon */}
-      <div className="mb-10 transform transition-transform duration-500 hover:rotate-12">
-        <Wrench className="w-24 h-24 text-indigo-600 drop-shadow-md animate-bounce" />
+    <div className="min-h-screen bg-[#050505] text-white selection:bg-orange-500/30 overflow-x-hidden">
+      {/* Background Glows */}
+      <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-orange-600/10 blur-[120px]" />
+        <div className="absolute bottom-[10%] right-[-5%] w-[40%] h-[40%] rounded-full bg-blue-600/10 blur-[120px]" />
+        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20" />
       </div>
 
-      {/* Main Title */}
-      <h1
-        className="
-          text-5xl md:text-6xl font-extrabold 
-          text-gray-800 leading-tight 
-          mb-6 tracking-tight
-        "
-      >
-        Something <span className="text-indigo-600">Awesome</span> is Coming
-        Soon
-      </h1>
-
-      {/* Descriptive Subtitle */}
-      <p
-        className="
-          text-lg md:text-xl text-gray-600 
-          max-w-2xl mx-auto mb-12 leading-relaxed
-        "
-      >
-        This page is part of our new landing experience, which is currently
-        under development. We’re actively working to bring you polished and
-        engaging designs soon. Meanwhile, you can continue to the main app.
-      </p>
-
-      {/* Call-to-Action Button */}
-      <button
-        onClick={() => navigate("/app")}
-        className="
-          fixed top-8 right-8 
-          flex items-center gap-3 
-          px-8 py-4 
-          bg-gradient-to-r from-indigo-600 to-indigo-500 
-          hover:from-indigo-700 hover:to-indigo-600
-          text-white font-semibold text-lg 
-          rounded-full shadow-xl 
-          transition-all duration-300 ease-in-out 
-          transform hover:scale-105 active:scale-95
-        "
-      >
-        <Sparkles className="w-6 h-6 animate-pulse" />
-        Go to Main App
-        <ArrowRight className="w-5 h-5 ml-1" />
-      </button>
-
-      {/* Footer Section */}
-      <footer className="absolute bottom-8 text-gray-500 text-sm md:text-base">
-        {(() => {
-          const currentDomain = window.location.hostname;
-         const siteName = currentDomain === "chicku.in" ? "chicku.in" : "chicku.info";
-          return (
-            <>
-              © {new Date().getFullYear()}{" "}
-              <a
-                href={`https://${siteName}/`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {siteName}
-              </a>{" "}
-              All rights reserved. Powered By{" "}
-              <a
-                className="text-blue-800"
-                href="https://www.pearlorganisation.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Pearl Organisation
-              </a>
-            </>
-          );
-        })()}
-      </footer>
+      <div className="relative z-10">
+        <Hero />
+        <Features />
+        <WhyUs/>
+        <Testimonials/>
+        <TargetAudience />
+        <FAQ />
+      </div>
     </div>
   );
 };
