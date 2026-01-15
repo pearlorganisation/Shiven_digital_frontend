@@ -1,5 +1,5 @@
 
-import FilesFolderpage from '@/component/FilesFolder/FilesFolder'
+import FilesFolderpage from "@/components/FilesFolder/FilesFolder"
 
 
 function FilesFolder() {

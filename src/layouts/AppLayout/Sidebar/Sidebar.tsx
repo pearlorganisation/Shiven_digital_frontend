@@ -74,7 +74,7 @@ const SidebarItem = ({ item }: SidebarItemProps) => {
               {children.map((child) => (
                 <li key={child.path}>
                   <NavLink
-                    to={child.path}
+                    to={`/app/${child.path}`}
                     className={({ isActive }) => `
                       block py-2 px-2 my-0.5 font-medium rounded-md
                       transition-colors text-sm
@@ -95,7 +95,7 @@ const SidebarItem = ({ item }: SidebarItemProps) => {
   return (
     <NavLink
       ref={navRef as React.RefObject<HTMLAnchorElement>}
-      to={item.path!}
+      to={`/app/${item.path!}`}
       className={({ isActive }) => `
         relative flex items-center py-2.5 px-3 my-1
         font-medium rounded-lg cursor-pointer transition-colors group

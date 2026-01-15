@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import AdminDashboard from "./AdminDashboard";
 import AgencyDashboard from "./AgencyDashboard";
 import UserDashboard from "./UserDashboard";
-import NotFoundPage from "@/component/Fallback/NotFound";
+import AppNotFoundPage from "@/components/Fallback/app/AppNotFound"; 
 import AgencyStaffDashboard from "./AgencyStaffDashboard";
 
 const Dashboard = () => {
@@ -14,7 +14,7 @@ const Dashboard = () => {
   if (role === "agencyStaff") return <AgencyStaffDashboard/>
   if (role === "adminStaff") return <AgencyStaffDashboard/>
 
-  return <NotFoundPage />;
+  return <AppNotFoundPage />;
 };
 
 export default Dashboard;

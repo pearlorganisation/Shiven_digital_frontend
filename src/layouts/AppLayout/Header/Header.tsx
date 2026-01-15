@@ -28,7 +28,7 @@ const Header = () => {
     onSuccess: () => {
       successToast("Log Out successful");
       dispatch(clearUser());
-      navigate("/login", { replace: true });
+      navigate("/auth/login", { replace: true });
     },
     onError: (err: any) => {
       errorToast(err || "Failed to Log Out.");
@@ -49,7 +49,7 @@ const Header = () => {
           {primaryLinks.map((item) => (
             <div key={item.path} className="relative group">
               <Link
-                to={item.path!}
+                to={`/app/${item.path!}`}
                 className="flex items-center gap-1.5 text-xs font-medium text-slate-700 hover:text-indigo-600 transition-colors py-1.5 px-2.5 rounded-md hover:bg-slate-50 whitespace-nowrap"
               >
                 {item.icon}
@@ -63,7 +63,7 @@ const Header = () => {
                   {item.children!.map((child: any) => (
                     <Link
                       key={child.path}
-                      to={child.path}
+                      to={`/app/${child.path}`}
                       className="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-100 transition-colors"
                     >
                       {child.text}

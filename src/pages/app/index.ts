@@ -9,6 +9,7 @@ const StaffManagement = lazy(()=> import("./Staff/StaffManagement"))
 const Plans = lazy(()=> import("./Plans/Plan"))
 const SpaceManager = lazy(()=> import("./SpaceMange/SpaceM"))
 const CouponManager = lazy(()=> import("./Coupoun/Coupoun"))
+const Billings =lazy(()=>import("./Billings/Billings"))
 
 
-export { Dashboard, Brand , FilesFolder , Announcements ,StaffManagement ,Plans ,SpaceManager,CouponManager};
+export { Dashboard, Brand , FilesFolder , Announcements ,StaffManagement ,Plans ,SpaceManager,CouponManager,Billings};
