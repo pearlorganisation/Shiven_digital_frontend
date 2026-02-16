@@ -1282,12 +1282,12 @@ const Hero: React.FC = () => {
     { src: '/logos/Xlogo.png', x: '50%', y: '48%', size: 'w-8'  , blur : true},
     
     /* --- BOTTOM SECTION (Concentrated) --- */
-    { src: '/logos/Instagram.png', x: '35%', y: '90%', size: 'w-10'  , blur : true},
-    { src: '/logos/youTube.png', x: '22%', y: '82%', size: 'w-10' , blur : true },
-    { src: '/logos/whatSaap.png', x: '42%', y: '80%', size: 'w-10' , blur : true },
-    { src: '/logos/showcase1.png', x: '65%', y: '88%', size: 'w-10 lg:w-12' , blur : true },
-    { src: '/logos/showCase2.png', x: '82%', y: '85%', size: 'w-12 lg:w-12' , blur : true },
-    { src: '/logos/allInOne.png', x: '52%', y: '90%', size: 'w-12'  , blur : true },
+    { src: '/logos/Instagram.png', x: '35%', y: '90%', size: 'w-10'  , blur : true  , res:true},
+    { src: '/logos/youTube.png', x: '22%', y: '82%', size: 'w-10' , blur : true, res:true },
+    { src: '/logos/whatSaap.png', x: '42%', y: '80%', size: 'w-10' , blur : true, res:true },
+    { src: '/logos/showcase1.png', x: '65%', y: '88%', size: 'w-10 lg:w-12' , blur : true, res:true },
+    { src: '/logos/showCase2.png', x: '82%', y: '85%', size: 'w-12 lg:w-12' , blur : true , res:true},
+    { src: '/logos/allInOne.png', x: '52%', y: '90%', size: 'w-12'  , blur : true, res:true },
   ];
 
   const integrations = [
@@ -1358,7 +1358,7 @@ const Hero: React.FC = () => {
         {bgAssets.map((asset, i) => (
           <div 
             key={i} 
-            className={`bg-parallax-asset absolute transition-opacity duration-1000 ${asset.blur ? "blur-[2px]" : ""}`}
+            className={`bg-parallax-asset absolute transition-opacity  duration-1000 ${asset.blur ? "blur-[2px]" : "" } ${asset.res ? "hidden  md:block" : "" }`}
             style={{ top: asset.y, left: asset.x }}
           >
             <img src={asset.src} alt="logo" className={`${asset.size} object-contain`} />
