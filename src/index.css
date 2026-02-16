@@ -1,5 +1,28 @@
 @import "tailwindcss";
 
+@theme {
+  /* Primary Brand Colors */
+  --color-brand-blue: #1F6ED4;
+  --color-brand-teal: #2CA7DF;
+  
+  /* CTA / Action Colors */
+  --color-brand-orange: #FF8C42;
+  --color-brand-yellow: #FFB347;
+  
+  /* Creative / Social Accents */
+  --color-brand-purple: #8E44AD;
+  --color-brand-pink: #D63384;
+  
+  /* Success / Metrics */
+  --color-brand-green: #28C76F;
+  
+  /* Neutrals */
+  --color-neutral-dark: #1E1E1E;
+  --color-neutral-gray: #6C757D;
+  --color-neutral-light: #F5F7FA;
+  --color-neutral-border: #E9ECEF;
+}
+
 /* === UTILITIES === */
 .scrollbar-hidden::-webkit-scrollbar {
   display: none;
@@ -9,26 +32,38 @@
   scrollbar-width: none;     
 }
 
-/* === BACKGROUND TEXTURE === */
+/* === BRAND GRADIENTS === */
+.bg-gradient-cta {
+  background: linear-gradient(90deg, #FF8C42, #FFB347);
+}
+
+.bg-gradient-creative {
+  background: linear-gradient(90deg, #8E44AD, #D63384);
+}
+
+/* === BRAND BACKGROUND TEXTURE === */
+/* Updated to use your Deep Blue and Purple accents at very low opacity */
 .bg-light-texture {
-  background-color: #f8f9ff; /* Fallback */
+  background-color: #FFFFFF; 
   background-image:
-    /* Soft pastel base gradient */
-    linear-gradient(135deg, #f8f9ff 0%, #f0f4ff 40%, #f5f0ff 70%, #faf5ff 100%),
-    /* Very subtle grain/noise texture overlay */
-    radial-gradient(circle at 25% 25%, rgba(99, 102, 241, 0.03) 0%, transparent 10%),
-    radial-gradient(circle at 75% 75%, rgba(236, 72, 153, 0.03) 0%, transparent 12%),
-    radial-gradient(circle at 30% 70%, rgba(139, 92, 246, 0.025) 0%, transparent 8%),
+    /* Soft base gradient using Neutral Light and very faint Brand Blue */
+    linear-gradient(135deg, #FFFFFF 0%, #F5F7FA 40%, #F0F4FF 70%, #F5F7FA 100%),
+    /* Brand Blue glow */
+    radial-gradient(circle at 25% 25%, rgba(31, 110, 212, 0.04) 0%, transparent 15%),
+    /* Brand Purple glow */
+    radial-gradient(circle at 75% 75%, rgba(142, 68, 173, 0.04) 0%, transparent 15%),
+    /* Brand Teal glow */
+    radial-gradient(circle at 30% 70%, rgba(44, 167, 223, 0.03) 0%, transparent 10%),
     /* Fine noise pattern */
     repeating-radial-gradient(
       circle at 0% 0%,
       transparent 0%,
       transparent 1px,
-      rgba(99, 102, 241, 0.015) 1.5px,
-      rgba(99, 102, 241, 0.015) 2px
+      rgba(31, 110, 212, 0.015) 1.5px,
+      rgba(31, 110, 212, 0.015) 2px
     );
   background-size: 200% 200%, 100% 100%, 100% 100%, 4px 4px;
-  background-blend-mode: overlay, overlay, overlay, soft-light;
+  background-blend-mode: normal, screen, screen, overlay, soft-light;
 }
 
 /* === ANIMATIONS === */
