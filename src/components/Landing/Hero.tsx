@@ -1319,7 +1319,7 @@ const Hero: React.FC = () => {
           repeat: -1,
           repeatDelay: Math.random() * 1.5,
           ease: "power1.inOut",
-          onRepeat: () => gsap.set(pulsePath, { opacity: 0 })
+          // onRepeat: () => gsap.set(pulsePath, { opacity: 0 })
         });
       });
 

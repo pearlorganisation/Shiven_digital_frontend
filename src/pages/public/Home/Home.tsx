@@ -7,6 +7,9 @@ import WhyUs from "@/components/Landing/WhyUs";
 import Testimonials from "@/components/Landing/Testimonials";
 import CreateSection from "@/components/Landing/CreateSection";
 import MultiFeatures from "@/components/Landing/MultiFeatures";
+import FeaturesMaster from "@/components/Landing/FeaturesMaster";
+import IndustryPartners from "@/components/Landing/IndustryPartners";
+import ClientList from "@/components/Landing/ClientList";
 
 
 const Home: React.FC = () => {
@@ -22,11 +25,16 @@ const Home: React.FC = () => {
       <div className="relative z-10">
         <Hero />
         <CreateSection/>
+        <FeaturesMaster/>
         <MultiFeatures />
         <Features />
         <WhyUs/>
+                <TargetAudience />
+
         <Testimonials/>
-        <TargetAudience />
+      
+          <IndustryPartners/>
+        <ClientList/>
         <FAQ />
       </div>
     </div>
