@@ -6,8 +6,12 @@ import FAQ from "@/components/Landing/FAQ";
 import WhyUs from "@/components/Landing/WhyUs";
 import Testimonials from "@/components/Landing/Testimonials";
 import CreateSection from "@/components/Landing/CreateSection";
-import MultiFeatures from "@/components/Landing/MultiFeatures";
-
+import MultiFeatures from "@/components/Landing/Phase3/MultiFeatures";
+import { CollaborateHero } from "@/components/Landing/Phase4/CollaborateHero";
+import { CoreFeatures } from "@/components/Landing/Phase4/CoreFeatures";
+import { UseCaseTabs } from "@/components/Landing/Phase4/UseCaseTabs";
+import { USE_CASES ,CORE_FEATURES } from "@/components/Landing/Phase4/TestContent";
+import { GrowthResources } from "@/components/Landing/Phase5/GrowthResources";
 
 const Home: React.FC = () => {
   return (
@@ -23,6 +27,16 @@ const Home: React.FC = () => {
         <Hero />
         <CreateSection/>
         <MultiFeatures />
+
+       {/* Phase 4 - Collaborate Section */}
+        <CollaborateHero />
+        <CoreFeatures features={CORE_FEATURES} />
+        <UseCaseTabs useCases={USE_CASES} />
+
+         {/* Phase 5 - Core Features & Use Cases */}
+        <GrowthResources />
+
+
         <Features />
         <WhyUs/>
         <Testimonials/>
