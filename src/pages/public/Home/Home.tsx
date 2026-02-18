@@ -1,21 +1,19 @@
 import React from "react";
 import Hero from "@/components/Landing/Hero";
-import Features from "@/components/Landing/Features";
-import TargetAudience from "@/components/Landing/TargetAudience";
-import FAQ from "@/components/Landing/FAQ";
-import WhyUs from "@/components/Landing/WhyUs";
-import Testimonials from "@/components/Landing/Testimonials";
-import CreateSection from "@/components/Landing/CreateSection";
+import TargetAudience from "@/components/Landing/Phase8/TargetAudience";
+import FAQ from "@/components/Landing/Phase12/FAQ";
+import Testimonials from "@/components/Landing/Phase9/Testimonials";
+import CreateSection from "@/components/Landing/Phase2/CreateSection";
 import MultiFeatures from "@/components/Landing/Phase3/MultiFeatures";
-import FeaturesMaster from "@/components/Landing/FeaturesMaster";
-import IndustryPartners from "@/components/Landing/IndustryPartners";
-import ClientList from "@/components/Landing/ClientList";
+import FeaturesMaster from "@/components/Landing/Phase6/FeaturesMaster";
+import IndustryPartners from "@/components/Landing/Phase10/IndustryPartners";
+import ClientList from "@/components/Landing/Phase11/ClientList";
 import { CollaborateHero } from "@/components/Landing/Phase4/CollaborateHero";
 import { CoreFeatures } from "@/components/Landing/Phase4/CoreFeatures";
 import { UseCaseTabs } from "@/components/Landing/Phase4/UseCaseTabs";
 import { USE_CASES ,CORE_FEATURES } from "@/components/Landing/Phase4/CollabContent";
 import { GrowthResources } from "@/components/Landing/Phase5/GrowthResources";
-import PlatformInfo from "@/components/Landing/PlatformInfo";
+import PlatformInfo from "@/components/Landing/Phase7/PlatformInfo";
 
 const Home: React.FC = () => {
   return (
@@ -29,34 +27,42 @@ const Home: React.FC = () => {
 
       <div className="relative z-10">
         <Hero />
+
+        {/* Phase 2  */}
         <CreateSection/>
 
-        {/* Phase 3 - Multi-Feature Showcase */}
+        {/* Phase 3  */}
         <MultiFeatures />
 
-       {/* Phase 4 - Collaborate Section */}
+        {/* Phase 4  */}
         <CollaborateHero />
         <CoreFeatures features={CORE_FEATURES} />
         <UseCaseTabs useCases={USE_CASES} />
 
-         {/* Phase 5 - Core Features & Use Cases */}
+         {/* Phase 5  */}
         <GrowthResources />
 
-        {/*phase 6 - Social Proof & Trust Building */}
+        {/*phase 6 */}
         <FeaturesMaster/>
 
          {/*phase 7*/}
          <PlatformInfo/>
-        <TargetAudience />
 
+         {/*phase 8*/}
+         <TargetAudience />
+
+         {/*phase 9*/}
         <Testimonials/>
       
+        {/*phase 10*/}
         <IndustryPartners/>
+
+         {/*phase 11*/}
         <ClientList/>
+
+        {/*phase 12*/}
         <FAQ />
 
-        {/* <Features />
-        <WhyUs/> */}
       </div>
     </div>
   );
