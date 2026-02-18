@@ -15,6 +15,7 @@ import { CoreFeatures } from "@/components/Landing/Phase4/CoreFeatures";
 import { UseCaseTabs } from "@/components/Landing/Phase4/UseCaseTabs";
 import { USE_CASES ,CORE_FEATURES } from "@/components/Landing/Phase4/CollabContent";
 import { GrowthResources } from "@/components/Landing/Phase5/GrowthResources";
+import PlatformInfo from "@/components/Landing/PlatformInfo";
 
 const Home: React.FC = () => {
   return (
@@ -45,6 +46,7 @@ const Home: React.FC = () => {
         <FeaturesMaster/>
 
          {/*phase 7*/}
+         <PlatformInfo/>
         <TargetAudience />
 
         <Testimonials/>
