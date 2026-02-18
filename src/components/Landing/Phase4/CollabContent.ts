@@ -1,4 +1,4 @@
-import type { SectionContent } from "./TestType";
+import type { SectionContent } from "./CollabType";
 
 export const CORE_FEATURES: SectionContent[] = [
   {

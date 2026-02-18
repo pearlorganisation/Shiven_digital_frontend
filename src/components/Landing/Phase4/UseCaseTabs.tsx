@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { CheckCircle2, ArrowRight, User, Briefcase, Building2 } from 'lucide-react';
-import type { SectionContent } from './TestType';
+import type { SectionContent } from './CollabType';
 
 
 interface UseCaseTabsProps {

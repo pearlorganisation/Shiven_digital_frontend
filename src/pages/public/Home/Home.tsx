@@ -13,7 +13,7 @@ import ClientList from "@/components/Landing/ClientList";
 import { CollaborateHero } from "@/components/Landing/Phase4/CollaborateHero";
 import { CoreFeatures } from "@/components/Landing/Phase4/CoreFeatures";
 import { UseCaseTabs } from "@/components/Landing/Phase4/UseCaseTabs";
-import { USE_CASES ,CORE_FEATURES } from "@/components/Landing/Phase4/TestContent";
+import { USE_CASES ,CORE_FEATURES } from "@/components/Landing/Phase4/CollabContent";
 import { GrowthResources } from "@/components/Landing/Phase5/GrowthResources";
 
 const Home: React.FC = () => {
