@@ -6,6 +6,7 @@ import FAQ from "@/components/Landing/FAQ";
 import WhyUs from "@/components/Landing/WhyUs";
 import Testimonials from "@/components/Landing/Testimonials";
 import CreateSection from "@/components/Landing/CreateSection";
+import MultiFeatures from "@/components/Landing/MultiFeatures";
 
 
 const Home: React.FC = () => {
@@ -21,6 +22,7 @@ const Home: React.FC = () => {
       <div className="relative z-10">
         <Hero />
         <CreateSection/>
+        <MultiFeatures />
         <Features />
         <WhyUs/>
         <Testimonials/>
