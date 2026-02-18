@@ -7,6 +7,9 @@ import WhyUs from "@/components/Landing/WhyUs";
 import Testimonials from "@/components/Landing/Testimonials";
 import CreateSection from "@/components/Landing/CreateSection";
 import MultiFeatures from "@/components/Landing/Phase3/MultiFeatures";
+import FeaturesMaster from "@/components/Landing/FeaturesMaster";
+import IndustryPartners from "@/components/Landing/IndustryPartners";
+import ClientList from "@/components/Landing/ClientList";
 import { CollaborateHero } from "@/components/Landing/Phase4/CollaborateHero";
 import { CoreFeatures } from "@/components/Landing/Phase4/CoreFeatures";
 import { UseCaseTabs } from "@/components/Landing/Phase4/UseCaseTabs";
@@ -26,6 +29,8 @@ const Home: React.FC = () => {
       <div className="relative z-10">
         <Hero />
         <CreateSection/>
+
+        {/* Phase 3 - Multi-Feature Showcase */}
         <MultiFeatures />
 
        {/* Phase 4 - Collaborate Section */}
@@ -36,12 +41,20 @@ const Home: React.FC = () => {
          {/* Phase 5 - Core Features & Use Cases */}
         <GrowthResources />
 
+        {/*phase 6 - Social Proof & Trust Building */}
+        <FeaturesMaster/>
 
-        <Features />
-        <WhyUs/>
-        <Testimonials/>
+         {/*phase 7*/}
         <TargetAudience />
+
+        <Testimonials/>
+      
+        <IndustryPartners/>
+        <ClientList/>
         <FAQ />
+
+        {/* <Features />
+        <WhyUs/> */}
       </div>
     </div>
   );
