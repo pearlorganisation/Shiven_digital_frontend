@@ -29,13 +29,13 @@ import {
 import { Home } from "@/pages/public";
 
 /* auth pages */
-import { Login } from "@/pages/auth";
 
 /* fallbacks */
 import AppLayoutSkeleton from "@/components/Fallback/app/AppLayoutSkeleton";
 import AppNotFoundPage from "@/components/Fallback/app/AppNotFound";
 
 import PublicNotFoundPage from "@/components/Fallback/public/PublicNotFound";
+import { Login } from "./pages/auth";
 
 function App() {
   const { user } = useAppSelector((state) => state.auth);
