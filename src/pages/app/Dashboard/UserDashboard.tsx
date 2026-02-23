@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import {
   Calendar,
   Tag,
@@ -14,27 +14,22 @@ import {
   Link,
   Bell,
   Lightbulb,
-  LayoutDashboard,
-  LogOut,
-  Search,
-  Menu,
-  X,
   ArrowUpRight,
-  Settings
+ 
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const UserDashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  // const [scrolled, setScrolled] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     setScrolled(window.scrollY > 20);
+  //   };
+  //   window.addEventListener('scroll', handleScroll);
+  //   return () => window.removeEventListener('scroll', handleScroll);
+  // }, []);
 
   const planExpiration = "2025-12-31";
   const totalPosts = 150;

@@ -2,7 +2,7 @@
 
 import { errorToast, successToast } from "@/utils/helper";
 import type {
-  GetBrandApiResponseType,
+
   BrandType,
 } from "@/schemas/brand/brandSchema";
 import type {
@@ -10,33 +10,33 @@ import type {
   UpdateBrandPayloadType,
 } from "@/schemas/brand/payloadBrandSchema";
 import brandService from "@/services/brandService";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useAppDispatch, useAppSelector } from "@/store/store";
+import { useMutation } from "@tanstack/react-query";
+import { useAppSelector } from "@/store/store";
 import React, { useEffect, useState } from "react";
 import { Plus, Loader2 } from "lucide-react";
 
 import BrandCard from "@/components/Brands/BrandCard";
 import BrandModal from "@/components/Brands/BrandModal";
 import DeleteModal from "@/components/Brands/DeleteModal";
-import { setbrand } from "@/store/slice/brandSlice";
+// import { setbrand } from "@/store/slice/brandSlice";
 
 const BrandsPage: React.FC = () => {
-  const dispatch = useAppDispatch();
-  const queryClient = useQueryClient();
+  // const dispatch = useAppDispatch();
+  // const queryClient = useQueryClient();
   const { brands } = useAppSelector((state) => state.brands);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [currentBrand, setCurrentBrand] = useState<BrandType | undefined>(
-    undefined
-  );
+  // const [currentBrand, setCurrentBrand] = useState<BrandType | undefined>(
+  //   undefined
+  // );
   const [brandToDelete, setBrandToDelete] = useState<BrandType | null>(null);
   const [modalMode, setModalMode] = useState<"create" | "view">("create");
 
   // Fetch brands
   const getBrandMutation = useMutation({
     mutationFn: brandService.getBrand,
-    onSuccess: (res: GetBrandApiResponseType) => {
+    onSuccess: () => {
       // dispatch(setbrand());
     },
     onError: (err: any) => {
@@ -94,15 +94,15 @@ const BrandsPage: React.FC = () => {
   }, []);
 
   // Simplified function to handle opening the modal in 'create' or 'view' mode
-  const handleOpenModal = (mode: "create" | "view", brand?: BrandType) => {
+  const handleOpenModal = (mode: "create" | "view") => {
     setModalMode(mode);
-    setCurrentBrand(brand);
+    // setCurrentBrand(brand);
     setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
-    setCurrentBrand(undefined);
+    // setCurrentBrand(undefined);
   };
 
   const handleOpenDeleteModal = (brand: BrandType) => {
@@ -206,7 +206,7 @@ const BrandsPage: React.FC = () => {
               <BrandCard
                 key={brand._id}
                 brand={brand}
-                onView={() => handleOpenModal("view", brand)}
+                onView={() => handleOpenModal("view")}
                 onDelete={() => handleOpenDeleteModal(brand)}
               />
             ))}

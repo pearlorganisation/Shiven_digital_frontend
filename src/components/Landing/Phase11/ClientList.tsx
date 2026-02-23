@@ -153,7 +153,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { 
   ShoppingBag, Rocket, Briefcase, Users, Store, 
-  CheckCircle2, ArrowRight, Zap 
+   ArrowRight, Zap 
 } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);

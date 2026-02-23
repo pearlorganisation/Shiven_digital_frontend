@@ -8,14 +8,9 @@ import {
   X,
   Save,
   Globe,
-  Instagram,
-  Facebook,
-  Youtube,
-  Twitter,
-  Linkedin,
+
   Mail,
-  Phone,
-  MapPin,
+
   Building2,
   Image,
   FileText,
@@ -56,7 +51,7 @@ interface BrandModalProps {
   mode:string
 }
 
-const BrandModal: React.FC<BrandModalProps> = ({ isOpen, onClose, onCreate,mode }) => {
+const BrandModal: React.FC<BrandModalProps> = ({ isOpen, onClose, onCreate }) => {
   const [formData, setFormData] = useState<BrandType>(initialBrandState);
 
   // Reset the form to its initial state whenever the modal becomes visible.

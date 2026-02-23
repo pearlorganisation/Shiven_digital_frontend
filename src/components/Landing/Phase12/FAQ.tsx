@@ -1,5 +1,5 @@
-import React, { useState, useRef, useLayoutEffect } from 'react';
-import { gsap } from 'gsap';
+import React, { useState, useRef } from 'react';
+// import { gsap } from 'gsap';
 import { Plus, Minus, HelpCircle } from 'lucide-react';
 
 // --- DYNAMIC DATA: EXACTLY AS PROVIDED ---

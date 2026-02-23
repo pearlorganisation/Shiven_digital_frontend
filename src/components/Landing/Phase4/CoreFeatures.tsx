@@ -55,7 +55,7 @@ export const CoreFeatures: React.FC<CoreFeaturesProps> = ({ features }) => {
         </div>
 
         <div className="space-y-24 lg:space-y-32">
-          {features.map((feature, index) => (
+          {features.map((feature) => (
             <FadeIn key={feature.id} className="w-full">
               <div 
                 className={`flex flex-col lg:flex-row items-center gap-12 lg:gap-20 ${feature.reversed ? 'lg:flex-row-reverse' : ''}`}

@@ -4,14 +4,12 @@ import {
   ChevronDown, 
   Layers, 
   BarChart3, 
-  Zap, 
-  ArrowRight, 
+
   Menu, 
   X, 
   Palette,
   Briefcase,
   Rocket,
-  Globe,
   BookOpen,
   Layout
 } from 'lucide-react';

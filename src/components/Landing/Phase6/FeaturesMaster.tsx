@@ -787,7 +787,7 @@ const SLIDES = [
 ];
 
 const FeatureStack: React.FC = () => {
-  const sectionRef = useRef<HTMLDivElement>(null);
+  // const sectionRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {

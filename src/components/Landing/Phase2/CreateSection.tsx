@@ -3,13 +3,12 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { 
   Sparkles, 
-  PenTool, 
-  MessageSquare, 
   Target, 
   Layout, 
   Zap, 
   MousePointer2, 
-  Smartphone 
+  Smartphone, 
+  PenTool
 } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
