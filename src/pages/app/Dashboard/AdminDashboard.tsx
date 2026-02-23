@@ -7,13 +7,6 @@ import {
   Mail,
   Calendar,
   BarChart3,
-  LayoutDashboard,
-  Settings,
-  LogOut,
-  Bell,
-  Search,
-  Menu,
-  X,
   ChevronRight,
   ArrowUpRight
 } from 'lucide-react';
@@ -21,16 +14,16 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const AdminDashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  // const [scrolled, setScrolled] = useState(false);
 
-  // Handle scroll effect for header
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  // // Handle scroll effect for header
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     setScrolled(window.scrollY > 20);
+  //   };
+  //   window.addEventListener('scroll', handleScroll);
+  //   return () => window.removeEventListener('scroll', handleScroll);
+  // }, []);
 
   const totalUsers = 1234;
   const userStaff = 56;
@@ -87,10 +80,10 @@ const AdminDashboard = () => {
     }
   };
 
-  const sidebarVariants = {
-    closed: { x: '-100%', transition: { stiffness: 300, damping: 30 } },
-    open: { x: 0, transition: { stiffness: 300, damping: 30 } }
-  };
+  // const sidebarVariants = {
+  //   closed: { x: '-100%', transition: { stiffness: 300, damping: 30 } },
+  //   open: { x: 0, transition: { stiffness: 300, damping: 30 } }
+  // };
 
   return (
     <div className="flex h-screen bg-gray-50/50 font-sans text-gray-900 overflow-hidden">

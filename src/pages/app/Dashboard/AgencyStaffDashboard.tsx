@@ -5,14 +5,14 @@ import {
   Calendar,
   Mail,
   BarChart3,
-  LayoutDashboard,
-  LogOut,
-  Bell,
-  Search,
-  Menu,
-  X,
-  ChevronRight,
-  ArrowUpRight,
+  // LayoutDashboard,
+  // LogOut,
+  // Bell,
+  // Search,
+  // Menu,
+  // X,
+  // ChevronRight,
+  // ArrowUpRight,
   FileText,
   MessageSquare,
   Globe,
@@ -24,15 +24,15 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const AgencyStaffDashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  // const [scrolled, setScrolled] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     setScrolled(window.scrollY > 20);
+  //   };
+  //   window.addEventListener('scroll', handleScroll);
+  //   return () => window.removeEventListener('scroll', handleScroll);
+  // }, []);
 
   const totalBrands = 15;
   const totalUsers = 45;
@@ -85,10 +85,10 @@ const AgencyStaffDashboard = () => {
     }
   };
 
-  const sidebarVariants = {
-    closed: { x: '-100%', transition: { stiffness: 300, damping: 30 } },
-    open: { x: 0, transition: { stiffness: 300, damping: 30 } }
-  };
+  // const sidebarVariants = {
+  //   closed: { x: '-100%', transition: { stiffness: 300, damping: 30 } },
+  //   open: { x: 0, transition: { stiffness: 300, damping: 30 } }
+  // };
 
   return (
     <div className="flex h-screen bg-gray-50/50 font-sans text-gray-900 overflow-hidden">

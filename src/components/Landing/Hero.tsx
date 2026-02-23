@@ -1,204 +1,204 @@
 
-// import React, { useEffect, useRef } from 'react';
-// import { gsap } from 'gsap';
-// import { 
-//   Facebook, Linkedin, Heart, Instagram, Mail, 
-//   MessageSquare, MessageCircle, Twitter, 
-//   Handshake, Settings, Cpu, ArrowUpRight, 
-//   TrendingUp, Zap 
-// } from 'lucide-react';
+import React, { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { 
+  Facebook, Linkedin, Heart, Instagram, Mail, 
+  MessageSquare, MessageCircle, Twitter, 
+  Handshake, Settings, Cpu, ArrowUpRight, 
+  TrendingUp, Zap 
+} from 'lucide-react';
 
-// const Hero: React.FC = () => {
-//   const containerRef = useRef<HTMLDivElement>(null);
-//   const orbitRef = useRef<HTMLDivElement>(null);
-//   const coreRef = useRef<HTMLDivElement>(null);
+const Hero: React.FC = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const orbitRef = useRef<HTMLDivElement>(null);
+  const coreRef = useRef<HTMLDivElement>(null);
 
-//   useEffect(() => {
-//     const ctx = gsap.context(() => {
-//       // 1. Initial Entrance
-//       gsap.from(".hero-content", {
-//         opacity: 0,
-//         y: 30,
-//         duration: 1,
-//         stagger: 0.2,
-//         ease: "power3.out"
-//       });
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // 1. Initial Entrance
+      gsap.from(".hero-content", {
+        opacity: 0,
+        y: 30,
+        duration: 1,
+        stagger: 0.2,
+        ease: "power3.out"
+      });
 
-//       // 2. Continuous Rotation of the Orbit
-//       gsap.to(".icon-orbit", {
-//         rotation: 360,
-//         duration: 40,
-//         repeat: -1,
-//         ease: "none"
-//       });
+      // 2. Continuous Rotation of the Orbit
+      gsap.to(".icon-orbit", {
+        rotation: 360,
+        duration: 40,
+        repeat: -1,
+        ease: "none"
+      });
 
-//       // 3. Counter-rotation for Icons (to keep them upright)
-//       gsap.to(".orbit-icon", {
-//         rotation: -360,
-//         duration: 40,
-//         repeat: -1,
-//         ease: "none"
-//       });
+      // 3. Counter-rotation for Icons (to keep them upright)
+      gsap.to(".orbit-icon", {
+        rotation: -360,
+        duration: 40,
+        repeat: -1,
+        ease: "none"
+      });
 
-//       // 4. Mouse Movement Parallax
-//       const handleMouseMove = (e: MouseEvent) => {
-//         const { clientX, clientY } = e;
-//         const xPos = (clientX / window.innerWidth - 0.5) * 40;
-//         const yPos = (clientY / window.innerHeight - 0.5) * 40;
+      // 4. Mouse Movement Parallax
+      const handleMouseMove = (e: MouseEvent) => {
+        const { clientX, clientY } = e;
+        const xPos = (clientX / window.innerWidth - 0.5) * 40;
+        const yPos = (clientY / window.innerHeight - 0.5) * 40;
 
-//         gsap.to(orbitRef.current, {
-//           x: xPos,
-//           y: yPos,
-//           duration: 1,
-//           ease: "power2.out"
-//         });
+        gsap.to(orbitRef.current, {
+          x: xPos,
+          y: yPos,
+          duration: 1,
+          ease: "power2.out"
+        });
 
-//         gsap.to(coreRef.current, {
-//           x: xPos * -0.5,
-//           y: yPos * -0.5,
-//           duration: 1,
-//           ease: "power2.out"
-//         });
-//       };
+        gsap.to(coreRef.current, {
+          x: xPos * -0.5,
+          y: yPos * -0.5,
+          duration: 1,
+          ease: "power2.out"
+        });
+      };
 
-//       window.addEventListener("mousemove", handleMouseMove);
-//       return () => window.removeEventListener("mousemove", handleMouseMove);
-//     }, containerRef);
+      window.addEventListener("mousemove", handleMouseMove);
+      return () => window.removeEventListener("mousemove", handleMouseMove);
+    }, containerRef);
 
-//     return () => ctx.revert();
-//   }, []);
+    return () => ctx.revert();
+  }, []);
 
-//   // Icon Configuration from your logo
-//   const orbitIcons = [
-//     { Icon: Facebook, color: "#1877F2", label: "f" },
-//     { Icon: Linkedin, color: "#0A66C2", label: "in" },
-//     { Icon: Heart, color: "#E0245E", label: "love" },
-//     { Icon: Instagram, color: "#E4405F", label: "ig" },
-//     { Icon: Mail, color: "#1F6ED4", label: "mail" },
-//     { Icon: MessageSquare, color: "#FF8C42", label: "sms" },
-//     { Icon: MessageCircle, color: "#25D366", label: "wa" },
-//     { Icon: Cpu, color: "#2CA7DF", label: "ai" },
-//     { Icon: Twitter, color: "#000000", label: "x" },
-//     { Icon: Handshake, color: "#FFB347", label: "collab" },
-//     { Icon: Settings, color: "#6C757D", label: "gear" },
-//   ];
+  // Icon Configuration from your logo
+  const orbitIcons = [
+    { Icon: Facebook, color: "#1877F2", label: "f" },
+    { Icon: Linkedin, color: "#0A66C2", label: "in" },
+    { Icon: Heart, color: "#E0245E", label: "love" },
+    { Icon: Instagram, color: "#E4405F", label: "ig" },
+    { Icon: Mail, color: "#1F6ED4", label: "mail" },
+    { Icon: MessageSquare, color: "#FF8C42", label: "sms" },
+    { Icon: MessageCircle, color: "#25D366", label: "wa" },
+    { Icon: Cpu, color: "#2CA7DF", label: "ai" },
+    { Icon: Twitter, color: "#000000", label: "x" },
+    { Icon: Handshake, color: "#FFB347", label: "collab" },
+    { Icon: Settings, color: "#6C757D", label: "gear" },
+  ];
 
-//   return (
-//     <section 
-//       ref={containerRef} 
-//       className="relative min-h-screen flex items-center bg-[#FFFDF5] overflow-hidden pt-16"
-//     >
-//       {/* Subtle Background Elements */}
-//       <div className="absolute top-20 left-10 w-64 h-64 bg-[#FF8C42]/5 rounded-full blur-3xl" />
-//       <div className="absolute bottom-10 right-10 w-96 h-96 bg-[#1F6ED4]/5 rounded-full blur-3xl" />
+  return (
+    <section 
+      ref={containerRef} 
+      className="relative min-h-screen flex items-center bg-[#FFFDF5] overflow-hidden pt-16"
+    >
+      {/* Subtle Background Elements */}
+      <div className="absolute top-20 left-10 w-64 h-64 bg-[#FF8C42]/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-10 right-10 w-96 h-96 bg-[#1F6ED4]/5 rounded-full blur-3xl" />
 
-//       <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center z-10">
+      <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center z-10">
         
-//         {/* Left Side: Refined Text */}
-//         <div className="max-w-xl">
-//           <div className="hero-content inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-[#E9ECEF] shadow-sm mb-6">
-//             <span className="flex h-2 w-2 rounded-full bg-[#28C76F] animate-pulse" />
-//             <span className="text-xs font-bold text-[#6C757D] uppercase tracking-widest">Platform Live 2025</span>
-//           </div>
+        {/* Left Side: Refined Text */}
+        <div className="max-w-xl">
+          <div className="hero-content inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-[#E9ECEF] shadow-sm mb-6">
+            <span className="flex h-2 w-2 rounded-full bg-[#28C76F] animate-pulse" />
+            <span className="text-xs font-bold text-[#6C757D] uppercase tracking-widest">Platform Live 2025</span>
+          </div>
 
-//           <h1 className="hero-content text-4xl lg:text-5xl font-black text-[#1E1E1E] leading-tight mb-6">
-//             Power Your Business with <br />
-//             <span className="text-[#1F6ED4]">Smarter Messaging</span> & <br />
-//             <span className="relative">
-//               Marketing
-//               <svg className="absolute -bottom-2 left-0 w-full h-2 text-[#FFB347]/40" viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M0 5 Q 25 0 50 5 T 100 5" fill="none" stroke="currentColor" strokeWidth="4" /></svg>
-//             </span>
-//           </h1>
+          <h1 className="hero-content text-4xl lg:text-5xl font-black text-[#1E1E1E] leading-tight mb-6">
+            Power Your Business with <br />
+            <span className="text-[#1F6ED4]">Smarter Messaging</span> & <br />
+            <span className="relative">
+              Marketing
+              <svg className="absolute -bottom-2 left-0 w-full h-2 text-[#FFB347]/40" viewBox="0 0 100 10" preserveAspectRatio="none"><path d="M0 5 Q 25 0 50 5 T 100 5" fill="none" stroke="currentColor" strokeWidth="4" /></svg>
+            </span>
+          </h1>
 
-//           <p className="hero-content text-base lg:text-lg text-[#6C757D] mb-8 leading-relaxed">
-//             From social media scheduling to WhatsApp, SMS, and email campaigns—manage 
-//             everything in one powerful platform designed to grow your brand faster.
-//           </p>
+          <p className="hero-content text-base lg:text-lg text-[#6C757D] mb-8 leading-relaxed">
+            From social media scheduling to WhatsApp, SMS, and email campaigns—manage 
+            everything in one powerful platform designed to grow your brand faster.
+          </p>
 
-//           <div className="hero-content flex flex-wrap gap-4">
-//             <button className="px-7 py-3.5 bg-[#1E1E1E] text-white font-bold rounded-xl hover:bg-[#1F6ED4] transition-all flex items-center gap-2 group">
-//               Start Free Forever
-//               <ArrowUpRight size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-//             </button>
-//             <button className="px-7 py-3.5 bg-white border border-[#E9ECEF] text-[#1E1E1E] font-bold rounded-xl hover:bg-[#F5F7FA] transition-all">
-//               Book a Demo
-//             </button>
-//           </div>
-//         </div>
+          <div className="hero-content flex flex-wrap gap-4">
+            <button className="px-7 py-3.5 bg-[#1E1E1E] text-white font-bold rounded-xl hover:bg-[#1F6ED4] transition-all flex items-center gap-2 group">
+              Start Free Forever
+              <ArrowUpRight size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+            </button>
+            <button className="px-7 py-3.5 bg-white border border-[#E9ECEF] text-[#1E1E1E] font-bold rounded-xl hover:bg-[#F5F7FA] transition-all">
+              Book a Demo
+            </button>
+          </div>
+        </div>
 
-//         {/* Right Side: Creative Logo-Inspired Visual */}
-//         <div className="relative flex justify-center items-center h-[500px]">
+        {/* Right Side: Creative Logo-Inspired Visual */}
+        <div className="relative flex justify-center items-center h-[500px]">
           
-//           {/* The Orbiting Ring */}
-//           <div ref={orbitRef} className="relative w-full h-full flex items-center justify-center">
+          {/* The Orbiting Ring */}
+          <div ref={orbitRef} className="relative w-full h-full flex items-center justify-center">
             
-//             {/* The Main Orbit Ring (Dashed) */}
-//             <div className="icon-orbit absolute w-[320px] h-[320px] lg:w-[420px] lg:h-[420px] border-2 border-dashed border-[#E9ECEF] rounded-full flex items-center justify-center">
+            {/* The Main Orbit Ring (Dashed) */}
+            <div className="icon-orbit absolute w-[320px] h-[320px] lg:w-[420px] lg:h-[420px] border-2 border-dashed border-[#E9ECEF] rounded-full flex items-center justify-center">
               
-//               {/* Mapping all icons from logo around the circle */}
-//               {orbitIcons.map((item, index) => {
-//                 const angle = (index / orbitIcons.length) * (Math.PI * 2);
-//                 const radius = window.innerWidth > 1024 ? 210 : 160;
-//                 const x = Math.cos(angle) * radius;
-//                 const y = Math.sin(angle) * radius;
+              {/* Mapping all icons from logo around the circle */}
+              {orbitIcons.map((item, index) => {
+                const angle = (index / orbitIcons.length) * (Math.PI * 2);
+                const radius = window.innerWidth > 1024 ? 210 : 160;
+                const x = Math.cos(angle) * radius;
+                const y = Math.sin(angle) * radius;
 
-//                 return (
-//                   <div 
-//                     key={index}
-//                     className="orbit-icon absolute w-10 h-10 lg:w-12 lg:h-12 bg-white rounded-xl shadow-md border border-[#F5F7FA] flex items-center justify-center transition-transform hover:scale-125 hover:z-50 cursor-pointer group"
-//                     style={{ left: `calc(50% + ${x}px - 24px)`, top: `calc(50% + ${y}px - 24px)` }}
-//                   >
-//                     <item.Icon size={20} color={item.color} strokeWidth={2.5} className="group-hover:rotate-12 transition-transform" />
-//                     {/* Tooltip */}
-//                     <div className="absolute -bottom-8 opacity-0 group-hover:opacity-100 bg-[#1E1E1E] text-white text-[10px] px-2 py-1 rounded transition-opacity uppercase font-bold">
-//                       {item.label}
-//                     </div>
-//                   </div>
-//                 );
-//               })}
-//             </div>
+                return (
+                  <div 
+                    key={index}
+                    className="orbit-icon absolute w-10 h-10 lg:w-12 lg:h-12 bg-white rounded-xl shadow-md border border-[#F5F7FA] flex items-center justify-center transition-transform hover:scale-125 hover:z-50 cursor-pointer group"
+                    style={{ left: `calc(50% + ${x}px - 24px)`, top: `calc(50% + ${y}px - 24px)` }}
+                  >
+                    <item.Icon size={20} color={item.color} strokeWidth={2.5} className="group-hover:rotate-12 transition-transform" />
+                    {/* Tooltip */}
+                    <div className="absolute -bottom-8 opacity-0 group-hover:opacity-100 bg-[#1E1E1E] text-white text-[10px] px-2 py-1 rounded transition-opacity uppercase font-bold">
+                      {item.label}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
 
-//             {/* The Core: Inspired by Logo's Wing and Arrow */}
-//             <div ref={coreRef} className="relative z-10 w-48 h-48 lg:w-64 lg:h-64 flex items-center justify-center">
+            {/* The Core: Inspired by Logo's Wing and Arrow */}
+            <div ref={coreRef} className="relative z-10 w-48 h-48 lg:w-64 lg:h-64 flex items-center justify-center">
               
-//               {/* Stylized Stats Chart (from logo) */}
-//               <div className="absolute bottom-8 flex items-end gap-1.5 h-16">
-//                 {[40, 70, 50, 90, 60].map((h, i) => (
-//                    <div 
-//                     key={i} 
-//                     className="w-3 bg-gradient-to-t from-[#8E44AD] to-[#D63384] rounded-t-sm animate-bounce" 
-//                     style={{ height: `${h}%`, animationDelay: `${i * 0.2}s` }} 
-//                   />
-//                 ))}
-//               </div>
+              {/* Stylized Stats Chart (from logo) */}
+              <div className="absolute bottom-8 flex items-end gap-1.5 h-16">
+                {[40, 70, 50, 90, 60].map((h, i) => (
+                   <div 
+                    key={i} 
+                    className="w-3 bg-gradient-to-t from-[#8E44AD] to-[#D63384] rounded-t-sm animate-bounce" 
+                    style={{ height: `${h}%`, animationDelay: `${i * 0.2}s` }} 
+                  />
+                ))}
+              </div>
 
-//               {/* Central Wing & Arrow Composite */}
-//               <div className="relative animate-pulse-slow">
-//                  {/* Wing Part */}
-//                  <div className="absolute -left-16 top-0 text-[#2CA7DF] opacity-80">
-//                     <Zap size={80} strokeWidth={1} fill="currentColor" className="-rotate-45" />
-//                  </div>
-//                  {/* Growth Arrow Part */}
-//                  <div className="relative bg-white p-6 rounded-[2rem] shadow-2xl border border-[#F5F7FA]">
-//                     <TrendingUp size={64} className="text-[#1F6ED4]" strokeWidth={3} />
-//                  </div>
-//               </div>
+              {/* Central Wing & Arrow Composite */}
+              <div className="relative animate-pulse-slow">
+                 {/* Wing Part */}
+                 <div className="absolute -left-16 top-0 text-[#2CA7DF] opacity-80">
+                    <Zap size={80} strokeWidth={1} fill="currentColor" className="-rotate-45" />
+                 </div>
+                 {/* Growth Arrow Part */}
+                 <div className="relative bg-white p-6 rounded-[2rem] shadow-2xl border border-[#F5F7FA]">
+                    <TrendingUp size={64} className="text-[#1F6ED4]" strokeWidth={3} />
+                 </div>
+              </div>
 
-//               {/* Growth Badge */}
-//               <div className="absolute top-0 right-0 bg-[#28C76F] text-white p-2 rounded-lg shadow-lg rotate-12 scale-75">
-//                 <ArrowUpRight size={20} strokeWidth={3} />
-//               </div>
-//             </div>
+              {/* Growth Badge */}
+              <div className="absolute top-0 right-0 bg-[#28C76F] text-white p-2 rounded-lg shadow-lg rotate-12 scale-75">
+                <ArrowUpRight size={20} strokeWidth={3} />
+              </div>
+            </div>
 
-//           </div>
-//         </div>
+          </div>
+        </div>
 
-//       </div>
-//     </section>
-//   );
-// };
+      </div>
+    </section>
+  );
+};
 
-// export default Hero;
+export default Hero;
 
 // // // import React, { useEffect, useRef } from 'react';
 // // // import { gsap } from 'gsap';
@@ -960,188 +960,188 @@
 
 // / other with icons in bg 
 
-import React, { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { CheckCircle2, TrendingUp } from 'lucide-react';
+// import React, { useEffect, useRef } from 'react';
+// import { gsap } from 'gsap';
+// import { CheckCircle2, TrendingUp } from 'lucide-react';
 
-const Hero: React.FC = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
+// const Hero: React.FC = () => {
+//   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Background assets: Fully visible, concentrated at bottom and mid sections
-  const bgAssets = [
-    /* --- TOP SECTION (Sparse) --- */
-    { src: '/logos/facebook.png', x: '8%', y: '14%', size: 'w-8' , blur : true},
-    { src: '/logos/tikTok.png', x: '25%', y: '12%', size: 'w-8'  , blur : true },
-    { src: '/logos/mail.png', x: '40%', y: '14%', size: 'w-8' , blur : true},
+//   // Background assets: Fully visible, concentrated at bottom and mid sections
+//   const bgAssets = [
+//     /* --- TOP SECTION (Sparse) --- */
+//     { src: '/logos/facebook.png', x: '8%', y: '14%', size: 'w-8' , blur : true},
+//     { src: '/logos/tikTok.png', x: '25%', y: '12%', size: 'w-8'  , blur : true },
+//     { src: '/logos/mail.png', x: '40%', y: '14%', size: 'w-8' , blur : true},
 
-    /* --- MID SECTION --- */
-    { src: '/logos/Linkdin.png', x: '40%', y: '38%', size: 'w-8' , blur : true},
-    // { src: '/logos/showCase.png', x: '12%', y: '42%', size: 'w-12 lg:w-14' , blur : true },
-    { src: '/logos/Xlogo.png', x: '50%', y: '48%', size: 'w-8'  , blur : true},
+//     /* --- MID SECTION --- */
+//     { src: '/logos/Linkdin.png', x: '40%', y: '38%', size: 'w-8' , blur : true},
+//     // { src: '/logos/showCase.png', x: '12%', y: '42%', size: 'w-12 lg:w-14' , blur : true },
+//     { src: '/logos/Xlogo.png', x: '50%', y: '48%', size: 'w-8'  , blur : true},
     
-    /* --- BOTTOM SECTION (Concentrated) --- */
-    { src: '/logos/Instagram.png', x: '35%', y: '90%', size: 'w-10'  , blur : true  , res:true},
-    { src: '/logos/youTube.png', x: '22%', y: '82%', size: 'w-10' , blur : true, res:true },
-    { src: '/logos/whatSaap.png', x: '42%', y: '80%', size: 'w-10' , blur : true, res:true },
-    { src: '/logos/showcase1.png', x: '65%', y: '88%', size: 'w-10 lg:w-12' , blur : true, res:true },
-    { src: '/logos/showCase2.png', x: '82%', y: '85%', size: 'w-12 lg:w-12' , blur : true , res:true},
-    { src: '/logos/allInOne.png', x: '52%', y: '90%', size: 'w-12'  , blur : true, res:true },
-  ];
+//     /* --- BOTTOM SECTION (Concentrated) --- */
+//     { src: '/logos/Instagram.png', x: '35%', y: '90%', size: 'w-10'  , blur : true  , res:true},
+//     { src: '/logos/youTube.png', x: '22%', y: '82%', size: 'w-10' , blur : true, res:true },
+//     { src: '/logos/whatSaap.png', x: '42%', y: '80%', size: 'w-10' , blur : true, res:true },
+//     { src: '/logos/showcase1.png', x: '65%', y: '88%', size: 'w-10 lg:w-12' , blur : true, res:true },
+//     { src: '/logos/showCase2.png', x: '82%', y: '85%', size: 'w-12 lg:w-12' , blur : true , res:true},
+//     { src: '/logos/allInOne.png', x: '52%', y: '90%', size: 'w-12'  , blur : true, res:true },
+//   ];
 
-  const integrations = [
-    { id: 'fb', src: '/logos/facebook.png', color: "#1877F2", x: 250, y: 25, pos: { top: "5%", left: "50%" }, cp: "250,100" },
-    { id: 'ig', src: '/logos/Instagram.png', color: "#E4405F", x: 425, y: 100, pos: { top: "20%", left: "85%" }, cp: "400,150" },
-    { id: 'tw', src: '/logos/Xlogo.png', color: "#000000", x: 475, y: 300, pos: { top: "60%", left: "95%" }, cp: "450,250" },
-    { id: 'li', src: '/logos/Linkdin.png', color: "#0A66C2", x: 350, y: 425, pos: { top: "85%", left: "70%" }, cp: "350,400" },
-    { id: 'wa', src: '/logos/whatSaap.png', color: "#25D366", x: 150, y: 425, pos: { top: "85%", left: "30%" }, cp: "150,400" },
-    { id: 'tk', src: '/logos/tikTok.png', color: "#000000", x: 25, y: 300, pos: { top: "60%", left: "5%" }, cp: "50,300" },
-    { id: 'yt', src: '/logos/youTube.png', color: "#FF0000", x: 75, y: 100, pos: { top: "20%", left: "15%" }, cp: "100,150" },
-    { id: 'all', src: '/logos/allInOne.png', color: "#1F6ED4", x: 400, y: 0, pos: { top: "0%", left: "80%" }, cp: "400,50" },
-  ];
+//   const integrations = [
+//     { id: 'fb', src: '/logos/facebook.png', color: "#1877F2", x: 250, y: 25, pos: { top: "5%", left: "50%" }, cp: "250,100" },
+//     { id: 'ig', src: '/logos/Instagram.png', color: "#E4405F", x: 425, y: 100, pos: { top: "20%", left: "85%" }, cp: "400,150" },
+//     { id: 'tw', src: '/logos/Xlogo.png', color: "#000000", x: 475, y: 300, pos: { top: "60%", left: "95%" }, cp: "450,250" },
+//     { id: 'li', src: '/logos/Linkdin.png', color: "#0A66C2", x: 350, y: 425, pos: { top: "85%", left: "70%" }, cp: "350,400" },
+//     { id: 'wa', src: '/logos/whatSaap.png', color: "#25D366", x: 150, y: 425, pos: { top: "85%", left: "30%" }, cp: "150,400" },
+//     { id: 'tk', src: '/logos/tikTok.png', color: "#000000", x: 25, y: 300, pos: { top: "60%", left: "5%" }, cp: "50,300" },
+//     { id: 'yt', src: '/logos/youTube.png', color: "#FF0000", x: 75, y: 100, pos: { top: "20%", left: "15%" }, cp: "100,150" },
+//     { id: 'all', src: '/logos/allInOne.png', color: "#1F6ED4", x: 400, y: 0, pos: { top: "0%", left: "80%" }, cp: "400,50" },
+//   ];
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Entrance Animation
-      gsap.from(".hero-content", { y: 30, opacity: 0, duration: 1, stagger: 0.15, ease: "power4.out" });
+//   useEffect(() => {
+//     const ctx = gsap.context(() => {
+//       // Entrance Animation
+//       gsap.from(".hero-content", { y: 30, opacity: 0, duration: 1, stagger: 0.15, ease: "power4.out" });
 
-      // Pulse Animation logic
-      integrations.forEach((node) => {
-        const pulsePath = document.querySelector(`.pulse-${node.id}`) as SVGPathElement;
-        const length = pulsePath?.getTotalLength() || 0;
-        gsap.set(pulsePath, { strokeDasharray: length, strokeDashoffset: length, opacity: 0 });
+//       // Pulse Animation logic
+//       integrations.forEach((node) => {
+//         const pulsePath = document.querySelector(`.pulse-${node.id}`) as SVGPathElement;
+//         const length = pulsePath?.getTotalLength() || 0;
+//         gsap.set(pulsePath, { strokeDasharray: length, strokeDashoffset: length, opacity: 0 });
         
-        gsap.to(pulsePath, {
-          strokeDashoffset: 0,
-          opacity: 1,
-          duration: 2.2,
-          repeat: -1,
-          repeatDelay: Math.random() * 1.5,
-          ease: "power1.inOut",
-          // onRepeat: () => gsap.set(pulsePath, { opacity: 0 })
-        });
-      });
+//         gsap.to(pulsePath, {
+//           strokeDashoffset: 0,
+//           opacity: 1,
+//           duration: 2.2,
+//           repeat: -1,
+//           repeatDelay: Math.random() * 1.5,
+//           ease: "power1.inOut",
+//           // onRepeat: () => gsap.set(pulsePath, { opacity: 0 })
+//         });
+//       });
 
-      // Mouse Parallax for Background Assets
-      const handleMouseMove = (e: MouseEvent) => {
-        const { clientX, clientY } = e;
-        const moveX = (clientX - window.innerWidth / 2) / 45;
-        const moveY = (clientY - window.innerHeight / 2) / 45;
+//       // Mouse Parallax for Background Assets
+//       const handleMouseMove = (e: MouseEvent) => {
+//         const { clientX, clientY } = e;
+//         const moveX = (clientX - window.innerWidth / 2) / 45;
+//         const moveY = (clientY - window.innerHeight / 2) / 45;
 
-        gsap.to(".bg-parallax-asset", {
-          x: moveX,
-          y: moveY,
-          duration: 2.5,
-          ease: "power2.out",
-          stagger: 0.01
-        });
-      };
+//         gsap.to(".bg-parallax-asset", {
+//           x: moveX,
+//           y: moveY,
+//           duration: 2.5,
+//           ease: "power2.out",
+//           stagger: 0.01
+//         });
+//       };
 
-      window.addEventListener("mousemove", handleMouseMove);
-      return () => window.removeEventListener("mousemove", handleMouseMove);
-    }, containerRef);
+//       window.addEventListener("mousemove", handleMouseMove);
+//       return () => window.removeEventListener("mousemove", handleMouseMove);
+//     }, containerRef);
 
-    return () => ctx.revert();
-  }, []);
+//     return () => ctx.revert();
+//   }, []);
 
-  return (
-    <section ref={containerRef} className="relative min-h-screen flex items-center bg-[#FFFEFA] overflow-hidden px-6 pt-32 lg:pt-20">
+//   return (
+//     <section ref={containerRef} className="relative min-h-screen flex items-center bg-[#FFFEFA] overflow-hidden px-6 pt-32 lg:pt-20">
       
-      {/* EXTREMELY SUBTLE GRID OVERLAY */}
-      <div className="absolute inset-0 z-0 opacity-[0.02] pointer-events-none" 
-        style={{ backgroundImage: `linear-gradient(#1E1E1E 1px, transparent 1px), linear-gradient(90deg, #1E1E1E 1px, transparent 1px)`, backgroundSize: '60px 60px' }} 
-      />
+//       {/* EXTREMELY SUBTLE GRID OVERLAY */}
+//       <div className="absolute inset-0 z-0 opacity-[0.02] pointer-events-none" 
+//         style={{ backgroundImage: `linear-gradient(#1E1E1E 1px, transparent 1px), linear-gradient(90deg, #1E1E1E 1px, transparent 1px)`, backgroundSize: '60px 60px' }} 
+//       />
 
-      {/* FULLY VISIBLE BACKGROUND ASSETS */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        {bgAssets.map((asset, i) => (
-          <div 
-            key={i} 
-            className={`bg-parallax-asset absolute transition-opacity  duration-1000 ${asset.blur ? "blur-[2px]" : "" } ${asset.res ? "hidden  md:block" : "" }`}
-            style={{ top: asset.y, left: asset.x }}
-          >
-            <img src={asset.src} alt="logo" className={`${asset.size} object-contain`} />
-          </div>
-        ))}
-      </div>
+//       {/* FULLY VISIBLE BACKGROUND ASSETS */}
+//       <div className="absolute inset-0 z-0 pointer-events-none">
+//         {bgAssets.map((asset, i) => (
+//           <div 
+//             key={i} 
+//             className={`bg-parallax-asset absolute transition-opacity  duration-1000 ${asset.blur ? "blur-[2px]" : "" } ${asset.res ? "hidden  md:block" : "" }`}
+//             style={{ top: asset.y, left: asset.x }}
+//           >
+//             <img src={asset.src} alt="logo" className={`${asset.size} object-contain`} />
+//           </div>
+//         ))}
+//       </div>
 
-      {/* GRADIENT BLOBS */}
-      <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-[#1F6ED4]/5 rounded-full blur-[100px]" />
-      <div className="absolute bottom-0 left-0 w-[40%] h-[40%] bg-[#FF8C42]/5 rounded-full blur-[100px]" />
+//       {/* GRADIENT BLOBS */}
+//       <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-[#1F6ED4]/5 rounded-full blur-[100px]" />
+//       <div className="absolute bottom-0 left-0 w-[40%] h-[40%] bg-[#FF8C42]/5 rounded-full blur-[100px]" />
 
-      <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-12 lg:gap-16 items-center z-10">
+//       <div className="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-12 lg:gap-16 items-center z-10">
         
-        {/* LEFT CONTENT AREA */}
-        <div className="order-1 text-center lg:text-left relative">
-          <div className="hero-content inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-[#E9ECEF] shadow-sm mb-6">
-            <span className="flex h-2 w-2 rounded-full bg-[#28C76F] animate-ping" />
-            <span className="text-[10px] font-black uppercase tracking-widest text-[#6C757D]">Unified Growth Platform</span>
-          </div>
+//         {/* LEFT CONTENT AREA */}
+//         <div className="order-1 text-center lg:text-left relative">
+//           <div className="hero-content inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-[#E9ECEF] shadow-sm mb-6">
+//             <span className="flex h-2 w-2 rounded-full bg-[#28C76F] animate-ping" />
+//             <span className="text-[10px] font-black uppercase tracking-widest text-[#6C757D]">Unified Growth Platform</span>
+//           </div>
 
-          <h1 className="hero-content text-4xl lg:text-6xl font-black text-[#1E1E1E] leading-[1.1] mb-6">
-            Power Your Business with <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#1F6ED4] to-[#2CA7DF]">
-              Smarter Messaging
-            </span> & Marketing
-          </h1>
+//           <h1 className="hero-content text-4xl lg:text-6xl font-black text-[#1E1E1E] leading-[1.1] mb-6">
+//             Power Your Business with <br />
+//             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#1F6ED4] to-[#2CA7DF]">
+//               Smarter Messaging
+//             </span> & Marketing
+//           </h1>
 
-          <p className="hero-content text-lg text-[#6C757D] mb-10 max-w-xl mx-auto lg:mx-0 leading-relaxed">
-            From social media scheduling software to WhatsApp, SMS, and email campaigns, manage
-            everything in one powerful platform designed to grow your brand faster.
-          </p>
+//           <p className="hero-content text-lg text-[#6C757D] mb-10 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+//             From social media scheduling software to WhatsApp, SMS, and email campaigns, manage
+//             everything in one powerful platform designed to grow your brand faster.
+//           </p>
 
-          <div className="hero-content flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-            <button className="w-full sm:w-auto px-8 py-4 bg-[#1E1E1E] text-white font-bold rounded-2xl hover:bg-[#1F6ED4] transition-all shadow-xl shadow-blue-100">
-              Get Started Free
-            </button>
-            <div className="flex items-center gap-2 text-[#28C76F] font-bold text-sm">
-              <CheckCircle2 size={18} />
-              No Credit Card Required
-            </div>
-          </div>
-        </div>
+//           <div className="hero-content flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+//             <button className="w-full sm:w-auto px-8 py-4 bg-[#1E1E1E] text-white font-bold rounded-2xl hover:bg-[#1F6ED4] transition-all shadow-xl shadow-blue-100">
+//               Get Started Free
+//             </button>
+//             <div className="flex items-center gap-2 text-[#28C76F] font-bold text-sm">
+//               <CheckCircle2 size={18} />
+//               No Credit Card Required
+//             </div>
+//           </div>
+//         </div>
 
-        {/* RIGHT VISUAL HUB */}
-        <div className="relative order-2 flex items-center justify-center w-full max-w-[500px] mx-auto aspect-square">
-          <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 500 500" fill="none">
-            {integrations.map((node) => (
-              <React.Fragment key={node.id}>
-                <path d={`M 250 250 Q ${node.cp} ${node.x} ${node.y}`} stroke={node.color} strokeWidth="1.5" strokeOpacity="0.1" fill="none" />
-                <path className={`pulse-${node.id}`} d={`M 250 250 Q ${node.cp} ${node.x} ${node.y}`} stroke={node.color} strokeWidth="2.5" fill="none" />
-              </React.Fragment>
-            ))}
-          </svg>
+//         {/* RIGHT VISUAL HUB */}
+//         <div className="relative order-2 flex items-center justify-center w-full max-w-[500px] mx-auto aspect-square">
+//           <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 500 500" fill="none">
+//             {integrations.map((node) => (
+//               <React.Fragment key={node.id}>
+//                 <path d={`M 250 250 Q ${node.cp} ${node.x} ${node.y}`} stroke={node.color} strokeWidth="1.5" strokeOpacity="0.1" fill="none" />
+//                 <path className={`pulse-${node.id}`} d={`M 250 250 Q ${node.cp} ${node.x} ${node.y}`} stroke={node.color} strokeWidth="2.5" fill="none" />
+//               </React.Fragment>
+//             ))}
+//           </svg>
 
-          {/* Central Hub centerpiece */}
-          <div className="central-hub relative z-20 w-32 h-32 lg:w-44 lg:h-44 bg-white rounded-[2.5rem] shadow-2xl border border-[#F5F7FA] flex items-center justify-center">
-            <div className="hub-glow absolute inset-0 bg-[#1F6ED4]/15 rounded-[2.5rem] scale-110" />
-            <div className="relative z-10 text-center px-4">
-              <img src="/logos/showcase1.png" className="w-16 h-16 lg:w-20 lg:h-20 object-contain mx-auto" alt="hub" />
-              <div className="mt-2 px-3 py-1 bg-[#F5F7FA] rounded-full text-[8px] font-black text-[#1E1E1E] uppercase tracking-tighter">Growth Hub</div>
-            </div>
-            <div className="absolute -top-4 -right-4 w-10 h-10 lg:w-12 lg:h-12 bg-[#28C76F] rounded-xl shadow-lg flex items-center justify-center text-white animate-bounce">
-              <TrendingUp size={20} className="lg:size-6" />
-            </div>
-          </div>
+//           {/* Central Hub centerpiece */}
+//           <div className="central-hub relative z-20 w-32 h-32 lg:w-44 lg:h-44 bg-white rounded-[2.5rem] shadow-2xl border border-[#F5F7FA] flex items-center justify-center">
+//             <div className="hub-glow absolute inset-0 bg-[#1F6ED4]/15 rounded-[2.5rem] scale-110" />
+//             <div className="relative z-10 text-center px-4">
+//               <img src="/logos/showcase1.png" className="w-16 h-16 lg:w-20 lg:h-20 object-contain mx-auto" alt="hub" />
+//               <div className="mt-2 px-3 py-1 bg-[#F5F7FA] rounded-full text-[8px] font-black text-[#1E1E1E] uppercase tracking-tighter">Growth Hub</div>
+//             </div>
+//             <div className="absolute -top-4 -right-4 w-10 h-10 lg:w-12 lg:h-12 bg-[#28C76F] rounded-xl shadow-lg flex items-center justify-center text-white animate-bounce">
+//               <TrendingUp size={20} className="lg:size-6" />
+//             </div>
+//           </div>
 
-          {/* Orbiting Integration Nodes */}
-          {integrations.map((item) => (
-            <div 
-              key={item.id}
-              className="social-node absolute flex flex-col items-center gap-1 group"
-              style={{ top: item.pos.top, left: item.pos.left, transform: 'translate(-50%, -50%)' }}
-            >
-              <div className="w-10 h-10 lg:w-14 lg:h-14 bg-white rounded-2xl shadow-lg border border-[#F5F7FA] flex items-center justify-center transition-all group-hover:scale-110 group-hover:shadow-2xl cursor-pointer p-2">
-                <img src={item.src} alt={item.id} className="w-full h-full object-contain" />
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
+//           {/* Orbiting Integration Nodes */}
+//           {integrations.map((item) => (
+//             <div 
+//               key={item.id}
+//               className="social-node absolute flex flex-col items-center gap-1 group"
+//               style={{ top: item.pos.top, left: item.pos.left, transform: 'translate(-50%, -50%)' }}
+//             >
+//               <div className="w-10 h-10 lg:w-14 lg:h-14 bg-white rounded-2xl shadow-lg border border-[#F5F7FA] flex items-center justify-center transition-all group-hover:scale-110 group-hover:shadow-2xl cursor-pointer p-2">
+//                 <img src={item.src} alt={item.id} className="w-full h-full object-contain" />
+//               </div>
+//             </div>
+//           ))}
+//         </div>
+//       </div>
+//     </section>
+//   );
+// };
 
-export default Hero;
+// export default Hero;
 
 
 // import React, { useEffect, useRef } from 'react';

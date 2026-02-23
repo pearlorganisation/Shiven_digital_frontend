@@ -11,28 +11,21 @@ import {
   Scale,
   PenSquare,
   Globe,
-  LayoutDashboard,
-  LogOut,
-  Bell,
-  Search,
-  Menu,
-  X,
-  ChevronRight,
-  ArrowUpRight
+
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const AdminStaffDashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  // const [scrolled, setScrolled] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     setScrolled(window.scrollY > 20);
+  //   };
+  //   window.addEventListener('scroll', handleScroll);
+  //   return () => window.removeEventListener('scroll', handleScroll);
+  // }, []);
 
   const totalFiles = 250;
   const totalQueries = 45;
@@ -79,10 +72,10 @@ const AdminStaffDashboard = () => {
     }
   };
 
-  const sidebarVariants = {
-    closed: { x: '-100%', transition: { stiffness: 300, damping: 30 } },
-    open: { x: 0, transition: { stiffness: 300, damping: 30 } }
-  };
+  // const sidebarVariants = {
+  //   closed: { x: '-100%', transition: { stiffness: 300, damping: 30 } },
+  //   open: { x: 0, transition: { stiffness: 300, damping: 30 } }
+  // };
 
   return (
     <div className="flex h-screen bg-gray-50/50 font-sans text-gray-900 overflow-hidden">

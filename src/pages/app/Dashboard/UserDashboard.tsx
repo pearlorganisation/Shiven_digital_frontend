@@ -77,10 +77,10 @@ const UserDashboard = () => {
     }
   };
 
-  const sidebarVariants = {
-    closed: { x: '-100%', transition: { stiffness: 300, damping: 30 } },
-    open: { x: 0, transition: { stiffness: 300, damping: 30 } }
-  };
+  // const sidebarVariants = {
+  //   closed: { x: '-100%', transition: { stiffness: 300, damping: 30 } },
+  //   open: { x: 0, transition: { stiffness: 300, damping: 30 } }
+  // };
 
   return (
     <div className="flex h-screen bg-gray-50/50 font-sans text-gray-900 overflow-hidden">
