@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { CheckCircle2, ArrowRight } from 'lucide-react';
-import type { SectionContent } from './TestType';
+import type { SectionContent } from './CollabType';
 
 
 
