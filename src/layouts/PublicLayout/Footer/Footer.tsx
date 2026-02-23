@@ -31,7 +31,7 @@ export const Footer: React.FC = () => {
                 <span className="font-black text-xl italic">S</span>
               </div>
               <span className="text-2xl font-bold tracking-tight text-slate-900">
-                Shiven<span className="text-blue-600">Digital</span>
+              <span className="text-blue-600">Chiku</span>
               </span>
             </a>
             <p className="text-slate-500 text-base leading-relaxed max-w-sm">
