@@ -32,6 +32,16 @@
   scrollbar-width: none;     
 }
 
+/* Hide scrollbar but keep scrolling */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+
 /* === BRAND GRADIENTS === */
 .bg-gradient-cta {
   background: linear-gradient(90deg, #FF8C42, #FFB347);

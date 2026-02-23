@@ -4,6 +4,7 @@ import AgencyDashboard from "./AgencyDashboard";
 import UserDashboard from "./UserDashboard";
 import AppNotFoundPage from "@/components/Fallback/app/AppNotFound"; 
 import AgencyStaffDashboard from "./AgencyStaffDashboard";
+import AdminStaffDashboard from "./AdminStaffDashboard";
 
 const Dashboard = () => {
   const role = useSelector((state: any) => state.auth.user?.role);
@@ -12,7 +13,7 @@ const Dashboard = () => {
   if (role === "agency") return <AgencyDashboard />;
   if (role === "user") return <UserDashboard />;
   if (role === "agencyStaff") return <AgencyStaffDashboard/>
-  if (role === "adminStaff") return <AgencyStaffDashboard/>
+  if (role === "adminStaff") return <AdminStaffDashboard/>
 
   return <AppNotFoundPage />;
 };

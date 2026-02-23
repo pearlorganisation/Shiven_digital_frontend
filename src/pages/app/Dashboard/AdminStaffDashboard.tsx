@@ -1,192 +1,257 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
-  DocumentTextIcon,
-  ChatBubbleLeftRightIcon,
-  CalendarIcon,
-  ChartBarIcon,
-  UserIcon,
-  CurrencyDollarIcon,
-  CogIcon,
-  ClipboardDocumentListIcon,
-  ScaleIcon,
-  PencilSquareIcon,
-  GlobeAltIcon
-} from '@heroicons/react/24/outline';
+  FileText,
+  MessageSquare,
+  Calendar,
+  BarChart3,
+  User,
+  DollarSign,
+  Settings,
+  ClipboardList,
+  Scale,
+  PenSquare,
+  Globe,
+  LayoutDashboard,
+  LogOut,
+  Bell,
+  Search,
+  Menu,
+  X,
+  ChevronRight,
+  ArrowUpRight
+} from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
-const AdminStaffDashboard: React.FC = () => {
-  
+const AdminStaffDashboard = () => {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const totalFiles = 250;
   const totalQueries = 45;
   const pendingApprovals = 8;
   const totalPayments = 150;
+
   const subscriptionPlans = [
     { user: 'John Doe', plan: 'Premium', status: 'Active', expires: '2025-10-15' },
     { user: 'Jane Smith', plan: 'Basic', status: 'Pending', expires: '2025-10-20' },
   ];
+
   const spaceAnalysis = [
-    { category: 'Storage', usage: '75%', limit: '100GB' },
-    { category: 'Bandwidth', usage: '50%', limit: '200GB' },
+    { category: 'Storage', usage: 75, limit: '100GB', color: 'bg-blue-500' },
+    { category: 'Bandwidth', usage: 50, limit: '200GB', color: 'bg-green-500' },
   ];
 
+  const quickLinks = [
+    { name: 'Files & Folders', icon: FileText, color: 'text-blue-600', bg: 'bg-blue-50', border: 'hover:border-blue-200', href: '/files-folders' },
+    { name: 'Queries & Tickets', icon: MessageSquare, color: 'text-green-600', bg: 'bg-green-50', border: 'hover:border-green-200', href: '/queries-tickets' },
+    { name: 'Announcements', icon: Globe, color: 'text-yellow-600', bg: 'bg-yellow-50', border: 'hover:border-yellow-200', href: '/announcements' },
+    { name: 'Training', icon: PenSquare, color: 'text-purple-600', bg: 'bg-purple-50', border: 'hover:border-purple-200', href: '/training' },
+    { name: 'Subscription Plan', icon: Calendar, color: 'text-indigo-600', bg: 'bg-indigo-50', border: 'hover:border-indigo-200', href: '/subscription-plan' },
+    { name: 'User Approval', icon: User, color: 'text-red-600', bg: 'bg-red-50', border: 'hover:border-red-200', href: '/user-approval' },
+    { name: 'Payment Logs', icon: DollarSign, color: 'text-blue-600', bg: 'bg-blue-50', border: 'hover:border-blue-200', href: '/payment-logs' },
+    { name: 'Space Analysis', icon: BarChart3, color: 'text-green-600', bg: 'bg-green-50', border: 'hover:border-green-200', href: '/space-analysis' },
+    { name: 'Landing Page', icon: ClipboardList, color: 'text-yellow-600', bg: 'bg-yellow-50', border: 'hover:border-yellow-200', href: '/landing-page' },
+    { name: 'Management', icon: Settings, color: 'text-purple-600', bg: 'bg-purple-50', border: 'hover:border-purple-200', href: '/management' },
+    { name: 'Coupon Management', icon: Scale, color: 'text-indigo-600', bg: 'bg-indigo-50', border: 'hover:border-indigo-200', href: '/coupon-management' },
+  ];
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.08, delayChildren: 0.1 }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0, scale: 0.95 },
+    visible: {
+      y: 0, opacity: 1, scale: 1,
+      transition: { stiffness: 100, damping: 15 }
+    }
+  };
+
+  const sidebarVariants = {
+    closed: { x: '-100%', transition: { stiffness: 300, damping: 30 } },
+    open: { x: 0, transition: { stiffness: 300, damping: 30 } }
+  };
+
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
-      <h1 className="text-3xl font-bold mb-6 flex items-center">
-        <ChartBarIcon className="h-8 w-8 mr-2 text-blue-600" />
-        Admin Staff Dashboard
-      </h1>
+    <div className="flex h-screen bg-gray-50/50 font-sans text-gray-900 overflow-hidden">
 
-      {/* Metrics Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        {/* Total Files */}
-        <div className="bg-white p-6 rounded-lg shadow-md">
-          <div className="flex items-center mb-2">
-            <DocumentTextIcon className="h-6 w-6 text-blue-600 mr-2" />
-            <h2 className="text-lg font-semibold">Total Files</h2>
-          </div>
-          <p className="text-4xl font-bold">{totalFiles}</p>
-          <p className="text-sm text-gray-500">Managed documents</p>
-        </div>
 
-        {/* Total Queries */}
-        <div className="bg-white p-6 rounded-lg shadow-md">
-          <div className="flex items-center mb-2">
-            <ChatBubbleLeftRightIcon className="h-6 w-6 text-green-600 mr-2" />
-            <h2 className="text-lg font-semibold">Total Queries</h2>
-          </div>
-          <p className="text-4xl font-bold">{totalQueries}</p>
-          <p className="text-sm text-gray-500">Open tickets</p>
-        </div>
+      {/* Main Content */}
+      <div className="flex-1 flex flex-col overflow-hidden relative">
 
-        {/* Pending Approvals */}
-        <div className="bg-white p-6 rounded-lg shadow-md">
-          <div className="flex items-center mb-2">
-            <UserIcon className="h-6 w-6 text-yellow-600 mr-2" />
-            <h2 className="text-lg font-semibold">Pending Approvals</h2>
-          </div>
-          <p className="text-4xl font-bold">{pendingApprovals}</p>
-          <p className="text-sm text-gray-500">User account requests</p>
-        </div>
+        {/* Dashboard Content */}
+        <main className="flex-1 overflow-x-hidden overflow-y-auto no-scrollbar  p-4 sm:p-6 lg:p-8 scroll-smooth">
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="max-w-7xl mx-auto space-y-8"
+          >
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <motion.div variants={itemVariants}>
+                <h1 className="text-3xl font-bold text-gray-900 tracking-tight">Admin Staff Dashboard</h1>
+                <p className="text-gray-500 mt-1">Overview of system activities and requests.</p>
+              </motion.div>
+            </div>
 
-        {/* Total Payments */}
-        <div className="bg-white p-6 rounded-lg shadow-md">
-          <div className="flex items-center mb-2">
-            <CurrencyDollarIcon className="h-6 w-6 text-purple-600 mr-2" />
-            <h2 className="text-lg font-semibold">Total Payments</h2>
-          </div>
-          <p className="text-4xl font-bold">{totalPayments}</p>
-          <p className="text-sm text-gray-500">Processed transactions</p>
-        </div>
-      </div>
-
-      {/* Additional Sections Inspired by Sidebar */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Subscription Plan */}
-        <div className="bg-white p-6 rounded-lg shadow-md">
-          <div className="flex items-center mb-4">
-            <CalendarIcon className="h-6 w-6 text-red-600 mr-2" />
-            <h2 className="text-lg font-semibold">Subscription Plans</h2>
-          </div>
-          <table className="w-full text-left">
-            <thead>
-              <tr className="border-b">
-                <th className="py-2">User</th>
-                <th className="py-2">Plan</th>
-                <th className="py-2">Status</th>
-                <th className="py-2">Expires</th>
-              </tr>
-            </thead>
-            <tbody>
-              {subscriptionPlans.map((item, index) => (
-                <tr key={index} className="border-b">
-                  <td className="py-2">{item.user}</td>
-                  <td className="py-2">{item.plan}</td>
-                  <td className="py-2">{item.status}</td>
-                  <td className="py-2">{item.expires}</td>
-                </tr>
+            {/* Metrics Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {[
+                { title: 'Total Files', value: totalFiles, sub: 'Managed documents', icon: FileText, color: 'blue' },
+                { title: 'Total Queries', value: totalQueries, sub: 'Open tickets', icon: MessageSquare, color: 'green' },
+                { title: 'Pending Approvals', value: pendingApprovals, sub: 'User requests', icon: User, color: 'yellow' },
+                { title: 'Total Payments', value: totalPayments, sub: 'Processed transactions', icon: DollarSign, color: 'purple' },
+              ].map((stat, index) => (
+                <motion.div
+                  key={index}
+                  variants={itemVariants}
+                  whileHover={{ y: -5 }}
+                  className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-xl hover:shadow-gray-200/50 transition-all duration-300 group"
+                >
+                  <div className="flex items-center justify-between mb-4">
+                    <div className={`p-3 rounded-xl transition-colors ${
+                      stat.color === 'blue' ? "bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white" :
+                      stat.color === 'green' ? "bg-green-50 text-green-600 group-hover:bg-green-600 group-hover:text-white" :
+                      stat.color === 'yellow' ? "bg-yellow-50 text-yellow-600 group-hover:bg-yellow-600 group-hover:text-white" :
+                      "bg-purple-50 text-purple-600 group-hover:bg-purple-600 group-hover:text-white"
+                    }`}>
+                      <stat.icon className="h-6 w-6" />
+                    </div>
+                  </div>
+                  <h3 className="text-gray-500 text-sm font-medium">{stat.title}</h3>
+                  <p className="text-2xl font-bold text-gray-900 mt-1 tracking-tight">{stat.value}</p>
+                  <p className="text-xs text-gray-400 mt-2 font-medium">{stat.sub}</p>
+                </motion.div>
               ))}
-            </tbody>
-          </table>
-          <p className="text-sm text-gray-500 mt-2">Manage in Subscription Plan section.</p>
-        </div>
+            </div>
 
-        {/* Space & Analytics */}
-        <div className="bg-white p-6 rounded-lg shadow-md">
-          <div className="flex items-center mb-4">
-            <ChartBarIcon className="h-6 w-6 text-indigo-600 mr-2" />
-            <h2 className="text-lg font-semibold">Space & Analytics</h2>
-          </div>
-          <table className="w-full text-left">
-            <thead>
-              <tr className="border-b">
-                <th className="py-2">Category</th>
-                <th className="py-2">Usage</th>
-                <th className="py-2">Limit</th>
-              </tr>
-            </thead>
-            <tbody>
-              {spaceAnalysis.map((item, index) => (
-                <tr key={index} className="border-b">
-                  <td className="py-2">{item.category}</td>
-                  <td className="py-2">{item.usage}</td>
-                  <td className="py-2">{item.limit}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          <p className="text-sm text-gray-500 mt-2">View detailed reports in Space Analysis section.</p>
-        </div>
+            {/* Middle Section */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {/* Subscription Plans */}
+              <motion.div variants={itemVariants} className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col">
+                <div className="flex items-center justify-between mb-6">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 bg-red-50 rounded-lg">
+                      <Calendar className="h-5 w-5 text-red-500" />
+                    </div>
+                    <h2 className="text-lg font-bold text-gray-900">Subscription Plans</h2>
+                  </div>
+                </div>
+                <div className="overflow-x-auto flex-1">
+                  <table className="w-full text-left border-collapse">
+                    <thead>
+                      <tr className="border-b border-gray-100 text-gray-400 text-xs uppercase tracking-wider">
+                        <th className="py-4 pl-2 font-semibold">User</th>
+                        <th className="py-4 font-semibold">Plan</th>
+                        <th className="py-4 font-semibold">Status</th>
+                        <th className="py-4 font-semibold">Expires</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-50">
+                      {subscriptionPlans.map((item, index) => (
+                        <motion.tr 
+                          key={index}
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: index * 0.1 }}
+                          className="group hover:bg-gray-50/80 transition-colors"
+                        >
+                          <td className="py-4 pl-2 font-medium text-gray-900">{item.user}</td>
+                          <td className="py-4 text-gray-600">{item.plan}</td>
+                          <td className="py-4">
+                            <span className={`px-2.5 py-1 rounded-full text-xs font-medium ${
+                              item.status === 'Active' ? "bg-green-50 text-green-700" : "bg-amber-50 text-amber-700"
+                            }`}>
+                              {item.status}
+                            </span>
+                          </td>
+                          <td className="py-4 text-gray-500 text-sm">{item.expires}</td>
+                        </motion.tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </motion.div>
+
+              {/* Space & Analytics */}
+              <motion.div variants={itemVariants} className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col">
+                <div className="flex items-center mb-8 gap-3">
+                  <div className="p-2 bg-indigo-50 rounded-lg">
+                    <BarChart3 className="h-5 w-5 text-indigo-600" />
+                  </div>
+                  <h2 className="text-lg font-bold text-gray-900">Space & Analytics</h2>
+                </div>
+                <div className="space-y-6 flex-1">
+                  {spaceAnalysis.map((item, index) => (
+                    <div key={index} className="group">
+                      <div className="flex justify-between text-sm mb-2">
+                        <span className="text-gray-700 font-medium">{item.category}</span>
+                        <span className="text-gray-900 font-bold">{item.usage}% <span className="text-gray-400 font-normal text-xs">/ {item.limit}</span></span>
+                      </div>
+                      <div className="w-full bg-gray-100 rounded-full h-2 overflow-hidden">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          animate={{ width: `${item.usage}%` }}
+                          transition={{ duration: 1.5, delay: 0.5 + (index * 0.2), ease: "easeOut" }}
+                          className={`h-full rounded-full relative ${item.color}`}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            </div>
+
+            {/* Quick Access */}
+            <motion.div variants={itemVariants}>
+              <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                Quick Access
+              </h2>
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+                {quickLinks.map((link, index) => (
+                  <motion.a
+                    key={index}
+                    href={link.href}
+                    whileHover={{ scale: 1.05, y: -5 }}
+                    whileTap={{ scale: 0.95 }}
+                    className={`flex flex-col items-center justify-center p-6 rounded-2xl transition-all duration-300 shadow-sm hover:shadow-lg border border-transparent ${link.bg} ${link.border}`}
+                  >
+                    <div className="bg-white p-3 rounded-xl shadow-sm mb-3">
+                      <link.icon className={`h-6 w-6 ${link.color}`} />
+                    </div>
+                    <span className="text-sm font-semibold text-gray-700 text-center leading-tight">{link.name}</span>
+                  </motion.a>
+                ))}
+              </div>
+            </motion.div>
+          </motion.div>
+        </main>
       </div>
 
-      {/* Quick Links to Sidebar Sections */}
-      <div className="mt-8">
-        <h2 className="text-xl font-semibold mb-4">Quick Access</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-          <a href="/files-folders" className="bg-blue-100 p-4 rounded-lg text-center hover:bg-blue-200">
-            <DocumentTextIcon className="h-6 w-6 mx-auto mb-2" />
-            Files & Folders
-          </a>
-          <a href="/queries-tickets" className="bg-green-100 p-4 rounded-lg text-center hover:bg-green-200">
-            <ChatBubbleLeftRightIcon className="h-6 w-6 mx-auto mb-2" />
-            Queries & Tickets
-          </a>
-          <a href="/announcements" className="bg-yellow-100 p-4 rounded-lg text-center hover:bg-yellow-200">
-            <GlobeAltIcon className="h-6 w-6 mx-auto mb-2" />
-            Announcements
-          </a>
-          <a href="/training" className="bg-purple-100 p-4 rounded-lg text-center hover:bg-purple-200">
-            <PencilSquareIcon className="h-6 w-6 mx-auto mb-2" />
-            Training
-          </a>
-          <a href="/subscription-plan" className="bg-indigo-100 p-4 rounded-lg text-center hover:bg-indigo-200">
-            <CalendarIcon className="h-6 w-6 mx-auto mb-2" />
-            Subscription Plan
-          </a>
-          <a href="/user-approval" className="bg-red-100 p-4 rounded-lg text-center hover:bg-red-200">
-            <UserIcon className="h-6 w-6 mx-auto mb-2" />
-            User Approval
-          </a>
-          <a href="/payment-logs" className="bg-blue-100 p-4 rounded-lg text-center hover:bg-blue-200">
-            <CurrencyDollarIcon className="h-6 w-6 mx-auto mb-2" />
-            Payment Logs
-          </a>
-          <a href="/space-analysis" className="bg-green-100 p-4 rounded-lg text-center hover:bg-green-200">
-            <ChartBarIcon className="h-6 w-6 mx-auto mb-2" />
-            Space Analysis
-          </a>
-          <a href="/landing-page" className="bg-yellow-100 p-4 rounded-lg text-center hover:bg-yellow-200">
-            <ClipboardDocumentListIcon className="h-6 w-6 mx-auto mb-2" />
-            Landing Page
-          </a>
-          <a href="/management" className="bg-purple-100 p-4 rounded-lg text-center hover:bg-purple-200">
-            <CogIcon className="h-6 w-6 mx-auto mb-2" />
-            Management
-          </a>
-          <a href="/coupon-management" className="bg-indigo-100 p-4 rounded-lg text-center hover:bg-indigo-200">
-            <ScaleIcon className="h-6 w-6 mx-auto mb-2" />
-            Coupon Management
-          </a>
-        </div>
-      </div>
+      {/* Overlay for mobile sidebar */}
+      <AnimatePresence>
+        {sidebarOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 lg:hidden"
+            onClick={() => setSidebarOpen(false)}
+          ></motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
