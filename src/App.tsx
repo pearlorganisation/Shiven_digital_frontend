@@ -35,7 +35,7 @@ import AppLayoutSkeleton from "@/components/Fallback/app/AppLayoutSkeleton";
 import AppNotFoundPage from "@/components/Fallback/app/AppNotFound";
 
 import PublicNotFoundPage from "@/components/Fallback/public/PublicNotFound";
-import {Login} from "../src/pages/auth/index"
+import {Login} from "./pages/Auth/index"
 
 function App() {
   const { user } = useAppSelector((state) => state.auth);
