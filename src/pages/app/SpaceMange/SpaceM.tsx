@@ -1,6 +1,6 @@
 // src/pages/AddonsPage.tsx
 import React, { useState } from "react";
-import type{ChangeEvent, FormEvent} from "react";
+import type{ChangeEvent} from "react";
 
 // --- Types & Interfaces ---
 
