@@ -1,138 +1,176 @@
-import React from 'react'
-import {
-  EyeIcon,
-  PencilSquareIcon,
-  TrashIcon,
-} from '@heroicons/react/24/outline'
-import { Plus } from 'lucide-react'
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Plus, Ticket, Search, Filter } from 'lucide-react';
+import { CouponsTable } from '@/components/Coupoun/CouponsTable';
+import { CouponForm } from '@/components/Coupoun/CouponForm';
+import { CouponRedemptionsModal } from '@/components/Coupoun/CouponRedemptionsModal';
+import { MOCK_COUPONS, MOCK_REDEMPTIONS } from '@/components/Helpers/MockPlans';
+import type{ Coupon, CouponRedemption } from '@/components/Helpers/types';
+import { ConfirmationModal } from '@/components/Helpers/ConfirmationModal';
 
-type Coupon = {
-  code: string
-  description?: string
-  discount: string
-  redemptions: string
-  status: 'Active' | 'Inactive'
-  expiresAt: string
-}
+ const ManageCouponsPage: React.FC = () => {
+ const [coupons, setCoupons] = useState<Coupon[]>(MOCK_COUPONS);
+  const [isLoading, setIsLoading] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  
+  const [selectedRedemptions, setSelectedRedemptions] = useState<CouponRedemption[] | null>(null);
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [editingCoupon, setEditingCoupon] = useState<Coupon | null>(null);
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+  const [couponToDelete, setCouponToDelete] = useState<string | null>(null);
 
-const coupons: Coupon[] = [
-  {
-    code: 'SDFSDF',
-    description: 'dfgthrghsrthrhyhggnhhjjhghghmj',
-    discount: '₹111',
-    redemptions: '0 / 121',
-    status: 'Inactive',
-    expiresAt: '2025-06-30',
-  },
-  {
-    code: '0KAY',
-    description: '12',
-    discount: '20%',
-    redemptions: '12 / 12',
-    status: 'Active',
-    expiresAt: '2025-06-30',
-  },
-  {
-    code: 'DS43',
-    description: '1211',
-    discount: '₹12',
-    redemptions: '0 / 22',
-    status: 'Inactive',
-    expiresAt: '2025-06-13',
-  },
-]
+  // Filtered coupons
+  const filteredCoupons = coupons.filter(coupon => 
+    coupon.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    coupon.description.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
-const CouponManager: React.FC = () => {
+  const handleOpenCreateForm = () => {
+    setEditingCoupon(null);
+    setIsFormOpen(true);
+  };
+
+  const handleOpenEditForm = (coupon: Coupon) => {
+    setEditingCoupon(coupon);
+    setIsFormOpen(true);
+  };
+
+  const handleCloseForm = () => {
+    setIsFormOpen(false);
+    setEditingCoupon(null);
+  };
+  
+  const handleDeleteClick = (couponId: string) => {
+    setCouponToDelete(couponId);
+    setIsConfirmModalOpen(true);
+  };
+
+  const confirmDelete = () => {
+    if (couponToDelete) {
+      setCoupons(prev => prev.map(c => 
+        c.id === couponToDelete ? { ...c, isActive: false } : c
+      ));
+      setCouponToDelete(null);
+    }
+  };
+
+  const handleFormSubmit = (couponData: Partial<Coupon>) => {
+    if (editingCoupon) {
+      // Update mode
+      setCoupons(prev => prev.map(c => 
+        c.id === editingCoupon.id ? { ...c, ...couponData } as Coupon : c
+      ));
+    } else {
+      // Create mode
+      const newCoupon: Coupon = {
+        ...couponData,
+        id: `c${Date.now()}`,
+        currentRedemptions: 0,
+        isActive: true,
+        createdAt: new Date().toISOString(),
+      } as Coupon;
+      setCoupons(prev => [newCoupon, ...prev]);
+    }
+    handleCloseForm();
+  };
+
+  const handleViewCodeRedemptions = (id: string) => {
+    // In a real app, this would be an API call
+    const redemptions = MOCK_REDEMPTIONS[id] || [];
+    setSelectedRedemptions(redemptions);
+  };
+
   return (
-    <div className="min-h-screen bg-blue-50 p-6 md:p-12">
-      {/* Header */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="space-y-8 p-6"
+    >
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-gray-800">Manage Coupons</h1>
-          <p className="text-gray-600 mt-1">
-            Create, update, and deactivate promotional coupon codes.
-          </p>
+          <h1 className="text-4xl font-black text-gray-900 tracking-tight">Manage Coupons</h1>
+          <p className="text-gray-500 mt-2">Create, update, and deactivate promotional coupon codes.</p>
         </div>
-        <button className="flex items-center gap-2 mt-4 md:mt-0 bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition text-sm font-medium shadow">
-          <Plus className="w-4 h-4" />
+        <button
+          onClick={handleOpenCreateForm}
+          className="px-6 py-3 bg-indigo-600 text-white rounded-2xl font-bold hover:bg-indigo-700 shadow-lg shadow-indigo-100 flex items-center justify-center transition-all"
+        >
+          <Plus className="w-5 h-5 mr-2" />
           Create New Coupon
         </button>
       </div>
 
-      {/* Table */}
-      <div className="overflow-x-auto bg-white rounded-xl shadow-sm border border-gray-200">
-        <table className="w-full text-sm text-left text-gray-700">
-          <thead className="bg-gray-100 text-gray-600 uppercase text-xs">
-            <tr>
-              <th className="px-6 py-4">Code</th>
-              <th className="px-6 py-4">Discount</th>
-              <th className="px-6 py-4">Redemptions</th>
-              <th className="px-6 py-4">Status</th>
-              <th className="px-6 py-4">Expires At</th>
-              <th className="px-6 py-4 text-center">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {coupons.map((coupon, idx) => (
-              <tr
-                key={idx}
-                className="border-t hover:bg-gray-50 transition-colors"
-              >
-                <td className="px-6 py-4 font-semibold text-indigo-700">
-                  <div>
-                    {coupon.code}
-                    {coupon.description && (
-                      <div className="text-xs text-gray-500">
-                        {coupon.description}
-                      </div>
-                    )}
-                  </div>
-                </td>
-                <td className="px-6 py-4">{coupon.discount}</td>
-                <td className="px-6 py-4">{coupon.redemptions}</td>
-                <td className="px-6 py-4">
-                  <span
-                    className={`inline-block text-xs font-medium px-2 py-1 rounded-full ${
-                      coupon.status === 'Active'
-                        ? 'bg-green-100 text-green-700'
-                        : 'bg-gray-200 text-gray-600'
-                    }`}
-                  >
-                    {coupon.status}
-                  </span>
-                </td>
-                <td className="px-6 py-4">{coupon.expiresAt}</td>
-                <td className="px-6 py-4 text-center">
-                  <div className="flex items-center justify-center gap-3">
-                    <button
-                      className="text-green-600 hover:text-green-800"
-                      title="View"
-                    >
-                      <EyeIcon className="w-5 h-5" />
-                    </button>
-                    <button
-                      className="text-indigo-600 hover:text-indigo-800"
-                      title="Edit"
-                    >
-                      <PencilSquareIcon className="w-5 h-5" />
-                    </button>
-                    {coupon.status === 'Active' && (
-                      <button
-                        className="text-red-600 hover:text-red-700"
-                        title="Delete"
-                      >
-                        <TrashIcon className="w-5 h-5" />
-                      </button>
-                    )}
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      {/* Stats & Search */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-sm flex items-center space-x-4">
+          <div className="p-4 bg-indigo-50 rounded-2xl">
+            <Ticket className="w-6 h-6 text-indigo-600" />
+          </div>
+          <div>
+            <p className="text-sm font-bold text-gray-400 uppercase tracking-wider">Total Coupons</p>
+            <p className="text-2xl font-black text-gray-900">{coupons.length}</p>
+          </div>
+        </div>
+        
+        <div className="md:col-span-2 bg-white p-6 rounded-3xl border border-gray-100 shadow-sm flex items-center space-x-4">
+          <div className="flex-1 relative">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-300" />
+            <input
+              type="text"
+              placeholder="Search by code or description..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full pl-12 pr-4 py-3 rounded-2xl border border-gray-100 focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
+            />
+          </div>
+          <button className="p-3 bg-gray-50 text-gray-400 rounded-2xl hover:bg-gray-100 transition-colors">
+            <Filter className="w-6 h-6" />
+          </button>
+        </div>
       </div>
-    </div>
-  )
-}
 
-export default CouponManager
+      <div className="mt-8">
+        <CouponsTable 
+          coupons={filteredCoupons} 
+          onEdit={handleOpenEditForm}
+            onDelete={handleDeleteClick}
+          isLoading={isLoading}
+          onViewCodeRedemptions={handleViewCodeRedemptions}
+        />
+      </div>
+      
+      {/* Modals */}
+      <AnimatePresence>
+        {isFormOpen && (
+          <CouponForm
+            isOpen={isFormOpen}
+            onClose={handleCloseForm}
+            onSubmit={handleFormSubmit}
+            coupon={editingCoupon}
+          />
+        )}
+
+        {selectedRedemptions && (
+          <CouponRedemptionsModal
+            onClose={() => setSelectedRedemptions(null)}
+            couponRedemptions={selectedRedemptions}
+          />
+        )}
+        {isConfirmModalOpen && (
+          <ConfirmationModal
+            isOpen={isConfirmModalOpen}
+            onClose={() => setIsConfirmModalOpen(false)}
+            onConfirm={confirmDelete}
+            title="Deactivate Coupon?"
+            message="Are you sure you want to deactivate this coupon? It will no longer be redeemable by customers."
+            confirmText="Deactivate"
+            type="danger"
+          />
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
+};
+
+
+export default ManageCouponsPage;
