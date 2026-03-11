@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
 import type { TypedUseSelectorHook } from "react-redux";
 import {
@@ -18,6 +18,7 @@ import { setStore } from "@/lib/apiClient"; // ✅ safe now
 import authReducer from "./slice/authSlice";
 import globalDataReducer from "./slice/globalDataSlice";
 import brandReducer from "./slice/brandSlice";
+import facebookReducer from "./slice/integration/facebookSlice"
 
 const persistConfig = {
   key: "auth",
@@ -26,12 +27,17 @@ const persistConfig = {
 
 const persistedAuthReducer = persistReducer(persistConfig, authReducer);
 
+const integrationReducer = combineReducers({
+  facebook: facebookReducer,
+});
+
 export const store = configureStore({
   reducer: {
     auth: persistedAuthReducer,
     globalData: globalDataReducer,
     brands: brandReducer,
-  },
+    integration: integrationReducer
+    },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {

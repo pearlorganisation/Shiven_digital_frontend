@@ -35,7 +35,10 @@ import AppLayoutSkeleton from "@/components/Fallback/app/AppLayoutSkeleton";
 import AppNotFoundPage from "@/components/Fallback/app/AppNotFound";
 
 import PublicNotFoundPage from "@/components/Fallback/public/PublicNotFound";
-import {Login} from "./pages/Auth/index"
+// import {Login} from "./pages/Auth/index"
+import SocialIntegrations from "./pages/app/integrations/SocialIntegrations";
+import { Login } from "./pages/auth";
+import FacebookConnect from "./pages/app/integrations/platforms/facebook/FacebookConnect";
 
 function App() {
   const { user } = useAppSelector((state) => state.auth);
@@ -91,6 +94,8 @@ function App() {
         { path: "billing", element: <Billings /> },
 
         { path: "*", element: <AppNotFoundPage /> },
+        { path: "integrations/social", element: <SocialIntegrations /> },
+        { path: "integrations/social/facebook", element: <FacebookConnect /> }
       ],
     },
 
