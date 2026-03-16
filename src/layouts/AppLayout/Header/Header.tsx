@@ -110,14 +110,14 @@ const Header = () => {
           {isProfileOpen && (
             <div className="absolute top-full right-0 mt-2 w-48 bg-white border border-slate-200 rounded-lg shadow-xl py-1 z-50">
               <Link
-                to="/profile"
+                to="/app/company-profile"
                 className="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-100"
                 onClick={() => setProfileOpen(false)}
               >
                 My Profile
               </Link>
               <Link
-                to="/settings"
+                to="/app/settings"
                 className="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-100"
                 onClick={() => setProfileOpen(false)}
               >
