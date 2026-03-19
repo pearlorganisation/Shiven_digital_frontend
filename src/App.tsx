@@ -37,7 +37,7 @@ import AppNotFoundPage from "@/components/Fallback/app/AppNotFound";
 import PublicNotFoundPage from "@/components/Fallback/public/PublicNotFound";
 // import {Login} from "./pages/Auth/index"
 import SocialIntegrations from "./pages/app/integrations/SocialIntegrations";
-import  Login  from "@/pages/auth/Login";
+import  Login  from "./pages/auth/Login.tsx";
 import FacebookConnect from "./pages/app/integrations/platforms/facebook/FacebookConnect";
 import CompanyProfile from "./pages/app/company-profile/CompanyProfile.tsx";
 
