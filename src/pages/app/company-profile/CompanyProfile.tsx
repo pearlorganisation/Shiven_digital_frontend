@@ -1,10 +1,44 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, type ChangeEvent, type FormEvent } from "react";
 import { Building2, Globe, MapPin, Briefcase, Image as ImageIcon, Save, Loader2 } from "lucide-react";
 import companyService from "../../../services/companyProfileServices";
 
-const CompanyProfile = () => {
+// --- Interfaces ---
+interface CompanyAddress {
+  street: string;
+  city: string;
+  state: string;
+  country: string;
+  zipCode: string;
+}
 
-  const [formData, setFormData] = useState({
+interface CompanyFormData {
+  companyName: string;
+  industry: string;
+  profileHeadline: string;
+  services: string;
+  websiteUrl: string;
+  logoUrl: string;
+  street: string;
+  city: string;
+  state: string;
+  country: string;
+  zipCode: string;
+  isPublished: boolean;
+}
+
+interface SaveProfilePayload {
+  companyName: string;
+  industry: string;
+  profileHeadline: string;
+  services: string[];
+  websiteUrl: string;
+  logoUrl: string;
+  address: CompanyAddress;
+  isPublished: boolean;
+}
+
+const CompanyProfile: React.FC = () => {
+  const [formData, setFormData] = useState<CompanyFormData>({
     companyName: "",
     industry: "",
     profileHeadline: "",
@@ -16,11 +50,11 @@ const CompanyProfile = () => {
     state: "",
     country: "",
     zipCode: "",
-    isPublished: true // Added to support the toggle switch
+    isPublished: true
   });
 
-  const [loading, setLoading] = useState(false);
-  const [initialLoading, setInitialLoading] = useState(true); // Added for initial fetch spinner
+  const [loading, setLoading] = useState<boolean>(false);
+  const [initialLoading, setInitialLoading] = useState<boolean>(true);
 
   // Fetch company profile
   const fetchCompany = async () => {
@@ -45,9 +79,8 @@ const CompanyProfile = () => {
           isPublished: company.isPublished !== undefined ? company.isPublished : true
         });
       }
-
     } catch (err) {
-      console.log("No company found yet");
+      console.error("No company found yet", err);
     } finally {
       setInitialLoading(false);
     }
@@ -58,22 +91,25 @@ const CompanyProfile = () => {
   }, []);
 
   // Handle form change
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData({
-      ...formData,
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value, type } = e.target;
+    
+    // Check if it's a checkbox using type assertion for HTMLInputElement
+    const checked = type === 'checkbox' ? (e.target as HTMLInputElement).checked : undefined;
+
+    setFormData(prev => ({
+      ...prev,
       [name]: type === 'checkbox' ? checked : value
-    });
+    }));
   };
 
   // Submit form
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-
     setLoading(true);
 
     try {
-      const payload = {
+      const payload: SaveProfilePayload = {
         companyName: formData.companyName,
         industry: formData.industry,
         profileHeadline: formData.profileHeadline,
@@ -90,16 +126,16 @@ const CompanyProfile = () => {
         isPublished: formData.isPublished
       };
 
-      await companyServicesaveCompanyProfile(payload);
+      // Fixed the typo from companyServicesaveCompanyProfile to companyService.saveCompanyProfile
+      await companyService.saveCompanyProfile(payload);
 
       alert("Company profile saved successfully");
-
     } catch (error) {
-      console.log(error);
+      console.error(error);
       alert("Something went wrong");
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   if (initialLoading) {

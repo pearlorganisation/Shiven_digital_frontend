@@ -1,4 +1,4 @@
-import React from "react";
+
 import { useNavigate } from "react-router-dom";
 import { Facebook, Instagram, Youtube, Twitter, Linkedin, ArrowRight, ShieldCheck, AlertCircle } from "lucide-react";
 

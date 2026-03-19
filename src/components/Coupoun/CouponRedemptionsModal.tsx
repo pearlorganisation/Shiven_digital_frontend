@@ -1,6 +1,6 @@
 import React from "react";
 import { X, User, Calendar } from "lucide-react";
-import type{ Coupon,CouponRedemption } from "@/components/Helpers/types";
+import type{ CouponRedemption } from "@/components/Helpers/types";
 
 
 interface CouponRedemptionsModalProps {

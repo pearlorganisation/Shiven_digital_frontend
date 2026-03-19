@@ -39,7 +39,7 @@ import PublicNotFoundPage from "@/components/Fallback/public/PublicNotFound";
 import SocialIntegrations from "./pages/app/integrations/SocialIntegrations";
 import { Login } from "./pages/auth";
 import FacebookConnect from "./pages/app/integrations/platforms/facebook/FacebookConnect";
-import CompanyProfile from "./pages/app/company-profile/CompanyProfile";
+import CompanyProfile from "./pages/app/company-profile/CompanyProfile.tsx";
 
 function App() {
   const { user } = useAppSelector((state) => state.auth);

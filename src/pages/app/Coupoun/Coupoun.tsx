@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Ticket, Search, Filter } from 'lucide-react';
 import { CouponsTable } from '@/components/Coupoun/CouponsTable';
@@ -10,7 +10,7 @@ import { ConfirmationModal } from '@/components/Helpers/ConfirmationModal';
 
  const ManageCouponsPage: React.FC = () => {
  const [coupons, setCoupons] = useState<Coupon[]>(MOCK_COUPONS);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   
   const [selectedRedemptions, setSelectedRedemptions] = useState<CouponRedemption[] | null>(null);

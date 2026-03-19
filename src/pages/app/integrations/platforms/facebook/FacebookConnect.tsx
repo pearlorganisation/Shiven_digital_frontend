@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import  {  useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { Facebook, Plus, RefreshCw } from "lucide-react";
+import { Facebook, Plus } from "lucide-react";
 
 import facebookService from "@/services/Integrations/facebookService";
 import { useAppDispatch, useAppSelector } from "@/store/store";

@@ -113,7 +113,7 @@ export const MultiFeatures: React.FC = () => {
     if (match) {
       return (
         <span className="text-slate-700 text-sm leading-relaxed">
-          <span className="font-bold text-slate-900 block mb-1 text-base flex items-center gap-2">
+          <span className="font-bold text-slate-900  mb-1 text-base flex items-center gap-2">
             {match[1]}
             <Sparkles className="w-3.5 h-3.5 text-amber-500 inline-block" />
           </span>

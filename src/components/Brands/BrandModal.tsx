@@ -149,7 +149,7 @@ const BrandModal: React.FC<BrandModalProps> = ({ isOpen, onClose, onCreate }) =>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {/* Brand Name */}
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-3 flex items-center space-x-2">
+                <label className=" text-sm font-semibold text-gray-700 mb-3 flex items-center space-x-2">
                   <FileText size={16} />
                   <span>Brand Name</span>
                 </label>
@@ -165,7 +165,7 @@ const BrandModal: React.FC<BrandModalProps> = ({ isOpen, onClose, onCreate }) =>
 
               {/* Logo URL */}
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-3 flex items-center space-x-2">
+                <label className=" text-sm font-semibold text-gray-700 mb-3 flex items-center space-x-2">
                   <Image size={16} />
                   <span>Logo URL</span>
                 </label>
@@ -183,7 +183,7 @@ const BrandModal: React.FC<BrandModalProps> = ({ isOpen, onClose, onCreate }) =>
             {/* Description & Website */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-6">
               <div className="lg:col-span-2">
-                <label className="block text-sm font-semibold text-gray-700 mb-3 flex items-center space-x-2">
+                <label className=" text-sm font-semibold text-gray-700 mb-3 flex items-center space-x-2">
                   <FileText size={16} />
                   <span>Description</span>
                 </label>
@@ -198,7 +198,7 @@ const BrandModal: React.FC<BrandModalProps> = ({ isOpen, onClose, onCreate }) =>
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-3 flex items-center space-x-2">
+                <label className=" text-sm font-semibold text-gray-700 mb-3 flex items-center space-x-2">
                   <Globe size={16} />
                   <span>Website</span>
                 </label>
