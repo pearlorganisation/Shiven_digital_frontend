@@ -23,6 +23,10 @@ import {
   SpaceManager,
   CouponManager,
   Billings,
+  EnquiryManagement,
+  TaskManagement,
+  InvoicesAndQuotes,
+  RequestsAndServices,
 } from "@/pages/app";
 
 /* public pages */
@@ -37,7 +41,7 @@ import AppNotFoundPage from "@/components/Fallback/app/AppNotFound";
 import PublicNotFoundPage from "@/components/Fallback/public/PublicNotFound";
 // import {Login} from "./pages/Auth/index"
 import SocialIntegrations from "./pages/app/integrations/SocialIntegrations";
-import  Login  from "./pages/auth/Login";
+import Login from "./pages/auth/Login";
 import FacebookConnect from "./pages/app/integrations/platforms/facebook/FacebookConnect";
 import CompanyProfile from "./pages/app/company-profile/CompanyProfile.tsx";
 
@@ -52,8 +56,6 @@ function App() {
       children: [
         { index: true, element: <Home /> },
         { path: "*", element: <PublicNotFoundPage /> },
-      
-      
       ],
     },
 
@@ -84,6 +86,17 @@ function App() {
         /* /app → /app/dashboard */
         { index: true, element: <Navigate to="dashboard" replace /> },
 
+        {
+          path: "reports",
+          children: [
+            // These URLs will be /app/reports/enquiries, etc.
+            { path: "enquiries", element: <EnquiryManagement /> },
+            { path: "tasks", element: <TaskManagement /> },
+            { path: "invoices-quotes", element: <InvoicesAndQuotes /> },
+            { path: "requests-services", element: <RequestsAndServices /> },
+          ],
+        },
+
         { path: "dashboard", element: <Dashboard /> },
         { path: "brand", element: <Brand /> },
         { path: "files", element: <FilesFolder /> },
@@ -97,11 +110,9 @@ function App() {
 
         { path: "*", element: <AppNotFoundPage /> },
         { path: "integrations/social", element: <SocialIntegrations /> },
-        { path: "integrations/social/facebook", element: <FacebookConnect /> }
+        { path: "integrations/social/facebook", element: <FacebookConnect /> },
       ],
     },
-
-   
   ]);
 
   return (

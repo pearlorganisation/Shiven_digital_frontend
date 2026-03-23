@@ -14,12 +14,12 @@ import {
   Image,
   Sparkles,
   Bell,
-  MessageSquare, 
-  Calendar,      
-  Globe,        
-  ShoppingCart, 
-  FileText,     
-  Contact      
+  MessageSquare,
+  Calendar,
+  Globe,
+  ShoppingCart,
+  FileText,
+  Contact,
 } from "lucide-react";
 
 export interface SidebarItemConfig {
@@ -33,7 +33,6 @@ export interface SidebarItemConfig {
 }
 
 export const sidebarConfig: SidebarItemConfig[] = [
-
   // =========================
   // OVERVIEW & WORKSPACE
   // =========================
@@ -44,7 +43,7 @@ export const sidebarConfig: SidebarItemConfig[] = [
     text: "Dashboard",
     section: "Overview",
     allowedRoles: ["user", "agency", "agencyStaff", "admin", "adminStaff"],
-    status:"balance"
+    status: "balance",
   },
   {
     path: "/inbox",
@@ -53,23 +52,23 @@ export const sidebarConfig: SidebarItemConfig[] = [
     section: "Overview",
     // Agencies and Users need this to reply to DMs/Comments across all platforms
     allowedRoles: ["user", "agency", "agencyStaff"],
-    status: "balance"
+    status: "balance",
   },
   {
     path: "/calendar-tasks",
     icon: <Calendar size={20} />,
     text: "Calendar & Tasks",
     section: "Overview",
-    allowedRoles:["user", "agency", "agencyStaff"],
-    status: "balance"
+    allowedRoles: ["user", "agency", "agencyStaff"],
+    status: "balance",
   },
   {
     path: "/notifications",
     icon: <Bell size={20} />,
     text: "Notifications",
     section: "Overview",
-    allowedRoles:["user", "agency", "agencyStaff", "admin", "adminStaff"],
-    status:"balance"
+    allowedRoles: ["user", "agency", "agencyStaff", "admin", "adminStaff"],
+    status: "balance",
   },
 
   // =========================
@@ -81,26 +80,26 @@ export const sidebarConfig: SidebarItemConfig[] = [
     icon: <Layers size={20} />,
     section: "Marketing",
     allowedRoles: ["user", "agency", "agencyStaff"],
-    children:[
+    children: [
       { text: "Create Post", path: "/social/create" },
       { text: "Scheduled Posts", path: "/social/scheduled" },
       { text: "Post Templates", path: "/social/templates" },
       { text: "Post Analytics", path: "/social/analytics" },
     ],
-    status: "balance"
+    status: "balance",
   },
   {
     text: "Campaigns",
     icon: <Megaphone size={20} />,
     section: "Marketing",
     allowedRoles: ["user", "agency", "agencyStaff"],
-    children:[
+    children: [
       { text: "Email Marketing", path: "/campaigns/email" },
       { text: "WhatsApp Bulk", path: "/campaigns/whatsapp" },
       { text: "SMS Marketing", path: "/campaigns/sms" },
       { text: "Campaign Analytics", path: "/campaigns/analytics" },
     ],
-    status: "balance"
+    status: "balance",
   },
 
   // =========================
@@ -112,12 +111,12 @@ export const sidebarConfig: SidebarItemConfig[] = [
     icon: <Contact size={20} />,
     section: "CRM",
     allowedRoles: ["user", "agency", "agencyStaff"],
-    children:[
+    children: [
       { text: "Contact Directory", path: "/crm/contacts" },
       { text: "Segments & Tags", path: "/crm/segments" },
       { text: "Communication Logs", path: "/crm/logs" },
     ],
-    status: "balance"
+    status: "balance",
   },
 
   // =========================
@@ -129,12 +128,12 @@ export const sidebarConfig: SidebarItemConfig[] = [
     icon: <Users size={20} />,
     section: "Workspace",
     allowedRoles: ["user", "agency", "agencyStaff"],
-    children:[
+    children: [
       { text: "My Brands", path: "/workspace/brands" },
       { text: "Social Accounts", path: "/workspace/social-accounts" },
       { text: "Third-Party Apps", path: "/workspace/integrations" }, // Canva, Figma, Mailchimp etc.
     ],
-    status: "balance"
+    status: "balance",
   },
 
   // =========================
@@ -147,23 +146,23 @@ export const sidebarConfig: SidebarItemConfig[] = [
     text: "Media Library",
     section: "Content",
     allowedRoles: ["user", "agency", "agencyStaff"],
-    status:"balance"
+    status: "balance",
   },
   {
     path: "/files",
     icon: <Folder size={20} />,
     text: "Files & Folders",
     section: "Content",
-    allowedRoles:["user", "agency", "agencyStaff", "admin", "adminStaff"],
-    status: "balance"
+    allowedRoles: ["user", "agency", "agencyStaff", "admin", "adminStaff"],
+    status: "balance",
   },
   {
     path: "/blogs-gallery",
     icon: <FileText size={20} />,
     text: "Blogs & Gallery",
     section: "Content",
-    allowedRoles:["user", "agency", "agencyStaff"],
-    status: "balance"
+    allowedRoles: ["user", "agency", "agencyStaff"],
+    status: "balance",
   },
 
   // =========================
@@ -175,26 +174,26 @@ export const sidebarConfig: SidebarItemConfig[] = [
     icon: <Sparkles size={20} />,
     section: "Tools",
     allowedRoles: ["user", "agency", "agencyStaff"],
-    children:[
+    children: [
       { text: "AI Content Writer", path: "/ai/content" },
       { text: "Image Generator", path: "/ai/images" },
       { text: "Hashtag & Keyword", path: "/ai/keywords" },
       { text: "Plagiarism Checker", path: "/ai/plagiarism" },
     ],
-    status:"balance"
+    status: "balance",
   },
   {
     text: "Web & SEO Tools",
     icon: <Globe size={20} />,
     section: "Tools",
-    allowedRoles:["user", "agency", "agencyStaff"],
-    children:[
+    allowedRoles: ["user", "agency", "agencyStaff"],
+    children: [
       { text: "Web Scraper", path: "/tools/scraper" },
       { text: "SEO Audit", path: "/tools/seo-audit" },
       { text: "Speed Testing", path: "/tools/speed-test" },
       { text: "Competitor Analysis", path: "/tools/competitor" },
     ],
-    status: "balance"
+    status: "balance",
   },
 
   // =========================
@@ -207,7 +206,7 @@ export const sidebarConfig: SidebarItemConfig[] = [
     text: "Advanced Analytics",
     section: "Tools",
     allowedRoles: ["user", "agency", "agencyStaff"],
-    status:"balance"
+    status: "balance",
   },
 
   // =========================
@@ -219,33 +218,51 @@ export const sidebarConfig: SidebarItemConfig[] = [
     icon: <Ticket size={20} />,
     text: "Help Desk & Tickets",
     section: "Support",
-    allowedRoles:["user", "agency", "agencyStaff", "admin", "adminStaff"],
-    children:[
+    allowedRoles: ["user", "agency", "agencyStaff", "admin", "adminStaff"],
+    children: [
       { text: "My Tickets", path: "/tickets/list" },
       { text: "Submit Enquiry", path: "/tickets/enquiries" },
     ],
-    status: "balance"
+    status: "balance",
   },
   {
     path: "/training",
     icon: <GraduationCap size={20} />,
     text: "Help Center & Docs",
     section: "Support",
-    allowedRoles:["user", "agency", "agencyStaff", "admin", "adminStaff"],
-    children:[
+    allowedRoles: ["user", "agency", "agencyStaff", "admin", "adminStaff"],
+    children: [
       { text: "User Guides", path: "/training/guidelines" },
       { text: "API Documentation", path: "/training/docs" },
       { text: "Video Tutorials", path: "/training/tutorials" },
     ],
-    status: "balance"
+    status: "balance",
   },
   {
     path: "/announcements",
     icon: <Megaphone size={20} />,
     text: "Announcements",
     section: "Support",
-    allowedRoles:["user", "agency", "agencyStaff", "admin", "adminStaff"],
-    status: "balance"
+    allowedRoles: ["user", "agency", "agencyStaff", "admin", "adminStaff"],
+    status: "balance",
+  },
+
+  // =========================
+  // REPORTS & ANALYTICS
+  // =========================
+
+  {
+    text: "Reports & Analytics",
+    icon: <ChartPie size={20} />, // You can also use <BarChart3 size={20} />
+    section: "Tools",
+    allowedRoles: ["user", "agency", "agencyStaff", "admin", "adminStaff"],
+    status: "balance",
+    children: [
+      { text: "Enquiry Management", path: "reports/enquiries" },
+      { text: "Task Management", path: "reports/tasks" },
+      { text: "Invoice and Quotes", path: "reports/invoices-quotes" },
+      { text: "Request and Service", path: "reports/requests-services" },
+    ],
   },
 
   // =========================
@@ -258,7 +275,7 @@ export const sidebarConfig: SidebarItemConfig[] = [
     text: "Subscription & Billing",
     section: "Settings",
     allowedRoles: ["user", "agency"],
-    status: "balance"
+    status: "balance",
   },
   {
     path: "/purchase-packs",
@@ -266,7 +283,7 @@ export const sidebarConfig: SidebarItemConfig[] = [
     text: "Buy Credits & Packs", // For buying SMS/WA/Email packs (Module 14)
     section: "Settings",
     allowedRoles: ["user", "agency"],
-    status: "balance"
+    status: "balance",
   },
 
   // =========================
@@ -278,12 +295,12 @@ export const sidebarConfig: SidebarItemConfig[] = [
     icon: <Users size={20} />,
     section: "Agency",
     allowedRoles: ["agency", "agencyStaff"],
-    children:[
+    children: [
       { text: "Manage Clients", path: "/agency/clients" },
       { text: "Connect Handles", path: "/agency/connect-handles" },
       { text: "Brand Approvals", path: "/agency/brands" },
     ],
-    status: "balance"
+    status: "balance",
   },
   {
     path: "/agency/staff",
@@ -291,7 +308,7 @@ export const sidebarConfig: SidebarItemConfig[] = [
     text: "Team & Workflows",
     section: "Agency",
     allowedRoles: ["agency"],
-    status: "balance"
+    status: "balance",
   },
 
   // =========================
@@ -303,25 +320,25 @@ export const sidebarConfig: SidebarItemConfig[] = [
     icon: <Users size={20} />,
     section: "Admin",
     allowedRoles: ["admin", "adminStaff"],
-    children:[
+    children: [
       { text: "Account Approvals", path: "/admin/approvals" },
       { text: "All Users Database", path: "/admin/users" },
       { text: "Admin Staff", path: "/admin/staff" },
     ],
-    status: "balance"
+    status: "balance",
   },
   {
     text: "Retail & Subscriptions",
     icon: <Layers size={20} />,
     section: "Admin",
-    allowedRoles:["admin", "adminStaff"],
-    children:[
+    allowedRoles: ["admin", "adminStaff"],
+    children: [
       { text: "Subscription Plans", path: "/admin/plans" },
       { text: "Credit Packs (SMS/WA)", path: "/admin/credit-packs" },
       { text: "Add-ons & Space", path: "/admin/addons" },
       { text: "Coupons & Discounts", path: "/admin/coupons" },
     ],
-    status:"balance"
+    status: "balance",
   },
   {
     path: "/payments",
@@ -329,7 +346,7 @@ export const sidebarConfig: SidebarItemConfig[] = [
     text: "Payment Logs",
     section: "Admin",
     allowedRoles: ["admin", "adminStaff"],
-     status:"balance"
+    status: "balance",
   },
   {
     path: "/space",
@@ -337,7 +354,7 @@ export const sidebarConfig: SidebarItemConfig[] = [
     text: "Space Management",
     section: "Admin",
     allowedRoles: ["admin", "adminStaff"],
-     status:"balance"
+    status: "balance",
   },
   {
     path: "/addons",
@@ -345,7 +362,7 @@ export const sidebarConfig: SidebarItemConfig[] = [
     text: "Add-ons Management",
     section: "Admin",
     allowedRoles: ["admin"],
-     status:"balance"
+    status: "balance",
   },
   {
     path: "/coupons",
@@ -353,6 +370,6 @@ export const sidebarConfig: SidebarItemConfig[] = [
     text: "Coupon Management",
     section: "Admin",
     allowedRoles: ["admin", "adminStaff"],
-    status:"balance"
+    status: "balance",
   },
 ];
