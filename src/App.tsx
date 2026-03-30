@@ -27,6 +27,7 @@ import {
   TaskManagement,
   InvoicesAndQuotes,
   RequestsAndServices,
+  Crm,
 } from "@/pages/app";
 
 /* public pages */
@@ -106,6 +107,7 @@ function App() {
         { path: "coupons", element: <CouponManager /> },
         { path: "staff", element: <StaffManagement /> },
         { path: "billing", element: <Billings /> },
+        { path: "crm", element: <Crm /> },
         { path: "company-profile", element: <CompanyProfile /> },
 
         { path: "*", element: <AppNotFoundPage /> },

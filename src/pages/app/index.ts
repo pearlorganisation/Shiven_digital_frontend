@@ -9,6 +9,7 @@ const Plans = lazy(() => import("./Plans/Plan"));
 const SpaceManager = lazy(() => import("./SpaceMange/SpaceM"));
 const CouponManager = lazy(() => import("./Coupoun/Coupoun"));
 const Billings = lazy(() => import("./Billings/Billings"));
+const Crm = lazy(() => import("./Crm/Crm"));
 
 const EnquiryManagement = lazy(() => import("./Report/EnquiryManagement"));
 const TaskManagement = lazy(() => import("./Report/TaskManagement"));
@@ -29,4 +30,5 @@ export {
   TaskManagement,
   InvoicesAndQuotes,
   RequestsAndServices,
+  Crm,
 };

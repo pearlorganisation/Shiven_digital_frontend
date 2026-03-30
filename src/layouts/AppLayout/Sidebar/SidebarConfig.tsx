@@ -157,6 +157,14 @@ export const sidebarConfig: SidebarItemConfig[] = [
     status: "balance",
   },
   {
+    path: "/crm",
+    icon: <Folder size={20} />,
+    text: "CRM",
+    section: "Content",
+    allowedRoles: ["user", "agency", "agencyStaff", "admin", "adminStaff"],
+    status: "balance",
+  },
+  {
     path: "/blogs-gallery",
     icon: <FileText size={20} />,
     text: "Blogs & Gallery",
