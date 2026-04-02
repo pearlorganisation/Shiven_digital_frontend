@@ -1,6 +1,6 @@
-import instance from "../lib/apiClient";
+import instance from "../../lib/apiClient";
 
-class CompanyService {
+class userProfile {
   // Get Company Profile
   async getCompanyProfile(): Promise<any> {
     try {
@@ -24,5 +24,5 @@ class CompanyService {
   }
 }
 
-const companyService = new CompanyService();
-export default companyService;
+const userProfileData = new userProfile();
+export default userProfileData;
