@@ -44,7 +44,7 @@ import PublicNotFoundPage from "@/components/Fallback/public/PublicNotFound";
 import SocialIntegrations from "./pages/app/integrations/SocialIntegrations";
 import Login from "./pages/auth/Login";
 import FacebookConnect from "./pages/app/integrations/platforms/facebook/FacebookConnect";
-import UserProfile from "./pages/app/user-profile/ProfilePage.tsx";
+// import UserProfile from "./pages/app/user-profile/ProfilePage.tsx";
 import ScheduledPost from "./pages/app/social/schedule-post/ScheduledPost.tsx";
 import TemplatesPage from "./pages/app/social/post-template/PostTemplate.tsx";
 import PostAnalytics from "./pages/app/social/post-analytics/PostAnalytics.tsx"
@@ -114,7 +114,7 @@ function App() {
         { path: "staff", element: <StaffManagement /> },
         { path: "billing", element: <Billings /> },
         { path: "crm", element: <Crm /> },
-        { path: "company-profile", element: <UserProfile /> },
+        // { path: "company-profile", element: <UserProfile /> },
           { path: "social/scheduled", element: <ScheduledPost /> },
            { path: "social/templates", element: <TemplatesPage /> },
             { path: "social/analytics", element: <PostAnalytics /> },
