@@ -49,6 +49,7 @@ import ScheduledPost from "./pages/app/social/schedule-post/ScheduledPost.tsx";
 import TemplatesPage from "./pages/app/social/post-template/PostTemplate.tsx";
 import PostAnalytics from "./pages/app/social/post-analytics/PostAnalytics.tsx"
 import EmailMarketingPage from "./pages/app/Campaings/email-marketing/EmailMarketingPage.tsx";
+import Notifications from "./pages/app/Notifications/Notification.jsx";
 
 function App() {
   const { user } = useAppSelector((state) => state.auth);
@@ -105,6 +106,7 @@ function App() {
         { path: "dashboard", element: <Dashboard /> },
         { path: "brand", element: <Brand /> },
         { path: "files", element: <FilesFolder /> },
+        { path: "notifications", element: <Notifications /> },
         { path: "announcements", element: <Announcements /> },
         { path: "subscription-plans", element: <Plans /> },
         { path: "space", element: <SpaceManager /> },
