@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from 'react';
 import { 
   Bell, 
@@ -11,7 +12,17 @@ import {
   Circle
 } from 'lucide-react';
 
-const INITIAL_NOTIFICATIONS = [
+// Define the Notification type
+interface Notification {
+  id: number;
+  type: 'info' | 'warning' | 'success' | 'error';
+  title: string;
+  message: string;
+  time: string;
+  isRead: boolean;
+}
+
+const INITIAL_NOTIFICATIONS: Notification[] = [
   {
     id: 1,
     type: 'info',
@@ -54,19 +65,19 @@ const INITIAL_NOTIFICATIONS = [
   },
 ];
 
-const Notifications = () => {
-  const [notifications, setNotifications] = useState(INITIAL_NOTIFICATIONS);
-  const [filter, setFilter] = useState('all'); // 'all' or 'unread'
+const Notifications: React.FC = () => {
+  const [notifications, setNotifications] = useState<Notification[]>(INITIAL_NOTIFICATIONS);
+  const [filter, setFilter] = useState<'all' | 'unread'>('all');
 
-  const markAsRead = (id) => {
+  const markAsRead = (id: number): void => {
     setNotifications(notifications.map(n => n.id === id ? { ...n, isRead: true } : n));
   };
 
-  const markAllRead = () => {
+  const markAllRead = (): void => {
     setNotifications(notifications.map(n => ({ ...n, isRead: true })));
   };
 
-  const deleteNotification = (id) => {
+  const deleteNotification = (id: number): void => {
     setNotifications(notifications.filter(n => n.id !== id));
   };
 
@@ -74,7 +85,7 @@ const Notifications = () => {
     ? notifications.filter(n => !n.isRead) 
     : notifications;
 
-  const getTypeStyles = (type) => {
+  const getTypeStyles = (type: Notification['type']): { icon: React.ReactNode; bg: string } => {
     switch (type) {
       case 'warning': return { icon: <AlertTriangle size={20} className="text-amber-500" />, bg: 'bg-amber-50' };
       case 'success': return { icon: <CheckCircle2 size={20} className="text-emerald-500" />, bg: 'bg-emerald-50' };
@@ -87,7 +98,7 @@ const Notifications = () => {
     <div className="p-6 bg-gray-50 min-h-screen font-sans">
       {/* Header Section */}
       <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
-        <div>
+        <div className="text-left">
           <h1 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
             <Bell className="text-indigo-600" size={24} />
             Notifications
@@ -150,7 +161,7 @@ const Notifications = () => {
                   </div>
 
                   {/* Content */}
-                  <div className="flex-1 min-w-0">
+                  <div className="flex-1 min-w-0 text-left">
                     <div className="flex items-center gap-2">
                       <h3 className={`text-sm font-semibold truncate ${!notification.isRead ? 'text-gray-900' : 'text-gray-600'}`}>
                         {notification.title}

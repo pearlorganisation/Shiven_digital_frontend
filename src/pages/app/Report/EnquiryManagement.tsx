@@ -354,10 +354,7 @@
 import React from "react";
 
 // Define the shape of our data to prevent "object" errors
-interface ReportItem {
-  label: string;
-  value: number | string;
-}
+
 
 const EnquiryReports: React.FC = () => {
   // Dummy Data - strictly using primitives (strings/numbers)

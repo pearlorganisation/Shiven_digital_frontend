@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+
 import { Camera, Save, MapPin, Linkedin, Github, Twitter, Globe, Phone, Mail, User, Link as LinkIcon } from "lucide-react";
 
 const PersonalInfo = () => {

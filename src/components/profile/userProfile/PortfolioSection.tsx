@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Plus, Trash2, ExternalLink, Github, Save, Code, Package, FileText, ToggleLeft, Layers } from "lucide-react";
+import  { useState } from "react";
+import { Plus, Trash2, ExternalLink, Save, Code, FileText, Layers } from "lucide-react";
 
 interface Project {
   id: number;

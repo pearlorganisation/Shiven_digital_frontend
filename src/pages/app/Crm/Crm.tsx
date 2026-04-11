@@ -15,11 +15,11 @@ import {
   MenuItem,
   InputLabel,
   FormControl,
-  Grid,
   Typography,
   IconButton,
 } from "@mui/material";
 import { IoClose } from "react-icons/io5"; // If you don't have react-icons, I'll use text
+import Grid from "@mui/material/Grid";
 
 // 1. INITIAL DUMMY DATA
 const INITIAL_DATA = [
@@ -292,7 +292,7 @@ const CrmPage = () => {
 
           <form onSubmit={handleAddSubmit}>
             <Grid container spacing={2}>
-              <Grid item xs={12}>
+             <Grid size={{ xs: 12, sm: 6 }}>
                 <TextField
                   label="Full Name"
                   name="name"
@@ -303,7 +303,7 @@ const CrmPage = () => {
                   size="small"
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid size={{ xs: 12, sm: 6 }}>
                 <TextField
                   label="Company Name"
                   name="company"
@@ -314,7 +314,7 @@ const CrmPage = () => {
                   size="small"
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid size={{ xs: 12, sm: 6 }}>
                 <TextField
                   label="Phone Number"
                   name="phone"
@@ -324,7 +324,7 @@ const CrmPage = () => {
                   size="small"
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid size={{ xs: 12, sm: 6 }}>
                 <TextField
                   label="Date"
                   name="date"
@@ -337,7 +337,7 @@ const CrmPage = () => {
                   InputLabelProps={{ shrink: true }}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid size={{ xs: 12, sm: 6 }}>
                 <FormControl fullWidth size="small">
                   <InputLabel>Call Type</InputLabel>
                   <Select
@@ -353,7 +353,7 @@ const CrmPage = () => {
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs={12}>
+             <Grid size={{ xs: 12, sm: 6 }}>
                 <TextField
                   label="Subject"
                   name="subject"
@@ -364,7 +364,7 @@ const CrmPage = () => {
                   size="small"
                 />
               </Grid>
-              <Grid item xs={12}>
+             <Grid size={{ xs: 12, sm: 6 }}>
                 <TextField
                   label="Notes"
                   name="notes"
@@ -408,37 +408,37 @@ const CrmPage = () => {
           <hr style={{ border: "0.5px solid #eee", marginBottom: "20px" }} />
           {selectedItem && (
             <Grid container spacing={2}>
-              <Grid item xs={6}>
+              <Grid size={{ xs: 6, sm: 6 }}>
                 <Typography variant="caption" color="gray">
                   NAME
                 </Typography>
                 <Typography variant="body1">{selectedItem.name}</Typography>
               </Grid>
-              <Grid item xs={6}>
+             <Grid size={{ xs: 6, sm: 6 }}>
                 <Typography variant="caption" color="gray">
                   COMPANY
                 </Typography>
                 <Typography variant="body1">{selectedItem.company}</Typography>
               </Grid>
-              <Grid item xs={6}>
+              <Grid size={{ xs: 6, sm: 6 }}>
                 <Typography variant="caption" color="gray">
                   PHONE
                 </Typography>
                 <Typography variant="body1">{selectedItem.phone}</Typography>
               </Grid>
-              <Grid item xs={6}>
+              <Grid size={{ xs: 6, sm: 6 }}>
                 <Typography variant="caption" color="gray">
                   STATUS
                 </Typography>
                 <Typography variant="body1">{selectedItem.status}</Typography>
               </Grid>
-              <Grid item xs={12}>
+             <Grid size={{ xs: 12, sm: 6 }}>
                 <Typography variant="caption" color="gray">
                   SUBJECT
                 </Typography>
                 <Typography variant="body1">{selectedItem.subject}</Typography>
               </Grid>
-              <Grid item xs={12}>
+             <Grid size={{ xs: 12, sm: 6 }}>
                 <Box sx={{ p: 2, bgcolor: "#f9fafb", borderRadius: "8px" }}>
                   <Typography variant="caption" color="gray">
                     NOTES

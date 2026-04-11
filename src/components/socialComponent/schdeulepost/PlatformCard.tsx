@@ -1,6 +1,4 @@
 // components/PlatformCard.tsx
-import React from 'react';
-
 export const PlatformCard = ({ name, status, icon }: { name: string, status: 'connected' | 'error' | 'ready', icon: string }) => (
   <div className="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50 transition-colors">
     <div className="flex items-center gap-3">

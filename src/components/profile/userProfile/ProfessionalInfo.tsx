@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Briefcase, Building2, Globe, GraduationCap, Code, Save, Plus, Trash2 } from "lucide-react";
+import  { useState } from "react";
+import { Briefcase, Building2, Globe, Save, Code2 } from "lucide-react";
 
 const ProfessionalInfo = () => {
   const [techStack, setTechStack] = useState("");
@@ -40,7 +40,7 @@ const ProfessionalInfo = () => {
       {/* 2. Experience & Skills */}
       <div className="space-y-6 pt-6 border-t border-slate-100">
         <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-          <Code className="w-5 h-5 text-indigo-600" /> Expertise & Skills
+          <Code2 className="w-5 h-5 text-indigo-600" /> Expertise & Skills
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-2">

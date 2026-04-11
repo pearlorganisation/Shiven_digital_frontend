@@ -45,11 +45,11 @@ import SocialIntegrations from "./pages/app/integrations/SocialIntegrations";
 import Login from "./pages/auth/Login";
 import FacebookConnect from "./pages/app/integrations/platforms/facebook/FacebookConnect";
 // import UserProfile from "./pages/app/user-profile/ProfilePage.tsx";
-import ScheduledPost from "./pages/app/social/schedule-post/ScheduledPost.jsx";
-import TemplatesPage from "./pages/app/social/post-template/PostTemplate.tsx";
+import ScheduledPost from "./pages/app/social/schedule-post/ScheduledPost.js";
+import TemplatesPage from "./pages/app/social/post-template/PostTemplate.js";
 import PostAnalytics from "./pages/app/social/post-analytics/PostAnalytics.tsx"
 import EmailMarketingPage from "./pages/app/Campaings/email-marketing/EmailMarketingPage.tsx";
-import Notifications from "./pages/app/Notifications/Notification.jsx";
+import Notifications from "./pages/app/Notifications/Notification.js";
 
 function App() {
   const { user } = useAppSelector((state) => state.auth);

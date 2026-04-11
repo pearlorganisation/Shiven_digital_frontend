@@ -124,24 +124,24 @@ const announcementType: Record<string, AnnouncementType> = {
 
 const typeStyles: Record<
   AnnouncementType,
-  { bgColor: string; iconColor: string; icon: JSX.Element }
+  { bgColor: string; iconColor: string; icon: React.ReactElement }
 > = {
-  [announcementType.INFO]: {
+  INFO: {
     bgColor: "#e3f2fd",
     iconColor: "#2196f3",
     icon: <AiOutlineInfoCircle size={24} />,
   },
-  [announcementType.WARNING]: {
+  WARNING: {
     bgColor: "#fffde7",
     iconColor: "#ff9800",
     icon: <AiOutlineWarning size={24} />,
   },
-  [announcementType.ERROR]: {
+  ERROR: {
     bgColor: "#fce4ec",
     iconColor: "#f44336",
     icon: <AiOutlineCloseCircle size={24} />,
   },
-  [announcementType.SUCCESS]: {
+  SUCCESS: {
     bgColor: "#e8f5e9",
     iconColor: "#4caf50",
     icon: <AiOutlineCheckCircle size={24} />,

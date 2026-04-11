@@ -2,12 +2,9 @@ import React, { useState, useRef } from "react";
 import {
   Download,
   Eye,
-  FileText,
   IndianRupee,
-  Clock,
   TrendingUp,
   AlertCircle,
-  HelpCircle,
 } from "lucide-react";
 
 // --- Types ---
@@ -183,7 +180,7 @@ const InvoicesAndQuotes: React.FC = () => {
     },
   ];
 
-  const handleOpenInvoice = (id: string) => {
+  const handleOpenInvoice = (_id: string) => {
     setSelectedInvoice({
       invoiceNo: "INV-001",
       invoiceDate: "2024-03-01",

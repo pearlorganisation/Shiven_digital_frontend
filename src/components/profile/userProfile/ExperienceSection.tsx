@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Briefcase, Calendar, MapPin, Trash2, Plus, Save } from "lucide-react";
+import  { useState } from "react";
+import {  MapPin, Trash2, Plus, Save } from "lucide-react";
 
 interface Experience {
   id: number;
@@ -32,7 +32,7 @@ const ExperienceSection = () => {
         
       </div>
 
-      {experiences.map((exp, index) => (
+      {experiences.map((exp) => (
         <div key={exp.id} className="relative p-6 border border-slate-200 rounded-2xl bg-white shadow-sm hover:shadow-md transition-shadow">
           <button 
             onClick={() => removeExperience(exp.id)}
